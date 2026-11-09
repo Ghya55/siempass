@@ -36,4 +36,7 @@ Un pass (~20 $) vendu aux touristes et aux locaux de Siem Reap, qui donne des av
 Fichier : à compléter (lien et clé). Organisation : skill `figma-bibliotheque`.
 
 ## Comptes et secrets
+- **Supabase** : organisation `siempass` (plan Pro), région ap-southeast-1 (Singapour).
+  - `siempass-staging` — réf. `ybcdppcdgbbujmlmimqs` (créé le 2026-11-09).
+  - `siempass-prod` — à créer au lancement (≈ 10 $/mois de plus) ; la CI ne déploie que sur staging d'ici là.
 Jamais dans le dépôt. Variables d'environnement Vercel (par environnement) et secrets GitHub Actions. À compléter : qui détient quels accès (Vercel, Supabase, PayWay, domaine).
