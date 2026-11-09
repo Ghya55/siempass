@@ -36,10 +36,13 @@ type ProbeFailure = {
 };
 
 /**
- * Interroge PostgREST via le client `supabase-js`, qui pose lui-même les en-têtes (la clé
- * publishable ne voyage que dans `apikey`, jamais dans `Authorization`). La requête vise une
- * table inexistante : une erreur de schéma est la réponse attendue, une erreur d'authentification
- * est la vraie panne.
+ * Interroge PostgREST via le client `supabase-js`. La requête vise une table inexistante : une
+ * erreur de schéma est la réponse attendue, une erreur d'authentification est la vraie panne.
+ *
+ * On ne sonde surtout pas la racine `/rest/v1/` : mesuré le 10/11/2026 contre la vraie base, elle
+ * répond 401 « Secret API key required » à une clé publishable, quels que soient les en-têtes.
+ * C'est le défaut que cette sonde corrige. La présence ou non d'`Authorization: Bearer` à côté
+ * d'`apikey` ne change rien : vérifié, les deux variantes donnent la même réponse.
  */
 export async function checkSupabaseConnection(): Promise<SupabaseConnection> {
   if (SUPABASE_PUBLISHABLE_KEY === "") {
