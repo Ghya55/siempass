@@ -60,9 +60,27 @@ jobs:
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-        # `--remote` est indispensable : sans lui, la CLI vise la base locale (127.0.0.1:54322),
-        # qui n'existe pas dans ce job, et sort en erreur « Make sure Docker is running ».
-        run: supabase db push --include-all --remote
+        # Deux pieges, mesures le 10/11 sur ce projet :
+        #  - sans cible explicite, la CLI vise la base locale (127.0.0.1:54322), absente du job ;
+        #  - la connexion directe db.<ref>.supabase.co n'ecoute qu'en IPv6, et les runners GitHub
+        #    sont en IPv4 (« IPv6 is not supported on your current network »).
+        # On passe donc par le pooler, en session (5432, seul mode qui accepte les migrations).
+        # Le prefixe d'hote du pooler varie selon l'age du projet : on essaie les deux, puis la
+        # connexion directe en dernier recours, et on s'arrete au premier succes.
+        run: |
+          encoded="$(jq -rn --arg p "$SUPABASE_DB_PASSWORD" '$p|@uri')"
+          for host in aws-0-ap-southeast-1.pooler.supabase.com aws-1-ap-southeast-1.pooler.supabase.com; do
+            echo "::group::db push via $host"
+            if supabase db push --include-all \
+                 --db-url "postgresql://postgres.ybcdppcdgbbujmlmimqs:$encoded@$host:5432/postgres"; then
+              echo "::endgroup::"
+              echo "migrations appliquees via $host"
+              exit 0
+            fi
+            echo "::endgroup::"
+          done
+          echo "pooler injoignable, tentative en connexion directe"
+          supabase db push --include-all --remote
       # Les Edge Functions suivent le meme chemin que les migrations : jamais deployees a la
       # main. `verify_jwt` vient de supabase/config.toml. Saute tant qu'il n'y en a aucune.
       - name: Deployer les Edge Functions
