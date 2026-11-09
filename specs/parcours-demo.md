@@ -3,8 +3,24 @@ type: flux
 titre: "Parcours de démonstration — de la saisie au scan"
 statut: brouillon
 porteur: Quentin
-figma: []
-maj: 2026-11-09
+figma:
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-2  # 01 liste vide
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-42  # 02 ajout
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-164  # 03 ligne en brouillon
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-210  # 04 panneau
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-294  # 05 invitation
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-474  # 06 fiche partenaire
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-388  # 07 en ligne
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-577  # 08.0 lieux sans le partenaire
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-608  # 08 lieux avec le partenaire
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-644  # 09.1 achat
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-675  # 09.2 paiement
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-710  # 09.3 pass
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-515  # 10.1 scanner
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-530  # 10.2 valide
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-546  # 10.3 déjà utilisé
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-562  # 10.4 invalide
+maj: 2026-11-10
 ---
 
 *Préfixe des identifiants : `DEMO-`. Objet manipulé : [Partenaire](partenaire.md).*
@@ -49,6 +65,10 @@ Dix étapes, dans cet ordre.
 **DEMO-9 — Toute date est provisoire.** Si le pass de l'étape 9 affiche une date de validité, elle porte la mention « Durée de validité provisoire » : la durée n'est pas tranchée.
 
 **DEMO-10 — Un seul partenaire, un seul pass.** La démonstration ne montre ni liste de plusieurs partenaires, ni plusieurs passes, ni statistiques, ni export.
+
+**DEMO-27 — Interface en anglais.** Les écrans sont en anglais : Ghya et l'associé travaillent en anglais. Les textes entre « » de cette spec donnent le sens ; le libellé anglais exact est celui du Figma. La traduction viendra plus tard.
+
+**DEMO-28 — Choix de démonstration validés par Ghya (10/11).** Prix affiché « 20 $ » ; trois moyens de paiement montrés (KHQR, ABA Pay, carte) avec la mention du paiement sécurisé par ABA PayWay ; date de validité fictive marquée provisoire ([DEMO-9](parcours-demo.md#demo-9)) ; le partenaire voit l'état de sa fiche ; « Inviter » reste visible après l'envoi.
 
 ### Ce qui est simulé pour la démonstration
 Le produit décrit dans cette spec est le vrai produit. Pour la démonstration de demain, et seulement pour elle, quatre points sont simulés.

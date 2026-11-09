@@ -3,8 +3,13 @@ type: objet
 titre: "Partenaire"
 statut: brouillon
 porteur: Quentin
-figma: []
-maj: 2026-11-09
+figma:
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-42  # formulaire
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-210  # panneau
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-474  # fiche partenaire
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-388  # état en ligne
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-608  # carte lieu
+maj: 2026-11-10
 ---
 
 *Préfixe des identifiants : `PART-`.*
