@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 // sinon la CI échouerait dès que Supabase est injoignable depuis le runner.
 export const dynamic = "force-dynamic";
 
-export default async function HomePage() {
+export default async function SoclePage() {
   const connection = await checkSupabaseConnection();
   const isConnected = connection.status === "connecte";
 
