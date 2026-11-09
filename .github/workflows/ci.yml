@@ -78,7 +78,10 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
           if ls supabase/functions/*/index.ts >/dev/null 2>&1; then
-            supabase functions deploy --project-ref ybcdppcdgbbujmlmimqs
+            # `--yes` pour la meme raison que le push des migrations : sans terminal, la CLI
+            # renonce (« Nothing was changed »). `--remote=<ref>` remplace `--project-ref`,
+            # deprecie. `verify_jwt` vient de supabase/config.toml, pas de la ligne de commande.
+            supabase functions deploy --yes --remote=ybcdppcdgbbujmlmimqs
           else
             echo "aucune Edge Function a deployer"
           fi
