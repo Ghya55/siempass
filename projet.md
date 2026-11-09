@@ -18,7 +18,7 @@ Un pass (~20 $) vendu aux touristes et aux locaux de Siem Reap, qui donne des av
 - **Admin** (Ghya, l'associé) : gère les lieux, les offres, les ventes, les validations.
 
 ## Cadre
-- **Premier jalon (POC pour l'associé)** : une page « Partenaires » du back-office (tableau) ; clic sur une ligne → panneau latéral droit avec la fiche et des boutons d'action ; bouton « Publier » → le partenaire apparaît dans la liste des lieux du site public. Architecture réelle dès le départ : vraie base, vraie table, vrai champ `published`, aucune donnée en dur ; faux partenaires dans `supabase/seed.sql`, supprimés le jour où les vrais sont saisis.
+- **Premier jalon (POC pour l'associé)** : une page « Partenaires » du back-office (tableau) ; clic sur une ligne → panneau latéral droit avec la fiche et des boutons d'action ; bouton « Publier » → le partenaire apparaît dans la liste des lieux du site public. Architecture réelle dès le départ : vraie base, vraie table, vrai champ `published`, aucune donnée en dur ; faux partenaires dans `supabase/seed.sql` (local et CI) ; dans la vraie base, les données de test se nettoient avant le lancement.
 - **Reporté volontairement** (à définir avec l'associé) : durée de validité du pass, avantage unique ou répétable par lieu, nombre de partenaires signés, canaux de distribution (hôtels, agences, en ligne).
 - **Hors V1** : app native, comptes visiteurs sophistiqués, toute fonctionnalité non demandée par un des trois personas.
 
@@ -29,7 +29,7 @@ Un pass (~20 $) vendu aux touristes et aux locaux de Siem Reap, qui donne des av
 - **Supabase** : Postgres, Auth, RLS, Edge Functions (webhooks de paiement, génération et validation des passes). Pas de serveur back-end séparé.
 - **Rôles** `admin` et `partner` dans le même back-office, verrouillés par RLS (pas seulement côté interface). Le partenaire ne gère que sa page, ses offres, ses validations.
 - **Paiement** : ABA PayWay (KHQR/Bakong, ABA Pay, cartes, UPI, JCB, Alipay, WeChat), API et sandbox disponibles. Apple Pay en ligne non confirmé (à vérifier auprès de PayWay) ; sinon Stripe via l'entité française. **Chemin critique administratif** : entité enregistrée au Cambodge et compte ABA business.
-- **Hébergement** : Vercel. `main` → production, `staging` → staging, chaque PR → aperçu. Deux projets Supabase : staging et prod.
+- **Hébergement** : Vercel. `main` → production, `staging` → staging, chaque PR → aperçu. **Une seule base Supabase** pour tous (décision du 09/11) ; démo éventuelle par un champ `demo` sur les partenaires.
 - Choix techniques de détail (style, librairie de composants, outils de test) : tranchés par Stéphane au socle, notés dans une décision.
 
 ## Figma
@@ -37,6 +37,5 @@ Fichier : à compléter (lien et clé). Organisation : skill `figma-bibliotheque
 
 ## Comptes et secrets
 - **Supabase** : organisation `siempass` (plan Pro), région ap-southeast-1 (Singapour).
-  - `siempass-staging` — réf. `ybcdppcdgbbujmlmimqs` (créé le 2026-11-09).
-  - `siempass-prod` — à créer au lancement (≈ 10 $/mois de plus) ; la CI ne déploie que sur staging d'ici là.
+  - Une seule base, réf. `ybcdppcdgbbujmlmimqs` (créée le 2026-11-09 sous le nom `siempass-staging`, à renommer `siempass` dans le tableau de bord). Nettoyage avant le lancement : décision de Ghya.
 Jamais dans le dépôt. Variables d'environnement Vercel (par environnement) et secrets GitHub Actions. À compléter : qui détient quels accès (Vercel, Supabase, PayWay, domaine).

@@ -34,12 +34,16 @@ Ghya lance plusieurs conversations à la fois. Pour qu'elles ne se marchent pas 
 - Dans une même conversation, deux agents en parallèle travaillent chacun dans son worktree (`isolation: worktree`), sur deux branches.
 
 ## Environnements
-| Branche | Où | Base Supabase | Qui merge |
-|---|---|---|---|
-| PR | aperçu Vercel par PR | staging | — |
-| `staging` | staging.siempass.com + app staging | projet Supabase **staging** | l'équipe, dès que la CI est verte |
-| `main` | siempass.com + app.siempass.com | projet Supabase **prod** | l'équipe, **seulement quand Ghya dit « on passe en prod »** : `tache.sh prod` |
+| Branche | Où | Qui merge |
+|---|---|---|
+| PR | aperçu Vercel par PR | — |
+| `staging` | staging.siempass.com + app staging | l'équipe, dès que la CI est verte |
+| `main` | siempass.com + app.siempass.com | l'équipe, **seulement quand Ghya dit « on passe en prod »** : `tache.sh prod` |
 Ghya teste sur staging, quand il revient, tout au même endroit. Rien ne se corrige directement sur `main` : un correctif passe par `staging` puis est promu.
+
+**Une seule base Supabase** pour tous les environnements (décision du 09/11) : staging teste le code, pas les données. Conséquences :
+- Les migrations sont testées dans la CI sur une base jetable, puis appliquées à la base au merge dans `staging`. **Elles sont toujours compatibles avec le code de `main`** : on ajoute (colonne, table) ; on ne renomme et ne supprime qu'après la mise en prod du code qui ne s'en sert plus.
+- Les tests de Ghya et de l'associé se font sur de vraies données ; si besoin, des partenaires marqués `démo` (à construire le jour où il le faut, pas avant). Le nettoyage avant le lancement est une décision de Ghya.
 
 ## Lancer un agent (Richard)
 Niveau 0 par défaut : Richard répond seul. Un agent si Richard le justifie en une ligne. Trois au plus en chaîne, annoncés avec leur coût avant. Jamais de cérémonie (débat, tour de table, plusieurs agents sur la même question) sans que Ghya la demande. Un agent ne relance jamais un agent.
