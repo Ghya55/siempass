@@ -1,0 +1,73 @@
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.ligneLabel {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: baseline;
+  width: 100%;
+}
+
+.label {
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.facultatif {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.saisie {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-default);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  line-height: 1.45;
+}
+
+.multiligne {
+  height: 88px;
+  resize: vertical;
+}
+
+.saisieFautive {
+  border-color: var(--color-accent-default);
+}
+
+.photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88px;
+  padding: var(--space-sm);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-md);
+  line-height: 1.45;
+  text-align: center;
+}
+
+.erreur {
+  margin: 0;
+  color: var(--color-accent-default);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}

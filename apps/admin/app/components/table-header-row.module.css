@@ -1,0 +1,26 @@
+.ligne {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-surface-muted);
+}
+
+.colonne,
+.colonneEtat {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.colonne {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.colonneEtat {
+  width: 140px;
+  flex-shrink: 0;
+}

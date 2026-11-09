@@ -1,0 +1,9 @@
+.thumb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 64px;
+  border-radius: var(--radius-control);
+  background: var(--color-surface-brand-strong);
+}
