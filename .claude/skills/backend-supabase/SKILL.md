@@ -26,10 +26,12 @@ packages/db/           client typé et types générés, partagés par apps/site
 3. Un trigger est documenté en une ligne dans sa migration : ce qu'il garantit, pourquoi le client ne peut pas le faire.
 4. **En parallèle** : après le rebase, si une autre migration est arrivée, renommer la sienne avec un horodatage postérieur, rejouer `db reset`, régénérer les types. Jamais de fusion manuelle des types.
 
-## Staging et prod
-- Deux projets Supabase. Les migrations s'appliquent **par la CI** : sur `staging` au merge dans `staging`, sur prod au merge dans `main`. Jamais à la main, jamais par le MCP Supabase sur la prod.
-- Le seed ne s'applique **qu'en local et sur staging**, jamais en prod.
-- Le MCP Supabase sert à lire (schéma, journaux, conseils) ; sur staging seulement pour écrire.
+## Une seule base
+- **Un seul projet Supabase** (`ybcdppcdgbbujmlmimqs`), partagé par staging et la prod. C'est la base réelle : de vraies données de partenaires y entrent très vite.
+- Les migrations sont **testées dans la CI** sur une base locale jetable (`supabase start` dans GitHub Actions), puis **appliquées par la CI** au merge dans `staging`. Jamais à la main, jamais par le MCP Supabase.
+- **Compatibles avec le code de `main`** : une migration ajoute ; renommer ou supprimer se fait en deux temps (d'abord le code qui ne s'en sert plus, mis en prod ; ensuite la migration qui retire).
+- Le seed (`supabase/seed.sql`) ne sert qu'en local et dans la CI. Les données de démo dans la vraie base, si on en a besoin, passent par un champ `demo` sur les partenaires : construit le jour où il le faut, pas avant.
+- Le MCP Supabase sert à lire (schéma, journaux, conseils). Toute écriture directe dans la base demande le feu vert de Ghya.
 
 ## Paiement (ABA PayWay)
 - Le paiement se confirme **côté serveur** : une Edge Function reçoit le webhook, vérifie la signature, crée le pass. Le client ne crée jamais un pass.
