@@ -81,7 +81,13 @@ jobs:
             # `--yes` pour la meme raison que le push des migrations : sans terminal, la CLI
             # renonce (« Nothing was changed »). `--remote=<ref>` remplace `--project-ref`,
             # deprecie. `verify_jwt` vient de supabase/config.toml, pas de la ligne de commande.
-            supabase functions deploy --yes --remote=ybcdppcdgbbujmlmimqs
+            # Deploiement fonction par fonction : le deploiement global commence par lister
+            # les fonctions du projet, et le jeton de la CI n'a pas `edge_functions_read`
+            # (403 mesure le 10/11). Nommer la fonction evite cet appel de liste.
+            for f in supabase/functions/*/; do
+              nom="$(basename "$f")"
+              supabase functions deploy "$nom" --yes --remote=ybcdppcdgbbujmlmimqs
+            done
           else
             echo "aucune Edge Function a deployer"
           fi
