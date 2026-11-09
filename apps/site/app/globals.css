@@ -1,1 +1,66 @@
 @import "@siempass/tokens/tokens.css";
+
+/* Variables du fichier Figma validé (rmCEVKTs8zzTMOuSQFnXno), relevées avec `get_variable_defs`
+   sur les nœuds 7:577 et 7:608. Nom CSS = nom Figma, comme le veut le contrat de nommage.
+
+   Leur place est `packages/tokens/tokens.css`, qui porte encore les neutres provisoires du socle
+   (decisions/2026-11-09-socle-technique.md, point 4 : « remplacées en bloc après Figma »).
+   Ce remplacement touche aussi le back-office : il se fait dans sa propre PR, pas ici. En
+   attendant, le site public les redéfinit après l'import, pour ses seuls écrans. Les trois noms
+   communs aux deux jeux (--color-border-default, --radius-control, --color-text-inverse) prennent
+   donc la valeur Figma sur apps/site. */
+:root {
+  /* Couleurs */
+  --color-text-default: #1f1a17;
+  --color-text-muted: #6f665e;
+  --color-text-accent: #a9431f;
+  --color-text-inverse: #ffffff;
+  --color-bg-brand: #fbf7f1;
+  --color-surface-default: #ffffff;
+  --color-surface-muted: #ededea;
+  --color-surface-brand-strong: #e8d7be;
+  --color-accent-default: #a9431f;
+  --color-accent-subtle: #f8e3d8;
+  --color-border-default: #dcdcd7;
+
+  /* Typographie */
+  --font-family-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-family-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+  --font-size-2xl: 28px;
+
+  /* Espacements */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Rayons */
+  --radius-control: 8px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+}
+
+body {
+  background: var(--color-bg-brand);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  line-height: 1.45;
+}
+
+/* Le site public est dessiné sur le cadre mobile de 390 px du Figma, et rien n'y est maquetté
+   au-delà. La colonne garde donc cette largeur et se centre : à toute taille d'écran, la page
+   est celle du Figma. À revoir quand une maquette large existe. */
+.pageShell {
+  width: 100%;
+  max-width: 390px;
+  margin-inline: auto;
+}

@@ -1,0 +1,102 @@
+/* Figma `PlaceCard` (5:43). */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+}
+
+.photo,
+.photoPlaceholder {
+  display: block;
+  width: 100%;
+  height: 196px;
+}
+
+.photo {
+  object-fit: cover;
+}
+
+.photoPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  background: var(--color-surface-brand-strong);
+}
+
+/* Place tenue par une icône du Figma qui n'a pas pu être téléchargée (voir PlaceCard.tsx). */
+.missingIcon {
+  width: 32px;
+  height: 32px;
+  border: 1px dashed var(--color-text-accent);
+  border-radius: var(--radius-control);
+}
+
+.photoCaption {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-accent);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  overflow-wrap: break-word;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  line-height: 1.2;
+  color: var(--color-text-default);
+}
+
+.address {
+  margin: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.avantage {
+  display: flex;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding: var(--space-2xs) var(--space-sm);
+  background: var(--color-accent-subtle);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-accent);
+}
+
+.avantageLabel {
+  white-space: nowrap;
+}

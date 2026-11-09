@@ -1,52 +1,21 @@
-/* Page de socle, pas un écran produit : aucune maquette Figma n'existe (projet.md § Figma).
-   Mise en page minimale, tokens partagés seulement, à supprimer dès le premier écran validé. */
-.page {
+/* Accueil : en-tête et héros du Figma « 08 · Lieux » (7:608), sans maquette propre. */
+.shell {
+  composes: pageShell from global;
+}
+
+.content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-gap-lg);
-  padding: var(--space-screen-margin);
-  max-width: 640px;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  padding: var(--space-lg) var(--space-md);
 }
 
-.title {
-  margin: 0;
-  font-size: var(--font-heading-lg-size);
-  font-weight: var(--font-heading-lg-weight);
-}
-
-.subtitle {
-  margin: 0;
-  color: var(--color-text-secondary);
-  font-size: var(--font-body-sm-size);
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-gap-sm);
-  padding: var(--space-inset-md);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-card);
-  background: var(--color-bg-surface);
-}
-
-.verdict {
-  margin: 0;
+/* Place tenue par un lien sans maquette (voir page.tsx). */
+.venuesLink {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
   font-weight: 600;
-}
-
-.connecte {
-  color: var(--color-feedback-success-text);
-}
-
-.erreur {
-  color: var(--color-feedback-danger-text);
-}
-
-.detail {
-  margin: 0;
-  font-family: var(--font-family-mono);
-  font-size: var(--font-body-sm-size);
-  color: var(--color-text-secondary);
-  overflow-wrap: anywhere;
+  line-height: 1.4;
+  color: var(--color-text-accent);
 }

@@ -1,0 +1,67 @@
+/* Figma « 08 · Lieux · lieu en ligne » (7:608) et « 08.0 » (7:577), cadre mobile de 390 px. */
+.shell {
+  composes: pageShell from global;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  padding: var(--space-lg) var(--space-md);
+}
+
+.venues {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.listHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
+  white-space: nowrap;
+}
+
+.listTitle {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  line-height: 1.2;
+  color: var(--color-text-default);
+}
+
+.count {
+  margin: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* `emptyBox` du Figma (7:596) : la carte blanche qui entoure l'état vide. */
+.box {
+  width: 100%;
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}

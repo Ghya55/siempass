@@ -1,32 +1,36 @@
 import type { Metadata } from "next";
-import { checkSupabaseConnection } from "@siempass/db";
+import Link from "next/link";
+import { Hero } from "./places/ui/Hero";
+import { SiteHeader } from "./places/ui/SiteHeader";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "SiemPass — socle",
-  description: "Page de socle : état de la connexion à Supabase.",
+  title: "SiemPass — one pass, perks at the best spots in Siem Reap",
+  description: "A drink, a meal, a discount: just show your pass at the counter.",
 };
 
-// La vérification est un appel réseau à chaque affichage : rien n'est pré-rendu au build,
-// sinon la CI échouerait dès que Supabase est injoignable depuis le runner.
+// Même règle que la liste : rien n'est pré-rendu au build (DEMO-16, DEMO-21).
 export const dynamic = "force-dynamic";
 
-export default async function HomePage() {
-  const connection = await checkSupabaseConnection();
-  const isConnected = connection.status === "connecte";
-
+/**
+ * L'accueil : il porte l'appel à l'achat du pass et mène à la liste des lieux.
+ *
+ * FIGMA-MANQUANT: aucun nœud Figma ne dessine l'accueil. Le Figma de l'étape 8 dessine un seul
+ * écran, « 08 · Lieux », qui tient l'en-tête, le héros et la liste ; c'est lui que rend `/places`.
+ * Ici, l'en-tête et le héros sont ceux de ce même Figma, et le lien vers la liste n'a ni libellé
+ * ni place maquettés : il reprend le titre de la liste, « Partner venues ». À remplacer dès
+ * qu'Alex dessine l'accueil.
+ */
+export default function HomePage() {
   return (
-    <main className={styles.page}>
-      <h1 className={styles.title}>SiemPass — site</h1>
-      <p className={styles.subtitle}>
-        Socle technique. Aucun écran produit : le premier arrive après validation du Figma.
-      </p>
-      <section className={styles.card}>
-        <p className={`${styles.verdict} ${isConnected ? styles.connecte : styles.erreur}`}>
-          {isConnected ? "Supabase : connecté" : "Supabase : erreur"}
-        </p>
-        <p className={styles.detail}>{connection.detail}</p>
-      </section>
-    </main>
+    <div className={styles.shell}>
+      <SiteHeader />
+      <main className={styles.content}>
+        <Hero />
+        <Link className={styles.venuesLink} href="/places">
+          Partner venues
+        </Link>
+      </main>
+    </div>
   );
 }
