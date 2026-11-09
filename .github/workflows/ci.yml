@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [staging, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  code:
+    name: Lint, typecheck, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+
+  migrations:
+    name: Migrations sur base jetable
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      # Base locale jetable : prouve que migrations + seed se rejouent de zéro.
+      # Rien ici ne touche la base réelle.
+      - run: supabase start
+      - run: supabase db reset
+      - if: always()
+        run: supabase stop --no-backup
+
+  appliquer-migrations:
+    name: Appliquer les migrations à la base réelle
+    needs: [code, migrations]
+    # Seulement au merge dans staging : une migration part en base dès qu'elle est intégrée,
+    # et elle est toujours compatible avec le code de main (on ajoute, on ne retire pas).
+    # main ne rejoue rien : la base est déjà à jour quand staging y est promu.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    environment: supabase
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Lier le projet
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase link --project-ref ybcdppcdgbbujmlmimqs
+      - name: Pousser les migrations
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase db push --include-all
