@@ -61,3 +61,14 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: supabase db push --include-all
+      # Les Edge Functions suivent le meme chemin que les migrations : jamais deployees a la
+      # main. `verify_jwt` vient de supabase/config.toml. Saute tant qu'il n'y en a aucune.
+      - name: Deployer les Edge Functions
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          if ls supabase/functions/*/index.ts >/dev/null 2>&1; then
+            supabase functions deploy --project-ref ybcdppcdgbbujmlmimqs
+          else
+            echo "aucune Edge Function a deployer"
+          fi
