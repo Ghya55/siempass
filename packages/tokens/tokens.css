@@ -1,25 +1,78 @@
 /* Tokens partagés par apps/site et apps/admin.
-   FIGMA-MANQUANT: le fichier Figma de SiemPass n'existe pas encore (projet.md § Figma « à compléter »).
-   Ces valeurs sont des neutres provisoires, volontairement ternes pour qu'une page non maquettée
-   ne ressemble jamais à un écran validé. Elles seront remplacées en bloc par les variables Figma
-   (nom CSS = nom Figma, « / » -> « - ») dès qu'Alex livre les fondations. Aucun écran produit
-   ne s'écrit avant ça. */
+
+   Deux blocs, et c'est voulu :
+
+   1. « Figma » — les variables du fichier Figma de SiemPass (rmCEVKTs8zzTMOuSQFnXno), nom CSS =
+      nom Figma (« / » -> « - »). C'est la source de vérité pour tout écran maquetté. Elles sont
+      relevées par `get_variable_defs` et se remplacent en bloc à la prochaine livraison d'Alex.
+
+   2. « Socle (provisoire) » — les neutres écrits avant l'existence du Figma, encore utilisés par
+      les deux pages de socle (`/socle` ici, `/` sur le site). Elles disparaîtront avec ces pages.
+      Aucun écran maquetté ne s'en sert.
+
+   Quatre noms existaient dans les deux : --color-bg-inverse, --color-text-inverse,
+   --color-border-default et --radius-control. Le Figma tranche, une variable n'a qu'une valeur.
+   Les pages de socle bougent donc d'un cheveu (gris de bordure, rayon) : c'est sans conséquence,
+   elles ne sont pas maquettées. */
 :root {
-  /* Couleurs */
+  /* ── Figma · couleurs ─────────────────────────────────────────────────── */
+  --color-bg-app: #f6f6f4;
+  --color-bg-inverse: #1f1a17;
+  --color-surface-default: #ffffff;
+  --color-surface-muted: #ededea;
+  --color-surface-brand: #f4ebdd;
+  --color-surface-brand-strong: #e8d7be;
+  --color-text-default: #1f1a17;
+  --color-text-muted: #6f665e;
+  --color-text-inverse: #ffffff;
+  --color-text-accent: #a9431f;
+  --color-accent-default: #a9431f;
+  --color-accent-subtle: #f8e3d8;
+  --color-border-default: #dcdcd7;
+  --color-border-strong: #9c9c95;
+  --color-status-neutral-bg: #ededea;
+  --color-status-neutral-fg: #5e5e58;
+  --color-status-success-bg: #dcefe3;
+  --color-status-success-fg: #1d6b47;
+
+  /* ── Figma · espacements ──────────────────────────────────────────────── */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* ── Figma · rayons ───────────────────────────────────────────────────── */
+  --radius-control: 8px;
+  --radius-card: 16px;
+  --radius-sheet: 24px;
+  --radius-pill: 999px;
+
+  /* ── Figma · typographie ──────────────────────────────────────────────────
+     Fraunces et Inter ne sont pas chargées : aucune dépendance n'est ajoutée et le build ne
+     doit pas dépendre d'un accès réseau aux polices. Les replis gardent la même chasse
+     approximative. Voir « Attend Ghya » de la PR. */
+  --font-family-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-family-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+
+  /* ── Socle (provisoire) ───────────────────────────────────────────────── */
   --color-bg-canvas: #f7f7f6;
   --color-bg-surface: #ffffff;
-  --color-bg-inverse: #1b1b1a;
   --color-text-primary: #1b1b1a;
   --color-text-secondary: #5d5d5a;
-  --color-text-inverse: #f7f7f6;
-  --color-border-default: #e2e2df;
   --color-border-focus: #1b1b1a;
   --color-feedback-success-bg: #eef5ee;
   --color-feedback-success-text: #2f6a37;
   --color-feedback-danger-bg: #fdeeeb;
   --color-feedback-danger-text: #a52a17;
 
-  /* Espacements */
   --space-gap-xs: 4px;
   --space-gap-sm: 8px;
   --space-gap-md: 12px;
@@ -30,13 +83,8 @@
   --space-section-gap: 32px;
   --space-screen-margin: 20px;
 
-  /* Rayons et tailles */
-  --radius-control: 12px;
-  --radius-card: 16px;
-  --radius-pill: 999px;
   --size-touch-min: 48px;
 
-  /* Typographie */
   --font-family-base: system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-family-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-heading-lg-size: 24px;
@@ -46,7 +94,6 @@
   --font-body-sm-size: 14px;
   --font-body-sm-weight: 400;
 
-  /* Élévations */
   --elevation-1: 0 1px 2px #1b1b1a0f, 0 4px 16px #1b1b1a0f;
 }
 

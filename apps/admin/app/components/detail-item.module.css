@@ -1,0 +1,22 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.value {
+  width: 100%;
+  color: var(--color-text-default);
+  font-size: var(--font-size-md);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}

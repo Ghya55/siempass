@@ -1,0 +1,29 @@
+.badge {
+  display: inline-flex;
+  gap: var(--space-2xs);
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: currentcolor;
+}
+
+.brouillon {
+  background: var(--color-status-neutral-bg);
+  color: var(--color-status-neutral-fg);
+}
+
+.enLigne {
+  background: var(--color-status-success-bg);
+  color: var(--color-status-success-fg);
+}

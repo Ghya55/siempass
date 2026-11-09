@@ -1,0 +1,49 @@
+.banniere {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  width: 100%;
+  padding: var(--space-md);
+  border-radius: var(--radius-card);
+  background: var(--color-status-success-bg);
+}
+
+.titre {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  margin: 0;
+  color: var(--color-status-success-fg);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.texte {
+  width: 100%;
+  margin: 0;
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.ligneLien {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  width: 100%;
+}
+
+.lien {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-default);
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}

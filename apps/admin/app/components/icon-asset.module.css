@@ -1,0 +1,8 @@
+/* Placeholder d'icône : discret, à la bonne taille, et assez visible pour qu'on voie qu'il manque. */
+.placeholder {
+  display: inline-block;
+  flex-shrink: 0;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 2px;
+  opacity: 0.45;
+}

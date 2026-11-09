@@ -1,0 +1,52 @@
+.ligne {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-top: 1px solid var(--color-border-default);
+  background: var(--color-surface-default);
+  font-family: var(--font-family-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.selectionnee {
+  background: var(--color-accent-subtle);
+}
+
+.colonne {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.colonneEtat {
+  display: flex;
+  width: 140px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.principal {
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.contact {
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.secondaire {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}
