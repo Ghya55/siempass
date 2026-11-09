@@ -1,1 +1,10 @@
 @import "@siempass/tokens/tokens.css";
+
+/* Le back-office suit les fondations Figma (fond, texte, police), pas les neutres du socle. */
+body {
+  background: var(--color-bg-app);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  line-height: 1.45;
+}
