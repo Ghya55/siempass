@@ -1,0 +1,7 @@
+-- Seed de la base locale et de la CI uniquement : rejoué à chaque `supabase db reset`.
+-- Jamais appliqué à la base réelle (ybcdppcdgbbujmlmimqs).
+--
+-- Intention : y mettre les faux partenaires du premier jalon (page « Partenaires » du
+-- back-office, bouton « Publier », liste des lieux du site) quand la table existera.
+-- Vide aujourd'hui : aucune table métier, le schéma suit les écrans validés.
+-- Aucune donnée réelle de partenaire ou de client n'entre ici.
