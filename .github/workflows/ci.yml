@@ -60,29 +60,19 @@ jobs:
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-        # Deux pieges, mesures le 10/11 sur ce projet :
-        #  - sans cible explicite, la CLI vise la base locale (127.0.0.1:54322), absente du job ;
-        #  - la connexion directe db.<ref>.supabase.co n'ecoute qu'en IPv6, et les runners GitHub
-        #    sont en IPv4 (« IPv6 is not supported on your current network »).
-        # On passe donc par le pooler, en session (5432, seul mode qui accepte les migrations).
-        # Le prefixe d'hote du pooler varie selon l'age du projet : on essaie les deux, puis la
-        # connexion directe en dernier recours, et on s'arrete au premier succes.
+        # Trois pieges, mesures le 10/11 sur ce projet, dans cet ordre :
+        #  1. sans cible explicite, la CLI vise la base locale (127.0.0.1:54322), absente du job ;
+        #  2. la connexion directe db.<ref>.supabase.co n'ecoute qu'en IPv6, les runners GitHub
+        #     sont en IPv4 — on passe donc par le pooler en mode session (port 5432, le seul qui
+        #     accepte les migrations), hote aws-0-ap-southeast-1 pour la region du projet ;
+        #  3. la CLI demande une confirmation avant d'appliquer et, sans terminal, renonce en
+        #     disant « Nothing was changed » tout en sortant 0 : d'ou `--yes`, avec un repli par
+        #     l'entree standard si la version de CLI ne connait pas ce drapeau.
         run: |
-          encoded="$(jq -rn --arg p "$SUPABASE_DB_PASSWORD" '$p|@uri')"
-          for host in aws-0-ap-southeast-1.pooler.supabase.com aws-1-ap-southeast-1.pooler.supabase.com; do
-            echo "::group::db push via $host"
-            if supabase db push --include-all \
-                 --db-url "postgresql://postgres.ybcdppcdgbbujmlmimqs:$encoded@$host:5432/postgres"; then
-              echo "::endgroup::"
-              echo "migrations appliquees via $host"
-              exit 0
-            fi
-            echo "::endgroup::"
-          done
-          echo "pooler injoignable, tentative en connexion directe"
-          supabase db push --include-all --remote
-      # Les Edge Functions suivent le meme chemin que les migrations : jamais deployees a la
-      # main. `verify_jwt` vient de supabase/config.toml. Saute tant qu'il n'y en a aucune.
+          set -euo pipefail
+          url="postgresql://postgres.ybcdppcdgbbujmlmimqs:$(jq -rn --arg p "$SUPABASE_DB_PASSWORD" '$p|@uri')@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
+          supabase db push --include-all --yes --db-url "$url" \
+            || yes | supabase db push --include-all --db-url "$url"
       - name: Deployer les Edge Functions
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
