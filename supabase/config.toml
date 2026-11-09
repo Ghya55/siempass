@@ -32,3 +32,12 @@ enable_confirmations = false
 
 [storage]
 enabled = true
+
+# Edge Functions du parcours de démonstration. Aucune n'a de session à vérifier : il n'y a pas
+# d'écran de connexion (PART-7, DEMO-20), l'appelant est le navigateur du porteur ou du
+# partenaire. Elles tiennent leur autorité du code du pass et du jeton du partenaire.
+[functions.acheter-pass]
+verify_jwt = false
+
+[functions.valider-pass]
+verify_jwt = false
