@@ -33,3 +33,13 @@ enable_confirmations = false
 [storage]
 enabled = true
 
+
+# Edge Functions. `verify_jwt = false` : il n'y a pas d'authentification dans ce parcours
+# (PART-7, DEMO-4, DEMO-20), les deux fonctions sont appelées depuis le navigateur avec la
+# seule clé publishable. Ces deux entrées ne valent que déclarées EN MÊME TEMPS que leur
+# `index.ts` : déclarées seules, elles font échouer `supabase start` dans la CI.
+[functions.acheter-pass]
+verify_jwt = false
+
+[functions.valider-pass]
+verify_jwt = false

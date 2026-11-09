@@ -1,0 +1,43 @@
+/* FIGMA-MANQUANT: aucun nœud Figma pour cet écran (DEMO-13). Mise en page minimale, à refaire
+   quand Alex le dessine. */
+.ecran {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--color-bg-brand, #fbf7f1);
+  font-family: var(--font-family-text, "Inter", system-ui, sans-serif);
+  color: var(--color-text-default, #1f1a17);
+}
+
+.contenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg, 24px);
+  padding: var(--space-lg, 24px) var(--space-md, 16px);
+}
+
+.titre {
+  margin: 0;
+  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
+  font-size: var(--font-size-2xl, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--font-size-md, 15px);
+  line-height: 1.45;
+  color: var(--color-text-muted, #6f665e);
+}
+
+.raison {
+  margin: 0;
+  padding: var(--space-sm, 12px);
+  border-radius: var(--radius-control, 8px);
+  background: var(--color-status-danger-bg, #fbe2de);
+  color: var(--color-status-danger-fg, #b8352a);
+  font-size: var(--font-size-xs, 12px);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
