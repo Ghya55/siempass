@@ -1,0 +1,65 @@
+/* Écran Figma « 06 · Fiche partenaire · lecture seule » (7:474), mobile 390. */
+.ecran {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--color-bg-app, #f6f6f4);
+  font-family: var(--font-family-text, "Inter", system-ui, sans-serif);
+  color: var(--color-text-default, #1f1a17);
+}
+
+.contenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg, 24px);
+  padding: var(--space-lg, 24px) var(--space-md, 16px);
+}
+
+.entete {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs, 8px);
+}
+
+.titre {
+  margin: 0;
+  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
+  font-size: var(--font-size-2xl, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm, 12px);
+}
+
+.sousTitre {
+  margin: 0;
+  font-size: var(--font-size-lg, 18px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.photo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs, 4px);
+}
+
+.photoLabel {
+  margin: 0;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-muted, #6f665e);
+}
+
+.note {
+  margin: 0;
+  font-size: var(--font-size-sm, 13px);
+  line-height: 1.4;
+  color: var(--color-text-muted, #6f665e);
+}

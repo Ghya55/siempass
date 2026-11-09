@@ -1,0 +1,163 @@
+/* Composants Figma de l'espace partenaire (page « 02 · Composants · Back-office »).
+   Un seul fichier pour les six : ils ne servent qu'ici et partagent les mêmes tokens.
+   Les valeurs de repli disparaissent d'elles-mêmes quand `packages/tokens` portera les
+   variables des fondations — ce paquet ne fait pas partie de cette tâche. */
+
+/* ── Button (5:10) ──────────────────────────────────────────────────────────── */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius-control, 8px);
+  font-family: inherit;
+  font-size: var(--font-size-sm, 13px);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.md {
+  padding: var(--space-xs, 8px) var(--space-md, 16px);
+}
+
+.lg {
+  padding: var(--space-sm, 12px) var(--space-lg, 24px);
+}
+
+.primary {
+  background: var(--color-accent-default, #a9431f);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+.secondary {
+  border: 1px solid var(--color-border-strong, #9c9c95);
+  background: var(--color-surface-default, #ffffff);
+  color: var(--color-text-default, #1f1a17);
+}
+
+.pleineLargeur {
+  width: 100%;
+}
+
+/* ── Badge (6:8) ────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs, 4px);
+  padding: var(--space-2xs, 4px) var(--space-xs, 8px);
+  border-radius: var(--radius-pill, 999px);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.badgeBrouillon {
+  background: var(--color-status-neutral-bg, #ededea);
+  color: var(--color-status-neutral-fg, #5e5e58);
+}
+
+.badgeEnLigne {
+  background: var(--color-status-success-bg, #dcefe3);
+  color: var(--color-status-success-fg, #1d6b47);
+}
+
+.pastille {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill, 999px);
+  background: currentColor;
+}
+
+/* ── DetailItem (6:76) ──────────────────────────────────────────────────────── */
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs, 4px);
+  width: 100%;
+}
+
+.detailLabel {
+  margin: 0;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-muted, #6f665e);
+}
+
+.detailValue {
+  margin: 0;
+  font-size: var(--font-size-md, 15px);
+  line-height: 1.45;
+  color: var(--color-text-default, #1f1a17);
+  overflow-wrap: anywhere;
+}
+
+/* ── AdvantageCard (6:79) ───────────────────────────────────────────────────── */
+.advantageCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs, 4px);
+  width: 100%;
+  padding: var(--space-md, 16px);
+  border: 1px solid var(--color-border-default, #dcdcd7);
+  border-radius: var(--radius-card, 16px);
+  background: var(--color-surface-brand, #f4ebdd);
+}
+
+.advantageLabel {
+  margin: 0;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-accent, #a9431f);
+}
+
+.advantageTexte {
+  margin: 0;
+  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
+  font-size: var(--font-size-xl, 22px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-default, #1f1a17);
+}
+
+/* ── PhotoThumb (18:497) ────────────────────────────────────────────────────── */
+.photoThumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 64px;
+  border-radius: var(--radius-control, 8px);
+  background: var(--color-surface-brand-strong, #e8d7be);
+  color: var(--color-text-accent, #a9431f);
+}
+
+/* ── MobileTopBar (6:102) ───────────────────────────────────────────────────── */
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs, 8px);
+  padding: var(--space-sm, 12px) var(--space-md, 16px);
+  border-bottom: 1px solid var(--color-border-default, #dcdcd7);
+  background: var(--color-surface-default, #ffffff);
+}
+
+.topBarMarque {
+  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
+  font-size: var(--font-size-xl, 22px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-accent, #a9431f);
+}
+
+.topBarContexte {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-muted, #6f665e);
+}
