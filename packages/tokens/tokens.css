@@ -1,0 +1,76 @@
+/* Tokens partagés par apps/site et apps/admin.
+   FIGMA-MANQUANT: le fichier Figma de SiemPass n'existe pas encore (projet.md § Figma « à compléter »).
+   Ces valeurs sont des neutres provisoires, volontairement ternes pour qu'une page non maquettée
+   ne ressemble jamais à un écran validé. Elles seront remplacées en bloc par les variables Figma
+   (nom CSS = nom Figma, « / » -> « - ») dès qu'Alex livre les fondations. Aucun écran produit
+   ne s'écrit avant ça. */
+:root {
+  /* Couleurs */
+  --color-bg-canvas: #f7f7f6;
+  --color-bg-surface: #ffffff;
+  --color-bg-inverse: #1b1b1a;
+  --color-text-primary: #1b1b1a;
+  --color-text-secondary: #5d5d5a;
+  --color-text-inverse: #f7f7f6;
+  --color-border-default: #e2e2df;
+  --color-border-focus: #1b1b1a;
+  --color-feedback-success-bg: #eef5ee;
+  --color-feedback-success-text: #2f6a37;
+  --color-feedback-danger-bg: #fdeeeb;
+  --color-feedback-danger-text: #a52a17;
+
+  /* Espacements */
+  --space-gap-xs: 4px;
+  --space-gap-sm: 8px;
+  --space-gap-md: 12px;
+  --space-gap-lg: 16px;
+  --space-gap-xl: 24px;
+  --space-inset-md: 16px;
+  --space-inset-lg: 24px;
+  --space-section-gap: 32px;
+  --space-screen-margin: 20px;
+
+  /* Rayons et tailles */
+  --radius-control: 12px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --size-touch-min: 48px;
+
+  /* Typographie */
+  --font-family-base: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-heading-lg-size: 24px;
+  --font-heading-lg-weight: 700;
+  --font-body-md-size: 16px;
+  --font-body-md-weight: 400;
+  --font-body-sm-size: 14px;
+  --font-body-sm-weight: 400;
+
+  /* Élévations */
+  --elevation-1: 0 1px 2px #1b1b1a0f, 0 4px 16px #1b1b1a0f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-body-md-size);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
