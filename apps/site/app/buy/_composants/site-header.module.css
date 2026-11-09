@@ -1,0 +1,31 @@
+/* Composant Figma `SiteHeader` (5:37). */
+.entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm, 12px);
+  padding: var(--space-sm, 12px) var(--space-md, 16px);
+  border-bottom: 1px solid var(--color-border-default, #dcdcd7);
+  background: var(--color-bg-brand, #fbf7f1);
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.marque {
+  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
+  font-size: var(--font-size-xl, 22px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-accent, #a9431f);
+}
+
+.lieu {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-muted, #6f665e);
+}

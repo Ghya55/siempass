@@ -1,0 +1,70 @@
+/* Écran Figma « 09.1 · Pass · acheter » (7:644), mobile 390. */
+.ecran {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--color-bg-brand, #fbf7f1);
+  font-family: var(--font-family-text, "Inter", system-ui, sans-serif);
+  color: var(--color-text-default, #1f1a17);
+}
+
+.contenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg, 24px);
+  padding: var(--space-lg, 24px) var(--space-md, 16px);
+}
+
+.titre {
+  margin: 0;
+  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
+  font-size: var(--font-size-2xl, 28px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.prix {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs, 8px);
+  margin: 0;
+}
+
+.montant {
+  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
+  font-size: var(--font-size-3xl, 36px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-text-accent, #a9431f);
+}
+
+.unite {
+  font-size: var(--font-size-md, 15px);
+  line-height: 1.45;
+  color: var(--color-text-muted, #6f665e);
+}
+
+.avantages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm, 12px);
+  margin: 0;
+  padding: var(--space-md, 16px);
+  list-style: none;
+  border: 1px solid var(--color-border-default, #dcdcd7);
+  border-radius: var(--radius-card, 16px);
+  background: var(--color-surface-default, #ffffff);
+}
+
+.avantage {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm, 12px);
+  font-size: var(--font-size-md, 15px);
+  line-height: 1.45;
+}
+
+.coche {
+  flex: none;
+  color: var(--color-status-success-fg, #1d6b47);
+}
