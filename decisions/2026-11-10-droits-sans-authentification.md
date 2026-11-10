@@ -1,5 +1,5 @@
 ---
-statut: proposée
+statut: décidée par Richard le 2026-11-10 (dans le cadre de la démonstration)
 auteur: Richard
 date: 2026-11-10
 ---
@@ -33,3 +33,5 @@ Rien n'est à défaire : on ajoute des politiques, on n'en retire pas.
 1. La base de la démonstration est la base réelle (décision du 09/11). Tant que ces politiques
    tiennent, tout partenaire saisi y est lisible et modifiable par le porteur de l'URL : avant
    d'y entrer de vraies coordonnées de partenaires, il faut l'authentification.
+
+*Remplacée pour la suite par [2026-11-10-authentification.md](2026-11-10-authentification.md).*
