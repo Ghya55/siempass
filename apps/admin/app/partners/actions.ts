@@ -1,13 +1,16 @@
 "use server";
 
-import { createSupabaseClient, type EtatPartenaire } from "@siempass/db";
+import type { EtatPartenaire } from "@siempass/db";
+import { creerClientAdmin } from "../lib/supabase-serveur";
 import { champsManquants, type SaisiePartenaire } from "./partenaire";
 
 export type ResultatEcriture = { statut: "ok" } | { statut: "erreur"; message: string };
 
-/* Les écritures passent par le rôle `anon` (il n'y a pas d'authentification au MVP, voir la
-   migration 20261110010000). Le rafraîchissement de la liste est déclenché par l'appelant
-   (`router.refresh()`), pour que la donnée apparaisse sans rechargement manuel (DEMO-16). */
+/* Les écritures passent par le rôle `authenticated` : la session est lue dans les cookies de la
+   requête (migration 20261110120000). La clé publishable seule n'écrit plus rien, et une action
+   appelée sans session se fait refuser par le RLS — le proxy l'a déjà interceptée avant.
+   Le rafraîchissement de la liste est déclenché par l'appelant (`router.refresh()`), pour que la
+   donnée apparaisse sans rechargement manuel (DEMO-16). */
 
 function texteOuNull(valeur: string): string | null {
   const propre = valeur.trim();
@@ -21,7 +24,7 @@ export async function creerPartenaire(saisie: SaisiePartenaire): Promise<Resulta
     return { statut: "erreur", message: "Some required fields are empty." };
   }
 
-  const supabase = createSupabaseClient();
+  const supabase = await creerClientAdmin();
   /* `etat` et `acces_jeton` ne sont pas passés : la base les pose elle-même
      (`brouillon` et un jeton opaque), ce qui tient PART-3 côté serveur. */
   const { error } = await supabase.from("partners").insert({
@@ -39,7 +42,7 @@ export async function creerPartenaire(saisie: SaisiePartenaire): Promise<Resulta
 }
 
 export async function inviterPartenaire(id: string): Promise<ResultatEcriture> {
-  const supabase = createSupabaseClient();
+  const supabase = await creerClientAdmin();
   const { error } = await supabase
     .from("partners")
     .update({ invitation_envoyee_le: new Date().toISOString() })
@@ -49,7 +52,7 @@ export async function inviterPartenaire(id: string): Promise<ResultatEcriture> {
 }
 
 export async function changerEtatPartenaire(id: string, etat: EtatPartenaire): Promise<ResultatEcriture> {
-  const supabase = createSupabaseClient();
+  const supabase = await creerClientAdmin();
   const { error } = await supabase.from("partners").update({ etat }).eq("id", id);
 
   return error === null ? { statut: "ok" } : { statut: "erreur", message: error.message };

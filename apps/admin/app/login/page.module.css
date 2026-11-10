@@ -1,0 +1,64 @@
+/* Écran de connexion : aucune maquette Figma (voir login-form.tsx). Mise en page minimale,
+   variables de `@siempass/tokens` seulement — rien d'inventé en dehors d'elles. */
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--space-screen-margin);
+  background: var(--color-bg-app);
+}
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  width: 100%;
+  max-width: 360px;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-default);
+}
+
+.entete {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.marque {
+  color: var(--color-text-accent);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.titre {
+  margin: 0;
+  color: var(--color-text-default);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.sousTitre {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.erreur {
+  margin: 0;
+  color: var(--color-feedback-danger-text);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}

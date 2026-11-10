@@ -30,4 +30,12 @@ Pas de Google, pas d'inscription en libre-service, pas de table `profiles`, pas 
 d'envoi d'e-mail. Le nettoyage de la base avant la mise en production reste à faire et appartient à Ghya.
 
 ## Ouvert pour Ghya
-*Sans objet.*
+Deux gestes sur la base réelle, apparus en appliquant la décision : ils ne sont pas dans le dépôt
+et n'appartiennent pas à l'équipe.
+1. **Couper l'inscription libre** dans le tableau de bord Supabase (Authentication → Email). Le
+   dépôt la coupe pour la base locale et la CI, mais la CI ne pousse pas la configuration d'auth :
+   tant qu'elle est ouverte sur le projet réel, n'importe qui s'inscrit avec la clé publishable et
+   obtient le rôle `authenticated`, qui écrit dans `partners`.
+2. **Créer les comptes dans la base réelle** : le seed ne tourne qu'en local et dans la CI, donc
+   il ne crée rien sur staging. Deux chemins possibles : à la main dans le tableau de bord, ou une
+   étape de CI qui les crée depuis un secret GitHub.

@@ -9,12 +9,16 @@ type FieldCommun = {
 };
 
 type FieldSaisie = FieldCommun & {
-  kind: "text" | "multiline";
+  /* « password » n'est pas dans le Figma des formulaires partenaire : il sert à l'écran de
+     connexion, qui n'est pas maquetté (voir app/login). Même champ, même style, type masqué. */
+  kind: "text" | "password" | "multiline";
   name: string;
   value: string;
   onChange: (valeur: string) => void;
   /* `null` tant que le champ n'est pas fautif (PART-11). */
   erreur: string | null;
+  /* Indication au gestionnaire de mots de passe du navigateur. Absent : comportement par défaut. */
+  autoComplete?: string;
 };
 
 type FieldPhoto = FieldCommun & {
@@ -35,16 +39,17 @@ export const Field: FC<FieldProps> = (props) => {
         <span className={styles.label}>{label}</span>
         {isOptional && <span className={styles.facultatif}>Optional</span>}
       </label>
-      {props.kind === "text" && (
+      {(props.kind === "text" || props.kind === "password") && (
         <input
           aria-invalid={props.erreur !== null}
+          autoComplete={props.autoComplete}
           className={`${styles.saisie} ${props.erreur !== null ? styles.saisieFautive : ""}`}
           id={props.name}
           name={props.name}
           onChange={(evenement) => {
             props.onChange(evenement.target.value);
           }}
-          type="text"
+          type={props.kind === "password" ? "password" : "text"}
           value={props.value}
         />
       )}

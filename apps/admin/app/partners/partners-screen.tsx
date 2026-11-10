@@ -18,12 +18,15 @@ export type PartnersScreenProps = {
   partenaires: Partenaire[];
   origineAdmin: string;
   erreurChargement: string | null;
+  /** Adresse du compte connecté, affichée dans la barre latérale. */
+  adresseConnectee: string;
 };
 
 export const PartnersScreen: FC<PartnersScreenProps> = ({
   partenaires,
   origineAdmin,
   erreurChargement,
+  adresseConnectee,
 }) => {
   const router = useRouter();
   const [ajoutOuvert, setAjoutOuvert] = useState(false);
@@ -73,7 +76,7 @@ export const PartnersScreen: FC<PartnersScreenProps> = ({
 
   return (
     <div className={styles.ecran}>
-      <AdminSidebar />
+      <AdminSidebar adresse={adresseConnectee} />
       <main className={styles.principal}>
         <div className={styles.entete}>
           <h1 className={styles.titre}>Partners</h1>
