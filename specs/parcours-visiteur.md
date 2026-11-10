@@ -6,8 +6,10 @@ porteur: Quentin
 figma:
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-49  # 10 · Home · sans pass
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-107  # 10.1 · Home · avec pass
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=73-117  # 10.2 · Home · carte en chargement
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-197  # 11 · Pass · argumentaire
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-218  # 11 · Pass · argumentaire · paiement ouvert
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=71-358  # 11 · Pass · argumentaire · paiement en cours
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-268  # 11 · Pass · argumentaire · paiement refusé
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-321  # 11.1 · Pass · le pass
 maj: 2026-11-10
