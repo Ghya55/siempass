@@ -19,15 +19,25 @@ major_version = 17
 enabled = true
 port = 54323
 
+# Authentification : e-mail et mot de passe, comptes créés par le seed
+# (decisions/2026-11-10-authentification.md).
+#
+# `enable_signup = false` est la serrure de tout le dispositif : la clé publishable part dans le
+# navigateur de chaque visiteur, et sans ce verrou n'importe qui s'inscrirait pour obtenir le rôle
+# `authenticated`, qui écrit dans `partners`. Ce fichier ne règle QUE la base locale et la CI :
+# sur le projet réel, le même réglage se fait dans le tableau de bord Supabase (la CI ne pousse
+# pas la configuration d'auth). Voir « Attend Ghya » de la PR.
+#
+# `enable_confirmations = false` : aucun e-mail n'est envoyé, le seed confirme les adresses.
 [auth]
 enabled = true
 site_url = "http://localhost:3000"
 additional_redirect_urls = ["http://localhost:3000", "http://localhost:3001"]
 jwt_expiry = 3600
-enable_signup = true
+enable_signup = false
 
 [auth.email]
-enable_signup = true
+enable_signup = false
 enable_confirmations = false
 
 [storage]

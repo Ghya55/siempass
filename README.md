@@ -48,9 +48,14 @@ Une seule base Supabase (`ybcdppcdgbbujmlmimqs`) pour tous les environnements �
 
 ```bash
 supabase start              # base locale jetable (Docker)
+# mot de passe des comptes du back-office : une fois par base, jamais dans le dépôt
+psql "$(supabase status -o json | jq -r .DB_URL)" \
+  -c "alter role postgres set siempass.mot_de_passe = '$SIEMPASS_MOT_DE_PASSE_ADMIN'"
 supabase db reset           # rejoue migrations/ puis seed.sql
 supabase gen types typescript --project-id ybcdppcdgbbujmlmimqs > packages/db/src/database.types.ts
 ```
+
+Le back-office demande une connexion (`/login`) : les comptes sont créés par le seed sur des adresses factices en `@siempass.com`, confirmation d'e-mail désactivée, aucun e-mail envoyé — voir `decisions/2026-11-10-authentification.md`. Sans le réglage ci-dessus, le seed ne crée aucun compte. Le lien d'accès partenaire (`/p/<jeton>`) reste ouvert, sans compte ni mot de passe.
 
 Les migrations sont testées dans la CI sur une base locale jetable, puis appliquées à la base réelle au merge dans `staging`. Jamais à la main.
 

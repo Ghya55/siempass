@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { createSupabaseClient } from "@siempass/db";
+import { creerClientAdmin } from "../lib/supabase-serveur";
 import { PartnersScreen } from "./partners-screen";
 import type { Partenaire } from "./partenaire";
 
@@ -24,7 +24,13 @@ async function origineDeLaRequete(): Promise<string> {
 }
 
 export default async function PartnersPage() {
-  const supabase = createSupabaseClient();
+  /* Client porteur de la session : depuis la migration 20261110120000, la clé publishable seule
+     (rôle `anon`) ne voit que les partenaires « en ligne » et n'écrit rien. Hors session on
+     n'arrive pas ici — le proxy redirige vers /login. */
+  const supabase = await creerClientAdmin();
+  /* `getUser()` et non `getSession()` : la session vient d'un cookie, que le navigateur peut
+     écrire ; `getUser()` fait vérifier le jeton par Supabase. */
+  const { data: session } = await supabase.auth.getUser();
   const { data, error } = await supabase
     .from("partners")
     .select("*")
@@ -33,6 +39,7 @@ export default async function PartnersPage() {
 
   return (
     <PartnersScreen
+      adresseConnectee={session.user?.email ?? ""}
       erreurChargement={error === null ? null : error.message}
       origineAdmin={await origineDeLaRequete()}
       partenaires={partenaires}
