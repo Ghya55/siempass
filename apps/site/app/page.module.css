@@ -1,21 +1,17 @@
-/* Accueil : en-tête et héros du Figma « 08 · Lieux » (7:608), sans maquette propre. */
+/* Figma « 10 · Home » (57:49, 57:107, 73:117), cadre mobile de 390 px. */
 .shell {
   composes: pageShell from global;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--color-bg-app);
 }
 
+/* Bloc `content` du Figma (73:113). */
 .content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-xl);
-  padding: var(--space-lg) var(--space-md);
-}
-
-/* Place tenue par un lien sans maquette (voir page.tsx). */
-.venuesLink {
-  font-family: var(--font-family-text);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--color-text-accent);
+  padding: var(--space-lg) var(--space-md) var(--space-2xl);
 }
