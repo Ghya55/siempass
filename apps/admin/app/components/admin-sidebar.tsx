@@ -1,21 +1,36 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, type FC } from "react";
 import { CHEMIN_CONNEXION } from "../lib/chemins";
 import { seDeconnecter } from "../login/actions";
 import { Button } from "./button";
-import { Icon } from "./icon-asset";
+import { Icon, type NomIcone } from "./icon-asset";
 import styles from "./admin-sidebar.module.css";
+
+type Entree = {
+  readonly chemin: string;
+  readonly libelle: string;
+  readonly icone: NomIcone;
+};
+
+/* Les écrans du back-office, dans l'ordre de la barre. « Passes » n'est pas dans la description
+   Figma de la barre (un seul élément y figure) : c'est l'écran de test du 10/11. */
+const ENTREES: readonly Entree[] = [
+  { chemin: "/partners", libelle: "Partners", icone: "store" },
+  { chemin: "/passes", libelle: "Passes", icone: "ticket" },
+];
 
 export type AdminSidebarProps = {
   /** Adresse du compte connecté. Vide seulement si la session s'est éteinte entre-temps. */
   adresse: string;
 };
 
-/* Navigation du back-office. Une seule entrée au MVP (description Figma). */
+/* Navigation du back-office. */
 export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse }) => {
   const router = useRouter();
+  const chemin = usePathname();
   const [enCours, setEnCours] = useState(false);
 
   const deconnecter = async (): Promise<void> => {
@@ -32,12 +47,22 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse }) => {
         <span className={styles.sousTitre}>Back-office</span>
       </div>
       <ul className={styles.nav}>
-        <li>
-          <span aria-current="page" className={styles.navItemActif}>
-            <Icon name="store" size={18} />
-            Partners
-          </span>
-        </li>
+        {ENTREES.map((entree) => {
+          const actif = chemin === entree.chemin;
+
+          return (
+            <li key={entree.chemin}>
+              <Link
+                aria-current={actif ? "page" : undefined}
+                className={actif ? styles.navItemActif : styles.navItem}
+                href={entree.chemin}
+              >
+                <Icon name={entree.icone} size={18} />
+                {entree.libelle}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
       <div className={styles.spacer} />
       <div className={styles.compte}>

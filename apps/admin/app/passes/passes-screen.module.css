@@ -1,0 +1,83 @@
+.ecran {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--color-bg-app);
+}
+
+.principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.entete {
+  display: flex;
+  gap: var(--space-md);
+  align-items: baseline;
+}
+
+.titre {
+  margin: 0;
+  color: var(--color-text-default);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.compte {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.note {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+/* Même rendu que les erreurs de l'écran des partenaires. */
+.erreur {
+  width: 100%;
+  margin: 0;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-control);
+  background: var(--color-status-neutral-bg);
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  overflow-wrap: anywhere;
+}
+
+/* La grille des colonnes est déclarée une fois, ici, et héritée par l'en-tête comme par chaque
+   ligne (`pass-row.module.css`) : une seule définition à changer pour les deux. */
+.tableau {
+  --colonnes-passes: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.9fr) 104px minmax(0, 1.1fr) 196px;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-default);
+  overflow: hidden;
+}
+
+.ligneEntete {
+  display: grid;
+  grid-template-columns: var(--colonnes-passes);
+  gap: var(--space-md);
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border-bottom: 1px solid var(--color-border-default);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}

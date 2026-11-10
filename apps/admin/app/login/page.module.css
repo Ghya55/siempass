@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  padding: var(--space-screen-margin);
+  padding: var(--space-lg);
   background: var(--color-bg-app);
 }
 
@@ -56,9 +56,14 @@
   gap: var(--space-md);
 }
 
+/* Même rendu que les erreurs de l'écran des partenaires : le bloc Figma des tokens n'a pas de
+   couleur d'erreur, et les neutres du « socle provisoire » sont destinés à disparaître. */
 .erreur {
   margin: 0;
-  color: var(--color-feedback-danger-text);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-control);
+  background: var(--color-status-neutral-bg);
+  color: var(--color-text-default);
   font-size: var(--font-size-sm);
   line-height: 1.4;
 }

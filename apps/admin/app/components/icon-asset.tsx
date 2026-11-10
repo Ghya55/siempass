@@ -7,7 +7,10 @@ import styles from "./icon-asset.module.css";
    Chaque icône garde sa géométrie exacte du Figma ; dès que les cinq fichiers sont déposés dans
    `apps/admin/public/icons/<nom>.svg`, il n'y a qu'à remplacer ce <span> par un <img>. */
 
-export type NomIcone = "pin" | "store" | "close" | "photo" | "check";
+/* `ticket` n'est pas dans le Figma : il nomme l'entrée « Passes » de la barre latérale, un
+   écran de test non maquetté. Il rend le même placeholder que les cinq autres — aucune
+   géométrie n'est inventée, il y a juste un nom de plus à fournir le jour de la livraison. */
+export type NomIcone = "pin" | "store" | "close" | "photo" | "check" | "ticket";
 
 export type IconProps = {
   name: NomIcone;
