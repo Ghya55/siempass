@@ -1,7 +1,7 @@
 ---
 type: flux
 titre: "Parcours du visiteur sur le site public"
-statut: à valider
+statut: validée
 porteur: Quentin
 figma:
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-49  # 10 · Home · sans pass
