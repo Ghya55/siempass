@@ -8,7 +8,7 @@ import { HomePassCard } from "./HomePassCard";
  * des lieux reste rendue côté serveur, au-dessous, et ne dépend pas de cette réponse.
  */
 export function HomePassCardIsland() {
-  const pass = useBrowserPass();
+  const { pass } = useBrowserPass();
 
   if (pass.status === "reading") {
     return <HomePassCard state="loading" />;

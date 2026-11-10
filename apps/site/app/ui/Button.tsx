@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { classNames } from "./class-names";
-import { MissingIcon } from "./MissingIcon";
+import { IconArrowRight, IconSpinner } from "./icons";
 import styles from "./Button.module.css";
 
 /** Propriétés `size`, `tone` et `state` du composant Figma `Button` (5:10). */
@@ -26,76 +26,97 @@ const CLASSE_TON: Record<ButtonTone, string | undefined> = {
  * Figma `Button` (5:10) — « Bouton d'action. tone=primary pour l'action principale de l'écran,
  * une seule par écran. » Les props reprennent les propriétés Figma : `label`, `size`, `tone`,
  * `hasIcon`, `icon`, `state`.
- *
- * `href` n'existe pas dans Figma : le composant y est une boîte, ici c'est un lien — tous les
- * boutons dessinés de cette passe mènent quelque part. La forme `<button>` (feuille de
- * paiement) s'ajoutera ici même quand la page `/pass` existera, pas dans un second composant.
  */
-export type ButtonProps = {
+type ButtonBaseProps = {
   readonly label: string;
-  readonly href: string;
-  readonly size?: ButtonSize;
-  readonly tone?: ButtonTone;
+  readonly size?: ButtonSize | undefined;
+  readonly tone?: ButtonTone | undefined;
   /** `hasIcon` du Figma : place une icône avant le libellé, `icon/arrow-right` par défaut. */
-  readonly hasIcon?: boolean;
+  readonly hasIcon?: boolean | undefined;
   /** Échange d'instance `icon` du Figma. Absent avec `hasIcon` : l'icône par défaut. */
-  readonly icon?: React.ReactNode;
-  readonly state?: ButtonState;
+  readonly icon?: React.ReactNode | undefined;
+  readonly state?: ButtonState | undefined;
   /** Hors Figma, mise en page : le bouton d'une carte occupe toute sa largeur. */
-  readonly fullWidth?: boolean;
+  readonly fullWidth?: boolean | undefined;
   readonly className?: string | undefined;
 };
 
-export function Button({
-  label,
-  href,
-  size = "md",
-  tone = "primary",
-  hasIcon = false,
-  icon,
-  state = "default",
-  fullWidth = false,
-  className,
-}: ButtonProps) {
+/**
+ * La balise n'est pas une propriété Figma, où le bouton est une boîte : elle se déduit de ce
+ * qu'on lui donne. `href` mène quelque part (« Get the Pass » de l'accueil), `onClick` agit
+ * sur place sans quitter l'écran (« Get the Pass » de l'argumentaire, qui ouvre la feuille,
+ * et « Pay $20 » dedans — VIS-8). Un lien déguisé en bouton casse la navigation, l'inverse
+ * casse l'action : les deux formes sont donc distinguées par le type, pas par une prop.
+ */
+export type ButtonProps = ButtonBaseProps &
+  ({ readonly href: string } | { readonly onClick: () => void });
+
+export function Button(props: ButtonProps) {
+  const classe = buttonClassNames(props);
+
+  if ("href" in props) {
+    return (
+      <Link href={props.href} className={classe} aria-busy={props.state === "loading"}>
+        <ButtonMedia size={props.size} hasIcon={props.hasIcon} icon={props.icon} state={props.state} />
+        <span>{props.label}</span>
+      </Link>
+    );
+  }
+
+  // En chargement, le bouton n'est plus actionnable : un second appui relancerait un paiement
+  // (VIS-31). `disabled` garde la taille et la place du bouton, il ne les change pas.
+  const enChargement = props.state === "loading";
   return (
-    <Link
-      href={href}
-      className={classNames(
-        styles.button,
-        CLASSE_TAILLE[size],
-        CLASSE_TON[tone],
-        fullWidth ? styles.fullWidth : undefined,
-        className,
-      )}
-      aria-busy={state === "loading"}
+    <button
+      type="button"
+      className={classe}
+      onClick={props.onClick}
+      disabled={enChargement}
+      aria-busy={enChargement}
     >
-      <ButtonMedia size={size} hasIcon={hasIcon} icon={icon} state={state} />
-      <span>{label}</span>
-    </Link>
+      <ButtonMedia size={props.size} hasIcon={props.hasIcon} icon={props.icon} state={props.state} />
+      <span>{props.label}</span>
+    </button>
   );
 }
 
-type ButtonMediaProps = Pick<ButtonProps, "hasIcon" | "icon" | "state"> & {
-  readonly size: ButtonSize;
-};
+/**
+ * Les classes du `Button` du socle, pour les rares endroits qui doivent poser la balise
+ * eux-mêmes (les écrans `buy`, hors flow, qui gardent leurs liens).
+ */
+export function buttonClassNames({
+  size = "md",
+  tone = "primary",
+  fullWidth = false,
+  className,
+}: Pick<ButtonBaseProps, "size" | "tone" | "fullWidth" | "className">): string {
+  return classNames(
+    styles.button,
+    CLASSE_TAILLE[size],
+    CLASSE_TON[tone],
+    fullWidth ? styles.fullWidth : undefined,
+    className,
+  );
+}
+
+type ButtonMediaProps = Pick<ButtonBaseProps, "size" | "hasIcon" | "icon" | "state">;
 
 /**
  * En chargement, le `spinner` prend la place de l'icône — et apparaît même sans `hasIcon`,
- * comme dans Figma. Les deux ont le même côté, et la hauteur du bouton est fixée par taille :
- * passer de `default` à `loading` ne déplace rien (VIS-31, VIS-34).
+ * comme dans Figma (cadre « paiement en cours », 71:358). Les deux ont le même côté, et la
+ * hauteur du bouton est fixée par taille : passer de `default` à `loading` ne déplace rien
+ * autour du bouton (VIS-31, VIS-34).
  */
-function ButtonMedia({ size, hasIcon = false, icon, state = "default" }: ButtonMediaProps) {
+function ButtonMedia({ size = "md", hasIcon = false, icon, state = "default" }: ButtonMediaProps) {
   if (state === "loading") {
     return (
       <span className={styles.spinner}>
-        <MissingIcon size={TAILLE_ICONE[size]} />
+        <IconSpinner size={TAILLE_ICONE[size]} />
       </span>
     );
   }
   if (!hasIcon) {
     return null;
   }
-  // FIGMA-MANQUANT: `icon/arrow-right`, l'icône par défaut de `hasIcon`, n'a pas pu être
-  // téléchargée (voir MissingIcon.tsx). Taille exacte du gabarit en attendant le SVG.
-  return icon === undefined ? <MissingIcon size={TAILLE_ICONE[size]} /> : icon;
+  return icon === undefined ? <IconArrowRight size={TAILLE_ICONE[size]} /> : icon;
 }

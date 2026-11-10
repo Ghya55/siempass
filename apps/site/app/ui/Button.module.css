@@ -10,6 +10,19 @@
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
+  /* Appui : le bouton s'enfonce légèrement. Transition (et non animation) pour qu'un appui
+     relâché en cours de route revienne sans saccade. Seul `transform` est animé. */
+  transition-property: transform;
+  transition-duration: 150ms;
+  transition-timing-function: var(--ease-sortie);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.button:disabled {
+  cursor: default;
 }
 
 /* Les hauteurs sont celles des variantes Figma, et elles sont posées sur les deux états, pas
@@ -83,6 +96,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button:active:not(:disabled) {
+    transform: none;
+  }
+
   .spinner {
     animation: none;
   }

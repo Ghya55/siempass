@@ -1,28 +1,26 @@
-import styles from "./bouton.module.css";
+import { buttonClassNames, type ButtonSize, type ButtonTone } from "@/app/ui/Button";
 
 /** Variantes du composant Figma `Button` (5:10). Les noms des props sont ceux de Figma. */
-export type TonBouton = "primary" | "secondary";
-export type TailleBouton = "md" | "lg";
+export type TonBouton = ButtonTone;
+export type TailleBouton = Extract<ButtonSize, "md" | "lg">;
 
 type OptionsBouton = {
-  readonly tone?: TonBouton;
-  readonly size?: TailleBouton;
-  readonly pleineLargeur?: boolean;
+  readonly tone?: TonBouton | undefined;
+  readonly size?: TailleBouton | undefined;
+  readonly pleineLargeur?: boolean | undefined;
 };
 
 /**
- * Le `Button` de Figma apparaît tantôt comme lien (« Get the pass »), tantôt comme bouton de
- * formulaire (« Pay $20 »). On expose donc ses classes plutôt qu'un composant qui imposerait
- * la balise : un lien déguisé en <button> casse la navigation, l'inverse casse la soumission.
+ * Les classes du `Button` du socle (`app/ui/Button.tsx`), sous le nom que portent encore les
+ * écrans `buy`. Ces écrans sortent du flow (VIS-10) mais restent en place tant que Ghya n'a pas
+ * donné son feu vert pour les supprimer : plutôt que de garder une deuxième définition du même
+ * bouton Figma, cette fonction pointe sur le socle — un seul `Button` dessiné, un seul codé.
+ * Elle disparaîtra avec les écrans qu'elle sert.
  */
 export function classesBouton({
   tone = "primary",
   size = "md",
   pleineLargeur = false,
 }: OptionsBouton = {}): string {
-  const classes = [styles.bouton, styles[tone], styles[size]];
-  if (pleineLargeur) {
-    classes.push(styles.pleineLargeur);
-  }
-  return classes.join(" ");
+  return buttonClassNames({ tone, size, fullWidth: pleineLargeur });
 }

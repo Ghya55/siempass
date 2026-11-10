@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { acheterPass } from "../_composants/achat";
+import { acheterPass } from "@/app/lib/achat";
 import { classesBouton } from "../_composants/bouton";
 import { SiteHeader } from "../../ui/SiteHeader";
 import styles from "./page.module.css";
