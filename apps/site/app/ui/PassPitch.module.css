@@ -1,0 +1,85 @@
+/* Figma `PassPitch` (57:48), bande pleine largeur du cadre mobile de 390 px.
+
+   La bande prend toute la hauteur que l'écran lui laisse (`flex: 1 0 0`) au lieu des 661 px du
+   Figma : c'est elle qui absorbe la différence entre 844 px et la hauteur réelle du téléphone,
+   pour que l'argumentaire tienne sans défilement quel que soit l'appareil (VIS-6, VIS-23).
+   `min-height: 0` et `overflow: hidden` sont ce qui garantit le « sans défilement » : si le
+   contenu dépassait, c'est le bloc `head` qui se serre, la carte des arguments et le bouton
+   restent entiers et visibles. */
+.passPitch {
+  display: flex;
+  flex: 1 0 0;
+  min-height: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  width: 100%;
+  padding: var(--space-xl) var(--space-md) var(--space-lg);
+  background: var(--color-surface-brand);
+  overflow: hidden;
+}
+
+/* Bloc `head` (72:69) : titre et prix centrés verticalement dans ce qui reste. */
+.head {
+  display: flex;
+  flex: 1 0 0;
+  min-height: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.title {
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  line-height: 1.15;
+  color: var(--color-text-default);
+}
+
+/* Bloc `price` (57:32) : les deux textes partagent la même ligne de base. */
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.amount {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  line-height: 1.1;
+  color: var(--color-text-accent);
+}
+
+.priceDetail {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+/* Carte `benefits` (57:35). */
+.benefits {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  width: 100%;
+  margin: 0;
+  padding: var(--space-lg);
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  list-style: none;
+}

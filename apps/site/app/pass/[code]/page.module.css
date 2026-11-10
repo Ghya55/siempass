@@ -1,118 +1,22 @@
-/* Écran Figma « 09.3 · Pass · votre pass » (7:710), mobile 390. */
-.ecran {
+/* Écran Figma « 11.1 · Pass · le pass » (57:321), mobile 390 — le même que l'état « avec
+   pass » de `/pass`, aux mêmes dimensions. */
+.shell {
+  composes: pageShell from global;
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
-  background: var(--color-bg-brand, #fbf7f1);
-  font-family: var(--font-family-text, "Inter", system-ui, sans-serif);
-  color: var(--color-text-default, #1f1a17);
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg-app);
 }
 
-.contenu {
+/* Bloc `body` (71:496) : la carte centrée sur ce qui reste de l'écran. */
+.stage {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-lg, 24px);
-  padding: var(--space-lg, 24px) var(--space-md, 16px);
-}
-
-.entete {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs, 4px);
-}
-
-.titre {
-  margin: 0;
-  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
-  font-size: var(--font-size-2xl, 28px);
-  font-weight: 600;
-  line-height: 1.15;
-}
-
-.lead {
-  margin: 0;
-  font-size: var(--font-size-md, 15px);
-  line-height: 1.45;
-  color: var(--color-text-muted, #6f665e);
-}
-
-/* Composant Figma `PassCard` (5:68). */
-.carte {
-  display: flex;
-  flex-direction: column;
+  flex: 1 0 0;
+  min-height: 0;
   align-items: center;
-  gap: var(--space-md, 16px);
-  padding: var(--space-lg, 24px);
-  border-radius: var(--radius-sheet, 24px);
-  background: var(--color-bg-inverse, #1f1a17);
-  color: var(--color-text-inverse, #ffffff);
-}
-
-.haut {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  font-weight: 600;
-}
-
-.marque {
-  font-family: var(--font-family-display, "Fraunces", Georgia, "Times New Roman", serif);
-  font-size: var(--font-size-xl, 22px);
-  line-height: 1.2;
-}
-
-.gamme {
-  font-size: var(--font-size-sm, 13px);
-  line-height: 1.4;
-}
-
-.cadreQr {
-  display: flex;
-  padding: var(--space-md, 16px);
-  border-radius: var(--radius-card, 16px);
-  background: var(--color-surface-default, #ffffff);
-  /* Le QR hérite la couleur : foncé sur fond blanc, quel que soit le thème de la carte. */
-  color: var(--color-bg-inverse, #1f1a17);
-}
-
-.code {
-  margin: 0;
-  font-size: var(--font-size-sm, 13px);
-  font-weight: 600;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-  text-align: center;
-}
-
-.validite {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2xs, 4px);
-}
-
-.jusquAu {
-  margin: 0;
-  font-size: var(--font-size-md, 15px);
-  line-height: 1.45;
-}
-
-.provisoire {
-  margin: 0;
-  padding: var(--space-2xs, 4px) var(--space-sm, 12px);
-  border-radius: var(--radius-pill, 999px);
-  background: var(--color-status-warning-bg, #fbefd5);
-  color: var(--color-status-warning-fg, #8a5a12);
-  font-size: var(--font-size-xs, 12px);
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-.consigne {
-  margin: 0;
-  font-size: var(--font-size-sm, 13px);
-  line-height: 1.4;
-  text-align: center;
-  opacity: 0.8;
+  padding-inline: var(--space-md);
+  overflow: hidden;
 }
