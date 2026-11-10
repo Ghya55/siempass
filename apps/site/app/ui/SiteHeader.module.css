@@ -31,9 +31,12 @@
   height: 40px;
 }
 
+/* L'icône de retour n'est pas de la couleur du titre : sur les cadres 57:197 et 57:321, le
+   chevron est sombre quand « SiemPass » est terracotta. Sa couleur est peinte dans le SVG,
+   sans variable liée (`get_variable_defs` sur 66:45 ne rend rien) : relevée sur le rendu. */
 .back {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-accent);
+  color: var(--color-text-default);
 }

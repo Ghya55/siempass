@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { MissingIcon } from "./MissingIcon";
+import { IconChevronLeft } from "./icons";
 import styles from "./SiteHeader.module.css";
 
-/** Côté de `icon/arrow-left` dans le gabarit Figma `back` (66:45). */
+/** Côté de `icon/chevron-left` (64:12) dans le gabarit Figma `back` (66:45). */
 const TAILLE_RETOUR = 24 as const;
 
 /**
@@ -25,11 +25,8 @@ export function SiteHeader({ hasBack = false }: SiteHeaderProps) {
       {hasBack ? (
         // « Back » n'est écrit nulle part dans le Figma : l'icône y est seule. Le nom
         // accessible est pourtant obligatoire, un lien sans texte n'est pas annonçable.
-        // FIGMA-MANQUANT: la couleur de `icon/arrow-left` est peinte dans le SVG, sans
-        // variable liée (`get_variable_defs` sur 66:45 ne rend rien) et le SVG n'a pas pu
-        // être téléchargé : l'icône prend ici la couleur du titre, à confirmer avec Alex.
         <Link href="/" className={styles.back} aria-label="Back">
-          <MissingIcon size={TAILLE_RETOUR} />
+          <IconChevronLeft size={TAILLE_RETOUR} />
         </Link>
       ) : null}
       <p className={styles.title}>SiemPass</p>

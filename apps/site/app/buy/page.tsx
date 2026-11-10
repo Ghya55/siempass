@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { classesBouton } from "./_composants/bouton";
+import { IconCheck } from "../ui/icons";
 import { SiteHeader } from "../ui/SiteHeader";
 import styles from "./page.module.css";
 
@@ -8,6 +9,9 @@ export const metadata: Metadata = {
   title: "The SiemPass — $20",
   description: "One pass, a perk at every partner venue in Siem Reap.",
 };
+
+/** Côté de `icon/check` (7:658) dans cet écran. */
+const TAILLE_COCHE = 20 as const;
 
 /** Les trois arguments du Figma 09.1 (7:656), dans l'ordre de la maquette. */
 const AVANTAGES = [
@@ -30,7 +34,9 @@ export default function BuyPage() {
         <ul className={styles.avantages}>
           {AVANTAGES.map((avantage) => (
             <li key={avantage} className={styles.avantage}>
-              <IconeCoche />
+              <span className={styles.coche}>
+                <IconCheck size={TAILLE_COCHE} />
+              </span>
               <span>{avantage}</span>
             </li>
           ))}
@@ -43,29 +49,5 @@ export default function BuyPage() {
         </Link>
       </main>
     </div>
-  );
-}
-
-// FIGMA-MANQUANT: le SVG `icon/check` (7:658) n'a pas pu être téléchargé — figma.com est refusé
-// par le proxy de la session. Tracé approché, à remplacer par l'asset exact. Taille (20) et
-// couleur (--color-status-success-fg) viennent bien de Figma, elles ne sont pas inventées.
-function IconeCoche() {
-  return (
-    <svg
-      className={styles.coche}
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M4 10.5 8 14.5 16 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

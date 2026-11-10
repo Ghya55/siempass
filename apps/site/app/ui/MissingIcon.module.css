@@ -1,7 +1,0 @@
-/* Place tenue par une icône du Figma qui n'a pas pu être téléchargée (voir MissingIcon.tsx). */
-.missingIcon {
-  display: block;
-  flex: none;
-  border: 1px dashed currentColor;
-  border-radius: var(--radius-sm);
-}

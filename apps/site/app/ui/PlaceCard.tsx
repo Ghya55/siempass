@@ -1,4 +1,4 @@
-import { MissingIcon } from "./MissingIcon";
+import { IconPhoto } from "./icons";
 import styles from "./PlaceCard.module.css";
 
 /**
@@ -42,8 +42,8 @@ function PlacePhoto({ name, photoUrl }: Pick<PlaceCardProps, "name" | "photoUrl"
   if (photoUrl === null || photoUrl === "") {
     return (
       <div className={styles.photoPlaceholder}>
-        {/* FIGMA-MANQUANT: `icon/photo` (5:45), voir MissingIcon.tsx. Taille exacte (32 px). */}
-        <MissingIcon size={TAILLE_ICONE_PHOTO} />
+        {/* FIGMA-MANQUANT: `icon/photo` (5:45) tracé à la main, voir icons.tsx. Taille (32). */}
+        <IconPhoto size={TAILLE_ICONE_PHOTO} />
         <span className={styles.photoCaption}>Storefront photo</span>
       </div>
     );

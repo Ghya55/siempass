@@ -33,6 +33,12 @@
   --color-status-warning-bg: #fbefd5;
   --color-status-warning-fg: #8a5a12;
 
+  /* Relevées sur les écrans de la page pass et de la feuille de paiement (57:197, 57:218,
+     57:268, 57:321) : variables du fichier Figma elles aussi, pas des valeurs choisies ici. */
+  --color-status-success-fg: #1d6b47;
+  --color-status-danger-bg: #fbe2de;
+  --color-status-danger-fg: #b8352a;
+
   /* Typographie */
   --font-family-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-family-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -42,6 +48,7 @@
   --font-size-lg: 18px;
   --font-size-xl: 22px;
   --font-size-2xl: 28px;
+  --font-size-3xl: 36px;
 
   /* Espacements */
   --space-2xs: 4px;
@@ -56,7 +63,15 @@
   --radius-sm: 4px;
   --radius-control: 8px;
   --radius-card: 16px;
+  --radius-sheet: 24px;
   --radius-pill: 999px;
+
+  /* Mouvement. Figma ne porte ni durée ni courbe : ce sont des choix de développement, posés
+     ici une fois pour que la feuille de paiement, son fond et les appuis bougent ensemble.
+     --duree-feuille sert à la fois à la montée de la feuille et à l'assombrissement du fond :
+     c'est ce qui les rend corrélés quand ils ne sont pas tenus par le doigt (VIS-30). */
+  --ease-sortie: cubic-bezier(0.2, 0, 0, 1);
+  --duree-feuille: 320ms;
 }
 
 body {

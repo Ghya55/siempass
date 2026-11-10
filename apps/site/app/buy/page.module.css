@@ -65,6 +65,7 @@
 }
 
 .coche {
+  display: flex;
   flex: none;
   color: var(--color-status-success-fg, #1d6b47);
 }
