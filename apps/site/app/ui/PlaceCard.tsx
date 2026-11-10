@@ -1,3 +1,4 @@
+import { IconPhoto } from "./icons";
 import styles from "./PlaceCard.module.css";
 
 /**
@@ -7,6 +8,9 @@ import styles from "./PlaceCard.module.css";
  * Les noms de props sont ceux du Figma : `name`, `address`, `description`, `avantage`.
  * `photoUrl` s'y ajoute : la carte du Figma ne montre que l'état sans photo.
  */
+/** Côté de `icon/photo` dans le gabarit Figma `photo` (5:44). */
+const TAILLE_ICONE_PHOTO = 32 as const;
+
 export type PlaceCardProps = {
   readonly name: string;
   readonly address: string;
@@ -38,10 +42,8 @@ function PlacePhoto({ name, photoUrl }: Pick<PlaceCardProps, "name" | "photoUrl"
   if (photoUrl === null || photoUrl === "") {
     return (
       <div className={styles.photoPlaceholder}>
-        {/* FIGMA-MANQUANT: l'icône `icon/photo` (5:45) du Figma n'a pas pu être téléchargée —
-            www.figma.com est refusé par le proxy de sortie des sessions de l'équipe. Carré
-            tenant la place et la taille exactes (32 px), à remplacer par le SVG. */}
-        <span className={styles.missingIcon} aria-hidden="true" />
+        {/* FIGMA-MANQUANT: `icon/photo` (5:45) tracé à la main, voir icons.tsx. Taille (32). */}
+        <IconPhoto size={TAILLE_ICONE_PHOTO} />
         <span className={styles.photoCaption}>Storefront photo</span>
       </div>
     );

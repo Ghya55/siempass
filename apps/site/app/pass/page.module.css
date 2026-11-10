@@ -1,0 +1,13 @@
+/* Écrans Figma « 11 · Pass » (57:197) et « 11.1 · Pass » (57:321), cadre mobile de 390 px.
+
+   `height` et non `min-height` : l'argumentaire tient dans une hauteur d'écran, sans
+   défilement (VIS-6, VIS-23). C'est ici que ça se décide — l'en-tête garde ses 64 px, le
+   bouton garde les siens, et la bande `PassPitch` absorbe le reste. */
+.shell {
+  composes: pageShell from global;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg-app);
+}

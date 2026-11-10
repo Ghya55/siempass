@@ -1,0 +1,193 @@
+/* Figma `PaymentSheet` (56:75), cadres 57:218 · 71:358 · 57:268.
+
+   Le mouvement (VIS-30, VIS-33) tient en quatre règles ci-dessous. Une seule grandeur,
+   `--ouverture` (0 fermée, 1 grande ouverte), décide de la position de la feuille et de
+   l'assombrissement du fond : l'un est calculé de l'autre, ils ne peuvent pas se décaler.
+   Hors geste, `data-open` les ramène à leurs valeurs de repos, chacun par une transition de
+   même durée et de même courbe. Dans les deux cas, seuls `transform` et `opacity` changent :
+   aucune hauteur, aucune position, donc aucune mise en page recalculée pendant le mouvement. */
+.root {
+  --ouverture: 1;
+  /* Opacité du cadre `scrim` (I71:234;56:5) : 55 %. Écrite une seule fois, les deux règles
+     qui assombrissent le fond la lisent ici. */
+  --opacite-fond: 0.55;
+
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  /* Fermée, la feuille reste dans la page mais disparaît : plus rien à cliquer, à tabuler ni
+     à annoncer. Le délai laisse la descente se voir avant que tout cela ne s'éteigne — c'est
+     la seule chose que `visibility` transitionne, et elle ne coûte pas une frame. */
+  visibility: hidden;
+  transition: visibility 0s linear var(--duree-feuille);
+}
+
+.root[data-open="true"] {
+  visibility: visible;
+  transition: visibility 0s linear 0s;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-inverse);
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: var(--duree-feuille);
+  transition-timing-function: var(--ease-sortie);
+}
+
+.root[data-open="true"] .scrim {
+  opacity: var(--opacite-fond);
+}
+
+/* Cadre `sheet` (I71:234;56:6). `max-width` reprend celle de la colonne du site : sur un grand
+   écran la feuille reste dans les 390 px du Figma, et c'est le fond qui couvre le reste. */
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 390px;
+  margin-inline: auto;
+  /* Le bas du Figma (32) plus la barre d'accueil du téléphone : `viewport-fit=cover` laisse
+     le contenu passer dessous, la mention de paiement s'y cacherait. */
+  padding: var(--space-sm) var(--space-md) calc(var(--space-xl) + env(safe-area-inset-bottom));
+  background: var(--color-surface-default);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  font-family: var(--font-family-text);
+  transform: translateY(100%);
+  transition-property: transform;
+  transition-duration: var(--duree-feuille);
+  transition-timing-function: var(--ease-sortie);
+  /* Le glissement vertical appartient à la feuille, pas au navigateur. */
+  touch-action: none;
+  outline: none;
+}
+
+.root[data-open="true"] .sheet {
+  transform: translateY(0);
+}
+
+/* Tenue au doigt : la transition s'efface, les deux valeurs suivent `--ouverture` au pixel.
+   Ces deux règles viennent après les règles d'état, à spécificité égale : elles l'emportent. */
+.root[data-dragging="true"] .sheet {
+  transform: translateY(calc((1 - var(--ouverture)) * 100%));
+  transition: none;
+}
+
+.root[data-dragging="true"] .scrim {
+  opacity: calc(var(--ouverture) * var(--opacite-fond));
+  transition: none;
+}
+
+/* Moins d'animation demandée : la feuille et le fond prennent leur état sans trajet. Le
+   glissement au doigt, lui, continue de marcher — c'est une commande, pas une décoration. */
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .sheet,
+  .scrim {
+    transition: none;
+  }
+}
+
+/* Bloc `grabberRow` (I71:234;56:7). */
+.grabberRow {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.grabber {
+  width: 40px;
+  height: 4px;
+  background: var(--color-border-default);
+  border-radius: var(--radius-pill);
+}
+
+.title {
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  line-height: 1.2;
+  color: var(--color-text-default);
+}
+
+/* Bloc `summary` (I71:234;56:10). */
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-control);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-default);
+  white-space: nowrap;
+}
+
+/* Bloc `methods` (I71:234;56:13). */
+.methods {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+/* Bloc `action` (I71:234;56:33). */
+.action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+/* Bloc `error` (I71:293;56:67), état `declined`. */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--color-status-danger-bg);
+  border-radius: var(--radius-control);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  color: var(--color-status-danger-fg);
+}
+
+.errorTitle {
+  width: 100%;
+  margin: 0;
+  font-weight: 600;
+}
+
+.errorBody {
+  width: 100%;
+  margin: 0;
+  font-weight: 400;
+}
+
+.notice {
+  width: 100%;
+  margin: 0;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+  text-align: center;
+}

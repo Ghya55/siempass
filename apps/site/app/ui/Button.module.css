@@ -1,0 +1,110 @@
+/* Figma `Button` (5:10). */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius-control);
+  font-family: var(--font-family-text);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  /* Appui : le bouton s'enfonce légèrement. Transition (et non animation) pour qu'un appui
+     relâché en cours de route revienne sans saccade. Seul `transform` est animé. */
+  transition-property: transform;
+  transition-duration: 150ms;
+  transition-timing-function: var(--ease-sortie);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.button:disabled {
+  cursor: default;
+}
+
+/* Les hauteurs sont celles des variantes Figma, et elles sont posées sur les deux états, pas
+   seulement sur `loading` : l'icône (16 · 20 · 24) est plus haute que la ligne du libellé aux
+   tailles lg et xl, une hauteur libre ferait donc sauter le bouton entre `default` avec icône,
+   `default` sans icône et `loading` (VIS-31, VIS-34). `box-sizing: border-box` est global :
+   les hauteurs de `secondary` incluent son filet d'un pixel, comme dans Figma. */
+.sizeMd {
+  height: 34px;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.sizeLg {
+  height: 42px;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.sizeXl {
+  height: 71px;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  font-size: var(--font-size-lg);
+  line-height: 1.3;
+}
+
+.tonePrimary {
+  background: var(--color-accent-default);
+  color: var(--color-text-inverse);
+}
+
+.toneSecondary {
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text-default);
+}
+
+.toneSecondary.sizeMd {
+  height: 36px;
+}
+
+.toneSecondary.sizeLg {
+  height: 44px;
+}
+
+.toneSecondary.sizeXl {
+  height: 73px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* « icon/spinner (64:18) — Chargement : arc 3/4. La rotation est côté développement. »
+   Un tour par seconde, assez lent pour ne pas scintiller ; coupé si le visiteur a demandé
+   moins d'animation, l'arc reste alors immobile. */
+.spinner {
+  display: flex;
+  animation: rotationSpinner 1s linear infinite;
+}
+
+@keyframes rotationSpinner {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button:active:not(:disabled) {
+    transform: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}

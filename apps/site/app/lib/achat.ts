@@ -1,4 +1,4 @@
-import { createSupabaseClient } from "@siempass/db";
+import { createSupabaseClient, SUPABASE_PUBLISHABLE_KEY } from "@siempass/db";
 
 /**
  * Résultat de l'achat, tel que la fonction `acheter-pass` le décide.
@@ -13,7 +13,27 @@ export type ResultatAchat =
 
 const FONCTION = "acheter-pass" as const;
 
+const CLE_ABSENTE =
+  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY absente de l'environnement : à poser dans Vercel (voir .env.example).";
+
+/**
+ * Le seul chemin par lequel un pass s'achète. Il ne lève jamais : sans clé, `supabase-js` lève
+ * au lieu de répondre (même garde que `fetchPublishedPlaces` et `useBrowserPass`), et un appel
+ * réseau peut échouer à tout moment. Une exception ici laisserait le bouton de paiement sans
+ * réponse et le visiteur sans message (VIS-31, VIS-34) : tout ressort en `erreur`.
+ */
 export async function acheterPass(): Promise<ResultatAchat> {
+  if (SUPABASE_PUBLISHABLE_KEY === "") {
+    return { resultat: "erreur", detail: CLE_ABSENTE };
+  }
+  try {
+    return await appelerFonction();
+  } catch (cause) {
+    return { resultat: "erreur", detail: cause instanceof Error ? cause.message : String(cause) };
+  }
+}
+
+async function appelerFonction(): Promise<ResultatAchat> {
   const supabase = createSupabaseClient();
   const { data, error } = await supabase.functions.invoke<unknown>(FONCTION, { body: {} });
 

@@ -1,0 +1,113 @@
+/* Figma `HomePassCard` (55:131), états 55:129, 55:130 et 69:56. */
+
+/* La hauteur est la même dans les trois états : c'est elle qui tient la liste des lieux en
+   place quand la réponse à « ai-je un pass ? » arrive (VIS-31, VIS-34). */
+.card {
+  display: flex;
+  width: 100%;
+  height: 158px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.brandCard {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-surface-brand);
+}
+
+.pitch {
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  line-height: 1.2;
+  color: var(--color-text-default);
+}
+
+.pitchSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 20px;
+  background: var(--color-surface-brand-strong);
+  border-radius: var(--radius-sm);
+}
+
+.barShort {
+  width: 210px;
+  max-width: 100%;
+}
+
+/* Exactement la hauteur du bouton `lg` qui prendra sa place. */
+.actionSkeleton {
+  display: block;
+  width: 100%;
+  height: 42px;
+  background: var(--color-surface-brand-strong);
+  border-radius: var(--radius-control);
+}
+
+.passCard {
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-bg-inverse);
+  color: var(--color-text-inverse);
+}
+
+.qr,
+.chevron {
+  display: flex;
+  flex: none;
+}
+
+.details {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  font-family: var(--font-family-text);
+}
+
+.heading {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.code {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.validity {
+  width: 100%;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.provisional {
+  padding: var(--space-2xs) var(--space-sm);
+  background: var(--color-status-warning-bg);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-status-warning-fg);
+}

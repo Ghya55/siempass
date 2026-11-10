@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { acheterPass } from "../_composants/achat";
+import { acheterPass } from "@/app/lib/achat";
 import { classesBouton } from "../_composants/bouton";
-import { SiteHeader } from "../_composants/site-header";
+import { SiteHeader } from "../../ui/SiteHeader";
 import styles from "./page.module.css";
 
 /** Les trois moyens de paiement montrés (DEMO-28), libellés exacts du Figma 7:687. */

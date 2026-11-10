@@ -16,14 +16,7 @@
   height: 56px;
   background: var(--color-surface-muted);
   border-radius: var(--radius-pill);
-}
-
-/* Place tenue par une icône du Figma qui n'a pas pu être téléchargée (voir EmptyState.tsx). */
-.missingIcon {
-  width: 24px;
-  height: 24px;
-  border: 1px dashed var(--color-text-muted);
-  border-radius: var(--radius-control);
+  color: var(--color-text-muted);
 }
 
 .title {
