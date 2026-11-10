@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createSupabaseClient } from "@siempass/db";
 import { classesBouton } from "@/app/buy/_composants/bouton";
-import { SiteHeader } from "@/app/buy/_composants/site-header";
+import { formatPassDate } from "@/app/ui/pass-date";
+import { SiteHeader } from "@/app/ui/SiteHeader";
 import { QrCode } from "./_composants/qr-code";
 import styles from "./page.module.css";
 
@@ -59,7 +60,7 @@ export default async function PassPage({ params }: ProprietesPage) {
           <p className={styles.code}>{pass.code}</p>
 
           <div className={styles.validite}>
-            <p className={styles.jusquAu}>Valid until {formaterDate(pass.valide_jusqu_au)}</p>
+            <p className={styles.jusquAu}>Valid until {formatPassDate(pass.valide_jusqu_au)}</p>
             {/* DEMO-9 : toute date affichée porte sa mention de provisoire, tant que la durée
                 de validité n'est pas tranchée (« Ouvert pour Ghya » 2 des deux specs). */}
             <p className={styles.provisoire}>Validity period not final</p>
@@ -79,17 +80,4 @@ export default async function PassPage({ params }: ProprietesPage) {
       </main>
     </div>
   );
-}
-
-/**
- * « December 9, 2026 », comme le Figma. En UTC : `valide_jusqu_au` est une date sans heure,
- * la lire dans le fuseau du serveur la décalerait d'un jour une partie de la journée.
- */
-function formaterDate(date: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(date));
 }

@@ -1,6 +1,10 @@
+import { MissingIcon } from "./MissingIcon";
 import styles from "./EmptyState.module.css";
 
 /** Figma `EmptyState` (5:30) — « État vide d'une liste. » `body` absent = `hasBody` à faux. */
+/** Côté de `icon/pin` dans le gabarit Figma `iconCircle` (5:31). */
+const TAILLE_ICONE_PIN = 24 as const;
+
 export type EmptyStateProps = {
   readonly title: string;
   readonly body?: string;
@@ -10,10 +14,8 @@ export function EmptyState({ title, body }: EmptyStateProps) {
   return (
     <div className={styles.emptyState}>
       <div className={styles.iconCircle}>
-        {/* FIGMA-MANQUANT: l'icône `icon/pin` (5:32) n'a pas pu être téléchargée — www.figma.com
-            est refusé par le proxy de sortie des sessions de l'équipe. Carré tenant la place et
-            la taille exactes (24 px), à remplacer par le SVG. */}
-        <span className={styles.missingIcon} aria-hidden="true" />
+        {/* FIGMA-MANQUANT: `icon/pin` (5:32), voir MissingIcon.tsx. Taille exacte (24 px). */}
+        <MissingIcon size={TAILLE_ICONE_PIN} />
       </div>
       <p className={styles.title}>{title}</p>
       {body === undefined ? null : <p className={styles.body}>{body}</p>}

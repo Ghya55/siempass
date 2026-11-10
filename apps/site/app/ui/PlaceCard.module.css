@@ -28,14 +28,7 @@
   justify-content: center;
   gap: var(--space-xs);
   background: var(--color-surface-brand-strong);
-}
-
-/* Place tenue par une icône du Figma qui n'a pas pu être téléchargée (voir PlaceCard.tsx). */
-.missingIcon {
-  width: 32px;
-  height: 32px;
-  border: 1px dashed var(--color-text-accent);
-  border-radius: var(--radius-control);
+  color: var(--color-text-accent);
 }
 
 .photoCaption {

@@ -23,6 +23,16 @@
   --color-accent-subtle: #f8e3d8;
   --color-border-default: #dcdcd7;
 
+  /* Relevées sur les écrans du parcours visiteur (57:49, 57:107, 73:117) : ce sont des
+     variables du fichier Figma, pas des valeurs choisies ici. `packages/tokens` ne les porte
+     pas encore — il sera remplacé en bloc, avec le back-office, dans sa propre PR. */
+  --color-bg-app: #f6f6f4;
+  --color-bg-inverse: #1f1a17;
+  --color-surface-brand: #f4ebdd;
+  --color-border-strong: #9c9c95;
+  --color-status-warning-bg: #fbefd5;
+  --color-status-warning-fg: #8a5a12;
+
   /* Typographie */
   --font-family-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-family-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -43,6 +53,7 @@
   --space-2xl: 48px;
 
   /* Rayons */
+  --radius-sm: 4px;
   --radius-control: 8px;
   --radius-card: 16px;
   --radius-pill: 999px;
