@@ -43,7 +43,29 @@
   list-style: none;
 }
 
+/* L'état inactif n'est pas dans la description Figma de la barre, qui ne montrait qu'un seul
+   élément, actif. Même gabarit que l'actif, sans le fond ni l'accent. */
+.navItem {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-control);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.navItem:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-text-default);
+}
+
 .navItemActif {
+  text-decoration: none;
   display: flex;
   gap: var(--space-xs);
   align-items: center;

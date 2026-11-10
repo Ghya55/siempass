@@ -1,10 +1,9 @@
 "use server";
 
 import type { EtatPartenaire } from "@siempass/db";
+import type { ResultatEcriture } from "../lib/ecriture";
 import { creerClientAdmin } from "../lib/supabase-serveur";
 import { champsManquants, type SaisiePartenaire } from "./partenaire";
-
-export type ResultatEcriture = { statut: "ok" } | { statut: "erreur"; message: string };
 
 /* Les écritures passent par le rôle `authenticated` : la session est lue dans les cookies de la
    requête (migration 20261110120000). La clé publishable seule n'écrit plus rien, et une action

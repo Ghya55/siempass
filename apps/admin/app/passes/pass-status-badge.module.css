@@ -1,0 +1,37 @@
+.badge {
+  display: inline-flex;
+  gap: var(--space-2xs);
+  align-items: center;
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: currentcolor;
+}
+
+.valide {
+  background: var(--color-status-success-bg);
+  color: var(--color-status-success-fg);
+}
+
+.utilise {
+  background: var(--color-status-neutral-bg);
+  color: var(--color-status-neutral-fg);
+}
+
+/* Pas de couleur « danger » dans le bloc Figma des tokens, et un manque dans Figma ne
+   s'invente pas (c'est pourquoi l'écran des partenaires rend ses erreurs en neutre). « Expired »
+   se distingue donc de « Used » par un ton plus effacé, pris lui aussi dans le Figma. */
+.expire {
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}

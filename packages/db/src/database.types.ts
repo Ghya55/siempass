@@ -108,6 +108,12 @@ export type Database = {
       /* Fiche du partenaire derrière son jeton d'accès (PART-7), ajoutée par la migration
          20261110120000 : `partners` n'est plus lisible en entier avec la seule clé publishable.
          `etat` est rendu en `text` par la fonction, comme la colonne : même type côté TypeScript. */
+      /* Remet un pass dans l'état « jamais utilisé » (migration 20261110160000). `void` côté
+         Postgres, donc aucune donnée en retour : seule l'erreur est à lire. */
+      rafraichir_pass: {
+        Args: { pass_id: string };
+        Returns: undefined;
+      };
       partenaire_par_jeton: {
         Args: { jeton_demande: string };
         Returns: {
