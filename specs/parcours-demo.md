@@ -20,10 +20,10 @@ figma:
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-530  # 10.2 valide
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-546  # 10.3 déjà utilisé
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=7-562  # 10.4 invalide
-maj: 2026-11-10
+maj: 2026-11-14
 ---
 
-*Préfixe des identifiants : `DEMO-`. Objet manipulé : [Partenaire](partenaire.md).*
+*Préfixe des identifiants : `DEMO-`. Objet manipulé : [Partenaire](partenaire.md). Depuis le 14/11, le lieu, l'avantage et l'état vivent sur le lieu ([venues.md](venues.md)) : là où cette démonstration dit « partenaire en ligne », le produit dit « lieu en ligne ».*
 
 ## Intention
 Ghya montre à son associé, en une seule traversée du produit, qu'un partenaire saisi une fois dans notre back-office arrive sur le site public, que le partenaire voit sa fiche sans compte à créer, et qu'un pass acheté se valide au comptoir en quelques secondes — ce que Notion ne faisait pas.
@@ -64,7 +64,7 @@ Dix étapes, dans cet ordre.
 
 **DEMO-9 — Toute date est provisoire.** Si le pass de l'étape 9 affiche une date de validité, elle porte la mention « Durée de validité provisoire » : la durée n'est pas tranchée.
 
-**DEMO-10 — Un seul partenaire, un seul pass.** La démonstration ne montre ni liste de plusieurs partenaires, ni plusieurs passes, ni statistiques, ni export.
+**DEMO-10 — Un seul partenaire, un seul pass.** La démonstration ne montre ni liste de plusieurs partenaires, ni plusieurs passes, ni statistiques, ni export. Hors démonstration, un partenaire porte plusieurs lieux depuis le 14/11 ([VEN-1](venues.md#ven-1)).
 
 **DEMO-27 — Interface en anglais.** Les écrans sont en anglais : Ghya et l'associé travaillent en anglais. Les textes entre « » de cette spec donnent le sens ; le libellé anglais exact est celui du Figma. La traduction viendra plus tard.
 
@@ -84,7 +84,7 @@ Le produit décrit dans cette spec est le vrai produit. Pour la démonstration d
 **DEMO-26 — Le reste est réel.** La base, la table, l'état du partenaire, le QR code et la validation sont les vrais. Chacun des quatre points simulés se remplace par son équivalent réel sans toucher au parcours décrit ici.
 
 ## Cas limites
-**DEMO-11 — Scan du même QR code deux fois de suite.** Le second scan donne « pass déjà utilisé » : c'est le cas que Ghya montre volontairement, juste après le cas valide.
+**DEMO-11 — Scan du même QR code deux fois de suite.** Le second scan donne « pass déjà utilisé » : c'est le cas que Ghya montre volontairement, juste après le cas valide. Tranché le 14/11 : un pass se valide une fois dans chaque lieu ([VEN-8](venues.md#ven-8)) ; « déjà utilisé » voudra dire « déjà validé dans ce lieu » avec la tâche du scan par lieu, et d'ici là le scan reste celui-ci.
 
 **DEMO-12 — QR code étranger.** Un QR code qui n'est pas un pass SiemPass donne « Pass invalide », sans autre explication.
 
@@ -108,11 +108,9 @@ Le produit décrit dans cette spec est le vrai produit. Pour la démonstration d
 **DEMO-21 — Rien n'est en dur.** Le lieu affiché sur le site public vient de la ligne saisie à l'étape 2, pas d'un contenu figé dans le code.
 
 ## Ouvert pour Ghya
-1. Un même contact peut-il porter plusieurs lieux ?
-2. Quelle est la durée de validité du pass ? Tant qu'elle n'est pas tranchée, la date affichée sur le pass reste provisoire ([DEMO-9](parcours-demo.md#demo-9)).
-3. L'avantage est-il unique (une fois par pass et par lieu) ou répétable ? La réponse change l'écran « pass déjà utilisé ».
-4. Qui saisit les partenaires en vrai : Ghya, l'associé, ou le partenaire lui-même ?
-5. Montre-t-on le cas « paiement refusé » pendant la démonstration, ou seulement les cas qui marchent ?
+1. Quelle est la durée de validité du pass ? Tant qu'elle n'est pas tranchée, la date affichée sur le pass reste provisoire ([DEMO-9](parcours-demo.md#demo-9)).
+2. Qui saisit les partenaires en vrai : Ghya, l'associé, ou le partenaire lui-même ?
+3. Montre-t-on le cas « paiement refusé » pendant la démonstration, ou seulement les cas qui marchent ?
 
 ## Détails techniques
 Les étapes 1 à 7 se passent dans `apps/admin`, les étapes 8 et 9 dans `apps/site`, l'étape 10 sur l'écran mobile de scan du back-office sous le rôle `partner`.
