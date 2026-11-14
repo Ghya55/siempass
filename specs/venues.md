@@ -11,6 +11,7 @@ figma:
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=157-1571  # fiche du lieu (panneau) · brouillon
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=157-1801  # fiche du lieu (panneau) · en ligne
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=157-1851  # fiche du lieu (panneau) · création
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=160-1872  # fiche du lieu (panneau) · création, partenaire prérempli (VEN-22)
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=157-1901  # fiche du lieu (panneau) · erreurs de publication (VEN-23)
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=128-244  # éditeur · article vide
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=128-450  # éditeur · rempli
@@ -20,7 +21,7 @@ figma:
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=125-352  # fiche · sans photo d'en-tête (VEN-19)
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=125-409  # fiche · sans bloc (VEN-20)
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=128-2036  # Partners · colonne Venues
-maj: 2026-11-14
+maj: 2026-11-15
 ---
 *Préfixe des identifiants : `VEN-`. Décisions de Ghya du 14/11 (réunion avec Clinton et Seang), révisées le soir : fiche du lieu en panneau. Touche [Partenaire](partenaire.md), [Parcours du visiteur](parcours-visiteur.md).*
 
@@ -47,7 +48,7 @@ L'admin crée un lieu (bar, restaurant) rattaché à un partenaire, en renseigne
 | État | `brouillon` ou `en ligne` | fiche | auto | — | `brouillon` |
 
 2. **Page « Venues » (back-office, desktop).** Titre « Venues », bouton « Add a venue », tableau à une ligne par lieu, colonnes « Venue », « Partner », « Category », « Status » (« Draft » ou « Live »). Vide : « No venues yet ». Filtrée sur un partenaire : « Partner: <prénom> <nom> » et le lien « Show all venues ». Le clic sur une ligne ouvre la fiche du lieu à droite du tableau ; « Add a venue » ouvre la même fiche en création.
-3. **Fiche du lieu (panneau de droite, même geste que le panneau de Partners).** En haut, les seules actions : « Publish » (brouillon) ou « Back to draft » (en ligne), et « Edit page », qui ouvre l'éditeur. Dessous, modifiables : « Name », « Tagline », « Partner » (liste déroulante, « Choose a partner »), « Category », « Address », « Google Maps link », « Opening hours », « Perk for pass holders » ; « Save » enregistre. En création, titre « New venue » et seul « Save » en haut ; une fois créé, le panneau montre la fiche du lieu avec ses actions.
+3. **Fiche du lieu (panneau de droite, même geste que le panneau de Partners).** En haut, les seules actions : « Publish » (brouillon) ou « Back to draft » (en ligne), et « Edit page », qui ouvre l'éditeur. Dessous, modifiables : « Name », « Tagline », « Partner » (liste déroulante, « Choose a partner »), « Category », « Address », « Google Maps link », « Opening hours », « Perk for pass holders » ; « Save », en pied de panneau, enregistre. En création, titre « New venue », aucune action en haut et « Save » au même endroit, en pied ; une fois créé, le panneau montre la fiche du lieu avec ses actions.
 4. **Éditeur de l'article (pleine page).** En haut : « Back to venues », le nom du lieu (non modifiable ici), l'état, « Save ».
    - *Colonne de gauche* : le cadre de la photo d'en-tête avec « Add photo » au centre ; posée, la photo remplit le cadre et un crayon, à droite hors du cadre, la change. Dessous, une zone visuellement à part, titrée « Article », qui contient les blocs et, sous le dernier, toujours « Add paragraph » et « Add photo ».
    - *Colonne de droite* : la fiche publique entière telle qu'un téléphone l'affiche ; nom, tagline, infos pratiques et avantage viennent de la fiche du lieu, les blocs et la photo sont ceux de l'éditeur.
@@ -111,7 +112,7 @@ L'admin crée un lieu (bar, restaurant) rattaché à un partenaire, en renseigne
 
 **VEN-25 — Échec d'envoi d'une photo.** Le cadre ou le bloc photo affiche « Upload failed. » et « Try again » ; la photo précédente reste en place, le reste du formulaire est intact.
 
-**VEN-26 — Quitter l'éditeur avec des modifications non enregistrées.** « Back to venues » demande « Leave without saving? », « Leave » / « Stay ».
+**VEN-26 — Quitter l'éditeur avec des modifications non enregistrées.** « Back to venues » demande « Leave without saving? », « Leave » / « Stay ». Fermer le panneau de la fiche avec des modifications non enregistrées ne pose aucune question (tranché par Ghya le 15/11, avec les libellés « Edit page » et « Article » et « Publish » dans le seul panneau).
 
 **VEN-27 — Lieu repris sans auteur ni catégorie.** La fiche n'a pas de ligne « Written by » ; il reste en ligne, mais sa première modification exige une catégorie ([VEN-24](venues.md#ven-24)).
 
@@ -140,7 +141,6 @@ L'admin crée un lieu (bar, restaurant) rattaché à un partenaire, en renseigne
 7. Hypothèse produit : la liste de l'accueil mène aussi à la fiche ; la description courte des cartes est remplacée par la tagline.
 8. Supprimer un lieu : non prévu (aucun partenaire ne se supprime non plus). À trancher si un lieu ferme.
 9. Manques relevés par Alex au Figma, dessinés par hypothèse : invite du champ « Category » du panneau (« Choose a category »), catégorie d'un lieu repris dans le tableau (« — »), preview d'un lieu vide (rien de vide n'est rendu), échec du premier envoi d'un bloc photo (pas de photo précédente), barre latérale gardée dans l'éditeur, preview mise à jour au dépôt du bloc et non pendant le glisser. Tant qu'on y est, non fait : ordre des lieux dans la liste, filtre par catégorie, fiche partagée sur les réseaux (aperçu Open Graph au-delà du minimum SEO).
-10. Hypothèses produit nées de la révision du 14/11 au soir : « Edit page » et « Article » (libellés proposés) ; « Save » dans le panneau comme dans l'éditeur, « Publish » seulement dans le panneau ; en création, seul « Save », puis la fiche du lieu créé ; fermer le panneau avec des modifications non enregistrées : sans question.
 
 ## Détails techniques
 - **Table `venues`**, une seule : `events` et `activities` viendront avec leur feature. Clé étrangère vers `partners` (non nulle), auteur = `auth.uid()` par défaut côté base (nul pour les lieux repris), état à deux valeurs comme `partners.etat`, adresse de page unique. Les blocs : un tableau ordonné en `jsonb` sur la ligne suffit (une écriture, un ordre) ; le choix appartient à Stéphane. Nommage : Stéphane.
