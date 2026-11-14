@@ -1,0 +1,61 @@
+/* Figma `EditorHeader` (125:259) : 1200 × 133, fond blanc, filet bas. */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  width: 100%;
+  padding: var(--space-2xl) var(--space-xl);
+  border-bottom: 1px solid var(--color-border-default);
+  background: var(--color-surface-default);
+}
+
+.lead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+/* « Back to venues » : `ui/label`, texte secondaire. */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  border-radius: var(--radius-control);
+  color: var(--color-text-muted);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  outline: none;
+}
+
+.back:hover {
+  color: var(--color-text-default);
+}
+
+.back:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent-default);
+}
+
+.divider {
+  width: 1px;
+  height: var(--space-lg);
+  background: var(--color-border-default);
+}
+
+/* Nom du lieu : `ui/heading`. */
+.name {
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,18 @@
+/* Figma `FormAlert` (125:210) : fond et texte « danger », `ui/label`. Les deux variables ne sont
+   pas encore dans packages/tokens : repli en dur, même convention que apps/admin/app/p/[jeton]/scan. */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
+  margin: 0;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-control);
+  background: var(--color-status-danger-bg, #fbe2de);
+  color: var(--color-status-danger-fg, #b8352a);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}

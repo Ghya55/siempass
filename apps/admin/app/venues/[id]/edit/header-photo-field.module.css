@@ -1,0 +1,89 @@
+/* Figma `HeaderPhotoField` (125:83). */
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+/* Cadre 288 × 192 : ratio 3:2 de l'en-tête public (VEN-14). */
+.empty,
+.photo {
+  display: block;
+  width: 288px;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-card);
+  transition: opacity 150ms ease-out;
+}
+
+/* state=empty (125:36) : pointillés, fond atténué, icône et « Add photo » à l'accent. */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 0;
+  border: 1px dashed var(--color-border-strong);
+  background: var(--color-surface-muted);
+  color: var(--color-text-accent);
+  cursor: pointer;
+  outline: none;
+}
+
+.empty:hover {
+  border-color: var(--color-accent-default);
+}
+
+.empty:focus-visible,
+.pencil:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-accent-default);
+}
+
+/* Style `ui/label`. */
+.emptyLabel {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* state=filled (125:43) : la photo remplit le cadre. */
+.photo {
+  object-fit: cover;
+  background: var(--color-surface-brand-strong);
+}
+
+/* Crayon hors du cadre, 36 × 36. */
+.pencil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-default);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  outline: none;
+  transition: transform 150ms ease-out;
+}
+
+.pencil:active {
+  transform: scale(0.96);
+}
+
+/* FIGMA-MANQUANT: état d'envoi en cours non dessiné (placeholder). */
+.empty[data-uploading="true"],
+.photo[data-uploading="true"] {
+  opacity: 0.6;
+  cursor: progress;
+}
