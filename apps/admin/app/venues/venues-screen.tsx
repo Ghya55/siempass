@@ -10,6 +10,7 @@ import { VenueFilterBar } from "../components/venue-filter-bar";
 import { VenueRow } from "../components/venue-row";
 import { VenueTableHeaderRow } from "../components/venue-table-header-row";
 import { CHEMIN_VENUES } from "../lib/chemins";
+import { MESSAGE_ECHEC_ENREGISTREMENT } from "../lib/ecriture";
 import { creerLieu, enregistrerLieu, publierLieu, repasserLieuEnBrouillon } from "./actions";
 import {
   libelleDeCategorie,
@@ -63,7 +64,7 @@ export const VenuesScreen: FC<VenuesScreenProps> = ({
   const ecrire = async (ecriture: () => Promise<ResultatLieu>): Promise<ResultatLieu> => {
     setEnCours(true);
     setErreurEcriture(null);
-    const resultat = await ecriture();
+    const resultat = await ecriture().catch(sansReponse);
     setEnCours(false);
 
     if (resultat.statut === "erreur") {
@@ -166,3 +167,7 @@ function fermer(setPanneau: (panneau: Panneau) => void): () => void {
   };
 }
 
+/* L'action n'a pas répondu (réseau, serveur) : même message qu'un refus de la base. */
+function sansReponse(): ResultatLieu {
+  return { statut: "erreur", message: MESSAGE_ECHEC_ENREGISTREMENT };
+}

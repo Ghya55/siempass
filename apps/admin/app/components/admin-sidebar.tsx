@@ -27,10 +27,16 @@ const ENTREES: readonly Entree[] = [
 export type AdminSidebarProps = {
   /** Adresse du compte connecté. Vide seulement si la session s'est éteinte entre-temps. */
   adresse: string;
+  /**
+   * Donné par un écran qui a des modifications non enregistrées (l'éditeur d'un lieu, VEN-26) :
+   * une sortie par la barre (lien ou « Sign out ») lui est remise au lieu d'avoir lieu, et c'est
+   * lui qui la confirme. Absent : la barre navigue sans rien demander.
+   */
+  demanderSortie?: ((sortir: () => void) => void) | undefined;
 };
 
 /* Navigation du back-office. */
-export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse }) => {
+export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse, demanderSortie }) => {
   const router = useRouter();
   const chemin = usePathname();
   const [enCours, setEnCours] = useState(false);
@@ -59,6 +65,14 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse }) => {
                 aria-current={actif ? "page" : undefined}
                 className={actif ? styles.navItemActif : styles.navItem}
                 href={entree.chemin}
+                onClick={(evenement) => {
+                  if (demanderSortie !== undefined) {
+                    evenement.preventDefault();
+                    demanderSortie(() => {
+                      router.push(entree.chemin);
+                    });
+                  }
+                }}
               >
                 {entree.icone === undefined ? (
                   // FIGMA-MANQUANT: pas d'icône pour « Passes », écran de test non maquetté.
@@ -89,7 +103,13 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse }) => {
           disabled={enCours}
           label="Sign out"
           onClick={() => {
-            void deconnecter();
+            if (demanderSortie === undefined) {
+              void deconnecter();
+              return;
+            }
+            demanderSortie(() => {
+              void deconnecter();
+            });
           }}
           tone="secondary"
         />

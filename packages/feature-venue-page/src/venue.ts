@@ -1,4 +1,4 @@
-import type { CategorieLieu } from "@siempass/db";
+import type { CategorieLieu, Tables } from "@siempass/db";
 
 /**
  * Un bloc du contenu d'un lieu (VEN-4) : un paragraphe en texte brut ou une photo. C'est la forme
@@ -27,6 +27,39 @@ export type VenuePageData = {
   readonly hours: string | null;
   readonly author: string | null;
 };
+
+/**
+ * Les colonnes de `venues` que la fiche affiche. Le site et la preview les lisent par cette même
+ * liste, et passent la ligne lue à `toVenuePageData` : une seule lecture d'une ligne en fiche
+ * (VEN-12). Ni partenaire ni contact (VEN-35) ; l'auteur arrive à part, par son prénom (VEN-9).
+ */
+export const VENUE_PAGE_COLUMNS =
+  "nom, tagline, photo_entete, contenu, adresse, lien_maps, categorie, horaires, avantage" as const;
+
+export type VenuePageRow = Pick<
+  Tables<"venues">,
+  "nom" | "tagline" | "photo_entete" | "contenu" | "adresse" | "lien_maps" | "categorie" | "horaires" | "avantage"
+>;
+
+/**
+ * Une ligne de `venues` en données de fiche. `author` : le prénom porté par le compte auteur, nul
+ * pour un lieu repris ou un compte sans prénom, et la fiche n'a alors pas de « Written by »
+ * (VEN-9, VEN-27).
+ */
+export function toVenuePageData(row: VenuePageRow, author: string | null): VenuePageData {
+  return {
+    name: row.nom,
+    tagline: row.tagline,
+    perk: row.avantage,
+    headerPhotoUrl: row.photo_entete,
+    blocks: parseVenueBlocks(row.contenu),
+    category: isVenueCategory(row.categorie) ? row.categorie : null,
+    address: row.adresse,
+    mapsUrl: row.lien_maps,
+    hours: row.horaires,
+    author,
+  };
+}
 
 /** Libellés de VEN-5, au mot près (VEN-18 : interface en anglais). */
 export const VENUE_CATEGORY_LABELS = {

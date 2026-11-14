@@ -13,6 +13,7 @@
     "@siempass/core-icons": "*",
     "@siempass/db": "*",
     "@siempass/feature-venue-page": "*",
+    "@siempass/site-header": "*",
     "@siempass/tokens": "*",
     "next": "16.4.3",
     "qrcode-generator": "^2.0.4",

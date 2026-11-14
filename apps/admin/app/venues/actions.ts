@@ -1,6 +1,7 @@
 "use server";
 
 import type { Database, EtatPartenaire } from "@siempass/db";
+import { echecEnregistrement } from "../lib/ecriture";
 import { creerClientAdmin } from "../lib/supabase-serveur";
 import {
   categorieSaisie,
@@ -45,7 +46,7 @@ export async function creerLieu(saisieRecue: unknown): Promise<ResultatLieu> {
     .select("id")
     .single();
 
-  return error === null ? { statut: "ok", id: data.id } : { statut: "erreur", message: error.message };
+  return error === null ? { statut: "ok", id: data.id } : echecEnregistrement("création d'un lieu", error);
 }
 
 /** « Save » : brouillon (VEN-23) ou lieu en ligne, qui doit garder une fiche complète (VEN-24). */
@@ -59,7 +60,7 @@ export async function enregistrerLieu(id: string, saisieRecue: unknown): Promise
   /* L'état est lu en base, pas reçu du client : c'est lui qui décide des champs exigés. */
   const lu = await supabase.from("venues").select("etat").eq("id", id).maybeSingle();
   if (lu.error !== null) {
-    return { statut: "erreur", message: lu.error.message };
+    return echecEnregistrement(`lecture de l'état du lieu ${id}`, lu.error);
   }
   if (lu.data === null) {
     return LIEU_INTROUVABLE;
@@ -111,7 +112,7 @@ async function ecrire(
     .select("id");
 
   if (error !== null) {
-    return { statut: "erreur", message: error.message };
+    return echecEnregistrement(`fiche du lieu ${id}`, error);
   }
 
   return data.length === 0 ? LIEU_CHANGE : { statut: "ok", id };

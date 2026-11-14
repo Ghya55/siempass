@@ -13,6 +13,7 @@
     "@siempass/core-icons": "*",
     "@siempass/db": "*",
     "@siempass/feature-venue-page": "*",
+    "@siempass/site-header": "*",
     "@siempass/tokens": "*",
     "@supabase/ssr": "^0.8.0",
     "jsqr": "^1.4.0",

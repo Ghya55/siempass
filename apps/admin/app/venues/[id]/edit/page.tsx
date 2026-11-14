@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { SiemPassSupabaseClient } from "@siempass/db";
 import { creerClientAdmin } from "../../../lib/supabase-serveur";
 import { EDITOR_COLUMNS, initialArticle } from "./article";
 import { VenueEditorScreen } from "./venue-editor-screen";
@@ -42,15 +43,35 @@ export default async function VenueEditorRoute({ params }: VenueEditorRouteProps
   if (venue === null) {
     notFound();
   }
+  const author = await fetchAuthorFirstName(supabase, venue.auteur_id);
 
   return (
     <>
       <link rel="stylesheet" href={GOOGLE_FONTS_HREF} precedence="default" />
       <VenueEditorScreen
         venue={venue}
+        author={author}
         initialArticle={initialArticle(venue)}
         signedInEmail={session.user?.email ?? ""}
       />
     </>
   );
+}
+
+/**
+ * VEN-9 : le prénom porté par le compte auteur, pour « Written by » dans la preview. Nul pour un
+ * lieu repris (VEN-27) ou un compte sans prénom : comme sur le site, pas de ligne.
+ */
+async function fetchAuthorFirstName(
+  supabase: SiemPassSupabaseClient,
+  authorId: string | null,
+): Promise<string | null> {
+  if (authorId === null) {
+    return null;
+  }
+  const { data, error } = await supabase.from("profiles").select("prenom").eq("id", authorId).maybeSingle();
+  if (error !== null) {
+    throw new Error(`Lecture du prénom de l'auteur ${authorId} : ${error.message}`);
+  }
+  return data?.prenom ?? null;
 }

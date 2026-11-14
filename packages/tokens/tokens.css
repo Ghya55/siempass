@@ -18,6 +18,9 @@
   /* ── Figma · couleurs ─────────────────────────────────────────────────── */
   --color-bg-app: #f6f6f4;
   --color-bg-inverse: #1f1a17;
+  /* fond de l'en-tête du site (`SiteHeader` 5:37), relevé sur 7:577 ; partagé depuis que la
+     preview de l'éditeur d'un lieu rend cet en-tête dans le back-office (VEN-12) */
+  --color-bg-brand: #fbf7f1;
   --color-surface-default: #ffffff;
   --color-surface-muted: #ededea;
   --color-surface-brand: #f4ebdd;

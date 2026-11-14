@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useState, type FC, type MouseEvent } from "react";
+import { useCallback, useMemo, type FC, type MouseEvent } from "react";
 import { AdminSidebar } from "../../../components/admin-sidebar";
 import { toPreviewData, type EditorVenueRow, type StoredArticle } from "./article";
 import { ArticleSection } from "./article-section";
@@ -10,12 +10,15 @@ import { FormAlert } from "./form-alert";
 import { HeaderPhotoField } from "./header-photo-field";
 import { LeaveDialog } from "./leave-dialog";
 import { useArticleSave } from "./use-article-save";
+import { useLeaveGuard } from "./use-leave-guard";
 import { useVenueArticle } from "./use-venue-article";
 import { VenuePreview } from "./venue-preview";
 import styles from "./venue-editor-screen.module.css";
 
 export type VenueEditorScreenProps = {
   readonly venue: EditorVenueRow;
+  /** Prénom du compte auteur (« Written by », VEN-9), nul s'il n'en a pas. */
+  readonly author: string | null;
   readonly initialArticle: StoredArticle;
   /** Adresse du compte connecté, pour la barre latérale. */
   readonly signedInEmail: string;
@@ -26,34 +29,33 @@ export type VenueEditorScreenProps = {
  * (vide), 128:450 (rempli), 128:740 (bloc en déplacement), 128:1241 (échec d'envoi).
  * À gauche la photo d'en-tête et l'article, à droite la fiche publique en direct.
  */
-export const VenueEditorScreen: FC<VenueEditorScreenProps> = ({ venue, initialArticle, signedInEmail }) => {
+export const VenueEditorScreen: FC<VenueEditorScreenProps> = ({ venue, author, initialArticle, signedInEmail }) => {
   const router = useRouter();
   const article = useVenueArticle(venue.id, initialArticle);
   const saving = useArticleSave(venue.id, initialArticle, article.stored);
-  const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
+  const leaveGuard = useLeaveGuard(saving.hasUnsavedChanges);
+  const { askToLeave } = leaveGuard;
 
-  const previewData = useMemo(() => toPreviewData(venue, article.stored), [venue, article.stored]);
+  const previewData = useMemo(
+    () => toPreviewData(venue, author, article.stored),
+    [venue, author, article.stored],
+  );
 
   const back = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
       if (saving.hasUnsavedChanges) {
         event.preventDefault();
-        setIsLeaveDialogOpen(true);
+        askToLeave(() => {
+          router.push(VENUES_PATH);
+        });
       }
     },
-    [saving.hasUnsavedChanges],
+    [saving.hasUnsavedChanges, askToLeave, router],
   );
-  const leave = useCallback(() => {
-    setIsLeaveDialogOpen(false);
-    router.push(VENUES_PATH);
-  }, [router]);
-  const stay = useCallback(() => {
-    setIsLeaveDialogOpen(false);
-  }, []);
 
   return (
     <div className={styles.screen}>
-      <AdminSidebar adresse={signedInEmail} />
+      <AdminSidebar adresse={signedInEmail} demanderSortie={saving.hasUnsavedChanges ? askToLeave : undefined} />
       <div className={styles.main}>
         <EditorHeader
           name={venue.nom}
@@ -84,7 +86,7 @@ export const VenueEditorScreen: FC<VenueEditorScreenProps> = ({ venue, initialAr
           <VenuePreview venue={previewData} />
         </div>
       </div>
-      <LeaveDialog isOpen={isLeaveDialogOpen} onLeave={leave} onStay={stay} />
+      <LeaveDialog isOpen={leaveGuard.isAsking} onLeave={leaveGuard.confirmLeave} onStay={leaveGuard.cancelLeave} />
     </div>
   );
 };

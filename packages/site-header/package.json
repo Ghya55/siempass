@@ -1,0 +1,26 @@
+{
+  "name": "@siempass/site-header",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@siempass/core-icons": "*"
+  },
+  "peerDependencies": {
+    "next": "16.4.3",
+    "react": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "typescript": "^5"
+  }
+}

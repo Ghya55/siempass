@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "../ui/SiteHeader";
+import { SiteHeader } from "@siempass/site-header";
 import { VenuesSection } from "../ui/VenuesSection";
 import { Hero } from "./ui/Hero";
 import { fetchPublishedPlaces } from "./places";

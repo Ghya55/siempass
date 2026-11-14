@@ -10,9 +10,9 @@ const TAILLE_RETOUR = 24 as const;
  * affiche le retour (icône seule) à gauche et son contrepoids à droite, pour que le titre
  * reste centré. »
  *
- * Un seul en-tête pour tout le site (VIS-27, VIS-32). Il remplace les deux copies qui
- * vivaient sous `places/ui` et `buy/_composants` : le bouton d'achat et le sous-titre
- * « Siem Reap, Cambodia » ont disparu du Figma, la hauteur passe de 67 à 64.
+ * Un seul en-tête pour tout le site (VIS-27, VIS-32). Il vit dans un package parce que la
+ * preview de l'éditeur d'un lieu (apps/admin) rend la fiche publique avec lui (VEN-12) : une app
+ * n'importe pas de l'autre.
  */
 export type SiteHeaderProps = {
   /** Propriété booléenne `hasBack` du Figma. Le retour ramène à l'accueil (VIS-27). */

@@ -1,7 +1,8 @@
 "use server";
 
 import { parseVenueBlocks, type VenueBlock } from "@siempass/feature-venue-page";
-import type { ResultatEcriture } from "../../../lib/ecriture";
+import { isSentBlock } from "./article";
+import { echecEnregistrement, type ResultatEcriture } from "../../../lib/ecriture";
 import { creerClientAdmin } from "../../../lib/supabase-serveur";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -29,7 +30,7 @@ export async function enregistrerArticle(venueId: string, article: unknown): Pro
     .select("id");
 
   if (error !== null) {
-    return { statut: "erreur", message: error.message };
+    return echecEnregistrement(`article du lieu ${venueId}`, error);
   }
   // Aucune ligne touchée : lieu inconnu, ou session refusée par le RLS.
   if (data.length === 0) {
@@ -48,10 +49,9 @@ function lireArticle(valeur: unknown): ArticleLu | null {
   if (headerPhotoUrl !== null && !estAdresseDePhoto(headerPhotoUrl)) {
     return null;
   }
-  const blocks = parseVenueBlocks("blocks" in valeur ? valeur.blocks : undefined);
-  const photosValides = blocks.every(
-    (block) => block.kind !== "photo" || block.url === null || estAdresseDePhoto(block.url),
-  );
+  // Une photo jamais envoyée n'est pas enregistrée (tranché par Ghya le 15/11).
+  const blocks = parseVenueBlocks("blocks" in valeur ? valeur.blocks : undefined).filter(isSentBlock);
+  const photosValides = blocks.every((block) => block.kind !== "photo" || estAdresseDePhoto(block.url));
   return photosValides ? { headerPhotoUrl, blocks } : null;
 }
 

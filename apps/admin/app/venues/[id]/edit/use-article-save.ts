@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { articleFingerprint, type StoredArticle } from "./article";
+import { MESSAGE_ECHEC_ENREGISTREMENT } from "../../../lib/ecriture";
 import { enregistrerArticle } from "./actions";
 
 export type ArticleSave = {
@@ -34,8 +35,9 @@ export function useArticleSave(venueId: string, initial: StoredArticle, current:
           setError(result.message);
         }
       })
-      .catch((cause: unknown) => {
-        setError(cause instanceof Error ? cause.message : String(cause));
+      // L'action n'a pas répondu (réseau, serveur) : même message qu'un refus de la base.
+      .catch(() => {
+        setError(MESSAGE_ECHEC_ENREGISTREMENT);
       })
       .finally(() => {
         setIsSaving(false);

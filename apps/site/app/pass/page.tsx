@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PassPageIsland } from "@/app/ui/PassPageIsland";
-import { SiteHeader } from "@/app/ui/SiteHeader";
+import { SiteHeader } from "@siempass/site-header";
 import styles from "./page.module.css";
 
 /** Titre et description reprennent les textes du Figma, sans en inventer d'autres. */

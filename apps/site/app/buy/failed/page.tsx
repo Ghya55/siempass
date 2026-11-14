@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { classesBouton } from "../_composants/bouton";
-import { SiteHeader } from "../../ui/SiteHeader";
+import { SiteHeader } from "@siempass/site-header";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
