@@ -95,15 +95,16 @@ export function ScannerCamera({ jeton, partner }: ProprietesScanner) {
 
       <div className={styles.viseurZone}>
         <video ref={videoRef} className={styles.video} muted playsInline />
-        {/* FIGMA-MANQUANT: le SVG `viewfinder` (6:110) n'a pas pu être téléchargé — figma.com
-            est refusé par le proxy de la session. Quatre coins en CSS, de la bonne taille
-            (264), à remplacer par l'asset exact. */}
-        <div className={styles.viseur} aria-hidden="true">
-          <span className={`${styles.coin} ${styles.coinHautGauche}`} />
-          <span className={`${styles.coin} ${styles.coinHautDroit}`} />
-          <span className={`${styles.coin} ${styles.coinBasGauche}`} />
-          <span className={`${styles.coin} ${styles.coinBasDroit}`} />
-        </div>
+        {/* `viewfinder` (6:110), tel que Figma l'exporte : quatre coins et la ligne de visée. */}
+        <svg className={styles.viseur} viewBox="0 0 264 264" fill="none" aria-hidden="true">
+          <path
+            d="M4 56V20C4 15.7565 5.68571 11.6869 8.68629 8.68629C11.6869 5.68571 15.7565 4 20 4H56M208 4H244C248.243 4 252.313 5.68571 255.314 8.68629C258.314 11.6869 260 15.7565 260 20V56M260 208V244C260 248.243 258.314 252.313 255.314 255.314C252.313 258.314 248.243 260 244 260H208M56 260H20C15.7565 260 11.6869 258.314 8.68629 255.314C5.68571 252.313 4 248.243 4 244V208"
+            stroke="currentColor"
+            strokeWidth="6"
+            strokeLinecap="round"
+          />
+          <path d="M28 132H236" stroke="currentColor" strokeWidth="2" strokeDasharray="6 6" />
+        </svg>
       </div>
 
       {etat === "indisponible" ? (

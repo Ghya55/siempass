@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@siempass/core-icons": "*",
     "@siempass/db": "*",
     "@siempass/feature-venue-page": "*",
     "@siempass/tokens": "*",

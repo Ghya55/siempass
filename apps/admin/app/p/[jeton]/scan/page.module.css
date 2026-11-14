@@ -61,45 +61,7 @@
   width: 264px;
   height: 264px;
   max-width: 100%;
-}
-
-.coin {
-  position: absolute;
-  width: 56px;
-  height: 56px;
-  border: 3px solid var(--color-surface-brand, #f4ebdd);
-}
-
-.coinHautGauche {
-  top: 0;
-  left: 0;
-  border-right: 0;
-  border-bottom: 0;
-  border-top-left-radius: var(--radius-card, 16px);
-}
-
-.coinHautDroit {
-  top: 0;
-  right: 0;
-  border-left: 0;
-  border-bottom: 0;
-  border-top-right-radius: var(--radius-card, 16px);
-}
-
-.coinBasGauche {
-  bottom: 0;
-  left: 0;
-  border-right: 0;
-  border-top: 0;
-  border-bottom-left-radius: var(--radius-card, 16px);
-}
-
-.coinBasDroit {
-  bottom: 0;
-  right: 0;
-  border-left: 0;
-  border-top: 0;
-  border-bottom-right-radius: var(--radius-card, 16px);
+  color: var(--color-accent-subtle);
 }
 
 .scannerConsigne {

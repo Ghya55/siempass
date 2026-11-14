@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "./Button";
-import { IconChevronRight, IconQr } from "./icons";
+import { Icon } from "@siempass/core-icons";
 import { formatPassDate } from "./pass-date";
 import styles from "./HomePassCard.module.css";
 
@@ -73,7 +73,7 @@ function CarteAvecPass({ code, validUntil }: CarteAvecPassProps) {
     <Link href={LIEN_PASS} className={`${styles.card} ${styles.passCard}`}>
       {/* VIS-3 : illustration, jamais un vrai QR. Rien n'est scannable sur l'accueil. */}
       <span className={styles.qr}>
-        <IconQr size={TAILLE_QR} />
+        <Icon name="qr" size={TAILLE_QR} />
       </span>
       <span className={styles.details}>
         <span className={styles.heading}>Your SiemPass</span>
@@ -83,7 +83,7 @@ function CarteAvecPass({ code, validUntil }: CarteAvecPassProps) {
         <span className={styles.provisional}>Validity period not final</span>
       </span>
       <span className={styles.chevron}>
-        <IconChevronRight size={TAILLE_CHEVRON} />
+        <Icon name="chevron-right" size={TAILLE_CHEVRON} />
       </span>
     </Link>
   );

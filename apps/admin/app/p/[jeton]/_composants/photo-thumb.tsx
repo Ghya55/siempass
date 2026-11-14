@@ -1,3 +1,4 @@
+import { Icon } from "@siempass/core-icons";
 import styles from "./composants.module.css";
 
 /**
@@ -7,28 +8,7 @@ import styles from "./composants.module.css";
 export function PhotoThumb() {
   return (
     <div className={styles.photoThumb}>
-      {/* FIGMA-MANQUANT: le SVG `icon/photo` (18:498) n'a pas pu être téléchargé — figma.com
-          est refusé par le proxy de la session. Tracé approché, taille (24) et couleur de
-          Figma. À remplacer par l'asset exact. */}
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect
-          x="3"
-          y="5"
-          width="18"
-          height="14"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <circle cx="8.5" cy="10" r="1.5" fill="currentColor" />
-        <path
-          d="m4 17 5-5 4 4 3-2 4 3"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <Icon name="photo-thumb-photo" size={24} />
     </div>
   );
 }

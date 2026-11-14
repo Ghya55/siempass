@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Icon, type IconName } from "@siempass/core-icons";
 import { classesBouton } from "../_composants/bouton";
 import { lirePartenaireParJeton, texteOuTiret } from "../_composants/partenaire";
 import { ScannerCamera } from "./scanner-camera";
@@ -98,43 +99,17 @@ function classeDuResultat(resultat: ResultatScan["resultat"]): "estValide" | "es
   }
 }
 
-// FIGMA-MANQUANT: les SVG `icon/valide` (6:118), `icon/dejaUtilise` (6:128) et `icon/invalide`
-// (6:138) n'ont pas pu être téléchargés — figma.com est refusé par le proxy de la session.
-// Tracés approchés ; taille (40 dans une pastille de 88) et couleurs viennent de Figma.
+const ICONE_RESULTAT = {
+  valide: "scan-valide",
+  "deja-utilise": "scan-deja-utilise",
+  invalide: "scan-invalide",
+} as const satisfies Record<ResultatScan["resultat"], IconName>;
+
+/** Pastille de 88 du Figma, icône de 40 (6:118 · 6:128 · 6:138). */
 function PastilleResultat({ resultat }: { readonly resultat: ResultatScan["resultat"] }) {
   return (
     <span className={styles.pastille}>
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        {resultat === "valide" && (
-          <path
-            d="M10 20.5 17 27.5 30 13"
-            stroke="currentColor"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        )}
-        {resultat === "deja-utilise" && (
-          <>
-            <circle cx="20" cy="20" r="13" stroke="currentColor" strokeWidth="3" />
-            <path
-              d="M20 12v8.5l5.5 3.5"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </>
-        )}
-        {resultat === "invalide" && (
-          <path
-            d="M13 13l14 14M27 13 13 27"
-            stroke="currentColor"
-            strokeWidth="3.5"
-            strokeLinecap="round"
-          />
-        )}
-      </svg>
+      <Icon name={ICONE_RESULTAT[resultat]} size={40} />
     </span>
   );
 }

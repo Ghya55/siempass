@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { classNames } from "./class-names";
-import { IconArrowRight, IconSpinner } from "./icons";
+import { Icon } from "@siempass/core-icons";
 import styles from "./Button.module.css";
 
 /** Propriétés `size`, `tone` et `state` du composant Figma `Button` (5:10). */
@@ -111,12 +111,12 @@ function ButtonMedia({ size = "md", hasIcon = false, icon, state = "default" }: 
   if (state === "loading") {
     return (
       <span className={styles.spinner}>
-        <IconSpinner size={TAILLE_ICONE[size]} />
+        <Icon name="spinner" size={TAILLE_ICONE[size]} />
       </span>
     );
   }
   if (!hasIcon) {
     return null;
   }
-  return icon === undefined ? <IconArrowRight size={TAILLE_ICONE[size]} /> : icon;
+  return icon === undefined ? <Icon name="arrow-right" size={TAILLE_ICONE[size]} /> : icon;
 }

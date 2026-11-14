@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { IconClock, IconExternalLink, IconPin, IconTag } from "./icons";
+import { Icon } from "@siempass/core-icons";
 import styles from "./VenueInfo.module.css";
 
 /** Côté des icônes dans le gabarit Figma (19.992, arrondi). */
@@ -25,16 +25,16 @@ export type VenueInfoProps = {
 
 export function VenueInfo({ category, address, mapsUrl, hours }: VenueInfoProps) {
   const rows = [
-    category === null ? null : <InfoRow key="category" icon={<IconTag size={TAILLE_ICONE} />}>{category}</InfoRow>,
-    isBlank(address) ? null : <InfoRow key="address" icon={<IconPin size={TAILLE_ICONE} />}>{address}</InfoRow>,
+    category === null ? null : <InfoRow key="category" icon={<Icon name="tag" size={TAILLE_ICONE} />}>{category}</InfoRow>,
+    isBlank(address) ? null : <InfoRow key="address" icon={<Icon name="pin" size={TAILLE_ICONE} />}>{address}</InfoRow>,
     isBlank(mapsUrl) ? null : (
-      <InfoRow key="maps" icon={<IconExternalLink size={TAILLE_ICONE} />} isAccent>
+      <InfoRow key="maps" icon={<Icon name="external-link" size={TAILLE_ICONE} />} isAccent>
         <a className={styles.mapsLink} href={mapsUrl} target="_blank" rel="noopener noreferrer">
           Open in Google Maps
         </a>
       </InfoRow>
     ),
-    isBlank(hours) ? null : <InfoRow key="hours" icon={<IconClock size={TAILLE_ICONE} />}>{hours}</InfoRow>,
+    isBlank(hours) ? null : <InfoRow key="hours" icon={<Icon name="clock" size={TAILLE_ICONE} />}>{hours}</InfoRow>,
   ].filter((row) => row !== null);
 
   if (rows.length === 0) {

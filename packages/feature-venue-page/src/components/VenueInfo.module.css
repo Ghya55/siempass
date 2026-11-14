@@ -18,8 +18,7 @@
   width: 100%;
 }
 
-/* FIGMA-MANQUANT: couleur des icônes non relevée par `get_variable_defs` (SVG non
-   téléchargeables) ; le screenshot montre le gris du texte secondaire, et l'accent sur le lien. */
+/* Couleurs des instances Figma : `color/text/muted`, et `color/text/accent` sur le lien. */
 .icon,
 .iconAccent {
   display: flex;

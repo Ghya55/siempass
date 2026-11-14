@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IconPhoto } from "./icons";
+import { Icon } from "@siempass/core-icons";
 import styles from "./PlaceCard.module.css";
 
 /**
@@ -59,8 +59,7 @@ function PlacePhoto({ name, photoUrl }: Pick<PlaceCardProps, "name" | "photoUrl"
   if (photoUrl === null || photoUrl === "") {
     return (
       <div className={styles.photoPlaceholder}>
-        {/* FIGMA-MANQUANT: `icon/photo` (5:45) tracé à la main, voir icons.tsx. Taille (32). */}
-        <IconPhoto size={TAILLE_ICONE_PHOTO} />
+        <Icon name="place-card-photo" size={TAILLE_ICONE_PHOTO} />
         <span className={styles.photoCaption}>Storefront photo</span>
       </div>
     );
