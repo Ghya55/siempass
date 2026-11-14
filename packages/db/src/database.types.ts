@@ -10,12 +10,20 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-/** Les deux valeurs de `partners.etat` (PART-3 à PART-5). */
+/** Les deux valeurs de `partners.etat` (PART-3 à PART-5), reprises par `venues.etat` (VEN-6). */
 export type EtatPartenaire = "brouillon" | "en ligne";
+
+/** Les valeurs de `venues.categorie` (VEN-5). Les libellés sont dans packages/feature-venue-page. */
+export type CategorieLieu = "bar" | "restaurant" | "cafe" | "shop" | "other";
 
 export type Database = {
   public: {
     Tables: {
+      /* `lieu_nom`, `lieu_adresse`, `lieu_description` et `avantage` sont nullables en base depuis
+         20261115090000 (VEN-15), mais restent typées non nulles ici : le code actuel (formulaire
+         partenaire, lien partenaire, scan) les écrit et les lit encore toutes, et aucune ligne
+         n'en est privée tant que le formulaire partenaire n'a pas perdu son groupe « The venue ».
+         Elles passent à `string | null` dans la PR qui retire ce groupe (back-office, venues 2/3). */
       partners: {
         Row: {
           id: string;
@@ -96,6 +104,71 @@ export type Database = {
           {
             foreignKeyName: "passes_utilise_par_fkey";
             columns: ["utilise_par"];
+            isOneToOne: false;
+            referencedRelation: "partners";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      /* Lieux (migration 20261115090000, specs/venues.md). `slug` et `auteur_id` sont posés par
+         des déclencheurs : ce que le client y écrit est ignoré. `contenu` : tableau de blocs, lu
+         par `parseVenueBlocks` (packages/feature-venue-page). */
+      venues: {
+        Row: {
+          id: string;
+          created_at: string;
+          partenaire_id: string;
+          auteur_id: string | null;
+          nom: string;
+          tagline: string | null;
+          photo_entete: string | null;
+          contenu: Json;
+          adresse: string | null;
+          lien_maps: string | null;
+          categorie: CategorieLieu | null;
+          horaires: string | null;
+          avantage: string;
+          slug: string;
+          etat: EtatPartenaire;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          partenaire_id: string;
+          auteur_id?: string | null;
+          nom: string;
+          tagline?: string | null;
+          photo_entete?: string | null;
+          contenu?: Json;
+          adresse?: string | null;
+          lien_maps?: string | null;
+          categorie?: CategorieLieu | null;
+          horaires?: string | null;
+          avantage?: string | null;
+          slug?: string;
+          etat?: EtatPartenaire;
+        };
+        Update: {
+          id?: string;
+          created_at?: string;
+          partenaire_id?: string;
+          auteur_id?: string | null;
+          nom?: string;
+          tagline?: string | null;
+          photo_entete?: string | null;
+          contenu?: Json;
+          adresse?: string | null;
+          lien_maps?: string | null;
+          categorie?: CategorieLieu | null;
+          horaires?: string | null;
+          avantage?: string | null;
+          slug?: string;
+          etat?: EtatPartenaire;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "venues_partenaire_id_fkey";
+            columns: ["partenaire_id"];
             isOneToOne: false;
             referencedRelation: "partners";
             referencedColumns: ["id"];

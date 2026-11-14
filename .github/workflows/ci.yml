@@ -34,6 +34,10 @@ jobs:
       # Rien ici ne touche la base réelle.
       - run: supabase start
       - run: supabase db reset
+      # Tests de droits (pgTAP) : supabase/tests/, un fichier par table.
+      - run: supabase test db
+      # VEN-34 : reprise des lieux rejouée sur des partenaires fictifs (specs/venues.md).
+      - run: bash supabase/verifications/reprise-venues/verifier.sh
       - if: always()
         run: supabase stop --no-backup
 
