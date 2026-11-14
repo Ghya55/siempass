@@ -12,10 +12,10 @@ figma:
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=71-358  # 11 · Pass · argumentaire · paiement en cours
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-268  # 11 · Pass · argumentaire · paiement refusé
   - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=57-321  # 11.1 · Pass · le pass
-maj: 2026-11-10
+maj: 2026-11-14
 ---
 
-*Préfixe des identifiants : `VIS-`. Corrigée le 10/11 d'après la relecture des six Figma par Ghya. Cette spec remplace les étapes 8 et 9 de [parcours-demo.md](parcours-demo.md). Objet manipulé : [Partenaire](partenaire.md).*
+*Préfixe des identifiants : `VIS-`. Corrigée le 10/11 d'après la relecture des six Figma par Ghya. Cette spec remplace les étapes 8 et 9 de [parcours-demo.md](parcours-demo.md). Objet manipulé : [Partenaire](partenaire.md). Corrigée le 14/11 : la liste lit les lieux ([venues.md](venues.md)) et la fiche d'un lieu entre au MVP.*
 
 ## Intention
 Le visiteur arrive sur le site, voit d'un coup d'œil s'il a déjà un pass, découvre les lieux partenaires, et s'il n'en a pas l'achète sans quitter l'écran où il a dit oui.
@@ -27,7 +27,7 @@ Trois blocs, et trois seulement.
    - *En-tête* : « SiemPass » centré, et rien d'autre — ni bouton d'achat, ni mention de lieu sous le titre.
    - *Sans pass* : la carte porte une phrase courte, « One pass, a perk at every partner venue. », et le bouton « Get the Pass ».
    - *Avec pass* : carte à fond très sombre ; à gauche une grosse icône de QR code, à droite « Your SiemPass », le code du pass, puis « Valid until <date> » suivi de « Validity period not final » ; à l'extrémité droite, un chevron vers la droite. Toute la carte est cliquable et mène au bloc 2.
-   - La liste des lieux suit, sous le titre « Partner venues » : photo, nom, description courte et avantage de chaque partenaire.
+   - La liste des lieux suit, sous le titre « Partner venues » : photo d'en-tête, nom, tagline et avantage de chaque lieu en ligne ; le clic sur un lieu mène à sa fiche ([VEN-16](venues.md#ven-16)).
 2. **Page pass** — une seule page, plein écran, deux états, sous le même en-tête que l'accueil, avec en plus un bouton retour à gauche du titre.
    - *Sans pass* : l'argumentaire. Titre « One pass. Perks all over Siem Reap. », le prix « $20, one-time payment », trois arguments courts — « Pays for itself in 3 visits », « A perk at every partner venue », « No app to install: your pass opens in your browser » — et, en bas de l'écran, le bouton « Get the Pass », grand et porteur d'une icône.
    - *Avec pass* : le pass en grand — le QR code réel, le code du pass, « Valid until <date> », « Validity period not final », et la consigne « Show this QR code at the counter. »
@@ -58,9 +58,11 @@ Trois blocs, et trois seulement.
 
 **VIS-12 — Toute date porte sa mention.** Chaque date de validité affichée, sur la carte de l'accueil comme sur la page pass, est suivie de « Validity period not final » ([DEMO-9](parcours-demo.md#demo-9)).
 
-**VIS-13 — La liste ne montre que les lieux en ligne.** Seuls les partenaires `en ligne` sont publics ([PART-3](partenaire.md#part-3)) ; aucune donnée de contact n'est rendue ([PART-8](partenaire.md#part-8)).
+**VIS-13 — La liste ne montre que les lieux en ligne.** Seuls les lieux `en ligne` sont publics : l'état est porté par le lieu depuis le 14/11 ([VEN-6](venues.md#ven-6)) ; aucune donnée de contact n'est rendue ([PART-8](partenaire.md#part-8)).
 
-**VIS-14 — Rien de plus.** Pas de filtre, pas de recherche, pas de carte géographique, pas de fiche de lieu : les trois blocs ci-dessus sont tout le site public du MVP.
+**VIS-14 — ~~Rien de plus, pas de fiche de lieu.~~** Retirée le 14/11 : Ghya fait entrer la fiche d'un lieu au MVP ([venues.md](venues.md), bloc 4). Remplacée par [VIS-35](parcours-visiteur.md#vis-35).
+
+**VIS-35 — Rien de plus.** Pas de filtre, pas de recherche, pas de carte géographique : les trois blocs ci-dessus et la fiche d'un lieu ([venues.md](venues.md)) sont tout le site public du MVP.
 
 **VIS-27 — Le même en-tête sur les deux pages.** L'accueil et la page pass portent le même en-tête : « SiemPass » centré, seul, sans bouton d'achat ni sous-titre. Sur la page pass, un bouton retour s'y ajoute, à gauche, icône seule sans libellé, et ramène à l'accueil : le site se tient comme une petite application.
 
@@ -81,7 +83,7 @@ Trois blocs, et trois seulement.
 
 **VIS-18 — Liste de lieux vide.** La liste porte « First venues coming soon » ; la carte du pass reste en place avec son bouton, l'achat est possible même sans aucun lieu publié.
 
-**VIS-19 — Lieu sans photo.** La carte du lieu affiche un visuel de remplacement neutre ([PART-10](partenaire.md#part-10)).
+**VIS-19 — Lieu sans photo.** La carte du lieu affiche un visuel de remplacement neutre ([VEN-19](venues.md#ven-19)).
 
 ## Fini quand
 **VIS-20 — L'accueil distingue les deux états.** Navigateur sans pass : phrase courte et bouton dans la carte. Navigateur avec pass : carte sombre, illustration, code et date suivie de sa mention.
@@ -96,7 +98,7 @@ Trois blocs, et trois seulement.
 
 **VIS-25 — L'échec reste dans la feuille.** Un paiement refusé laisse le visiteur dans la feuille et ne crée aucun pass.
 
-**VIS-26 — Les lieux viennent de la base.** Mettre un partenaire en ligne au back-office le fait apparaître dans la liste sans redéploiement ; le repasser en brouillon le fait disparaître.
+**VIS-26 — Les lieux viennent de la base.** Publier un lieu au back-office le fait apparaître dans la liste sans redéploiement ; le repasser en brouillon le fait disparaître ([VEN-29](venues.md#ven-29)).
 
 **VIS-32 — L'en-tête est le même partout.** Sur l'accueil comme sur la page pass, le titre est centré et seul ; la page pass offre en plus un retour qui ramène à l'accueil.
 
@@ -109,7 +111,6 @@ Trois blocs, et trois seulement.
 2. Récupération d'un pass sur un autre téléphone (lien par e-mail) : hors périmètre de cette spec, tâche ultérieure.
 3. Pass expiré : l'accueil retombe-t-il à l'état « sans pass », ou montre-t-il un pass périmé avec un renouvellement ? Non spécifié ici.
 4. Titre et trois arguments de l'argumentaire : libellés à valider, « Pays for itself in 3 visits » en particulier, qui promet un remboursement.
-5. Fiche d'un lieu : écartée du MVP, la liste suffit.
 
 ## Détails techniques
 L'accueil est `/`, l'argumentaire et le pass sont la même page `/pass`, un pass donné garde son adresse `/pass/<code>`.
