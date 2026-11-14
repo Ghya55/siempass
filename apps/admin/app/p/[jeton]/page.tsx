@@ -7,7 +7,7 @@ import { classesBouton } from "./_composants/bouton";
 import { DetailItem } from "./_composants/detail-item";
 import { MobileTopBar } from "./_composants/mobile-top-bar";
 import { PhotoThumb } from "./_composants/photo-thumb";
-import { lirePartenaireParJeton } from "./_composants/partenaire";
+import { lirePartenaireParJeton, texteOuTiret } from "./_composants/partenaire";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -41,13 +41,13 @@ export default async function FichePartenairePage({ params }: ProprietesPage) {
       <MobileTopBar context="Partner area" />
       <main className={styles.contenu}>
         <header className={styles.entete}>
-          <h1 className={styles.titre}>{partenaire.lieu_nom}</h1>
+          <h1 className={styles.titre}>{texteOuTiret(partenaire.lieu_nom)}</h1>
           <Badge state={partenaire.etat} />
         </header>
 
         <section className={styles.section}>
           <h2 className={styles.sousTitre}>What you offer</h2>
-          <AdvantageCard label="For SiemPass holders" avantage={partenaire.avantage} />
+          <AdvantageCard label="For SiemPass holders" avantage={texteOuTiret(partenaire.avantage)} />
         </section>
 
         <section className={styles.section}>
@@ -59,8 +59,8 @@ export default async function FichePartenairePage({ params }: ProprietesPage) {
                 (PART-10 ne couvre que le cas « pas de photo »). Attend Alex. */}
             <PhotoThumb />
           </div>
-          <DetailItem label="Address" value={partenaire.lieu_adresse} />
-          <DetailItem label="Short description" value={partenaire.lieu_description} />
+          <DetailItem label="Address" value={texteOuTiret(partenaire.lieu_adresse)} />
+          <DetailItem label="Short description" value={texteOuTiret(partenaire.lieu_description)} />
         </section>
 
         <section className={styles.section}>

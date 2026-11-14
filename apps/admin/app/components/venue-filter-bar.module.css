@@ -1,0 +1,27 @@
+.barre {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.filtre {
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-subtle);
+  color: var(--color-text-accent);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Le Figma écrit ce texte en Inter 13 px sans variable (124:288) : les tokens de même valeur
+   sont repris, --font-size-sm et la police du texte. */
+.lien {
+  color: var(--color-text-accent);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: underline;
+  white-space: nowrap;
+}

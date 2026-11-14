@@ -10,7 +10,9 @@ import styles from "./icon-asset.module.css";
 /* `ticket` n'est pas dans le Figma : il nomme l'entrée « Passes » de la barre latérale, un
    écran de test non maquetté. Il rend le même placeholder que les cinq autres — aucune
    géométrie n'est inventée, il y a juste un nom de plus à fournir le jour de la livraison. */
-export type NomIcone = "pin" | "store" | "close" | "photo" | "check" | "ticket";
+/* `alert` (122:52) et `chevron-down` (122:25) : champ fautif, alerte de formulaire et liste
+   déroulante de la fiche d'un lieu (VEN-23). Même placeholder, mêmes raisons. */
+export type NomIcone = "pin" | "store" | "close" | "photo" | "check" | "ticket" | "alert" | "chevron-down";
 
 export type IconProps = {
   name: NomIcone;

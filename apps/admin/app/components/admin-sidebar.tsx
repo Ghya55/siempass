@@ -15,10 +15,11 @@ type Entree = {
   readonly icone: NomIcone;
 };
 
-/* Les écrans du back-office, dans l'ordre de la barre. « Passes » n'est pas dans la description
-   Figma de la barre (un seul élément y figure) : c'est l'écran de test du 10/11. */
+/* Les écrans du back-office, dans l'ordre de la barre (Figma : Partners, Venues). « Passes »
+   n'est pas dans le Figma de la barre : c'est l'écran de test du 10/11, gardé en dernier. */
 const ENTREES: readonly Entree[] = [
   { chemin: "/partners", libelle: "Partners", icone: "store" },
+  { chemin: "/venues", libelle: "Venues", icone: "pin" },
   { chemin: "/passes", libelle: "Passes", icone: "ticket" },
 ];
 
@@ -48,7 +49,8 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse }) => {
       </div>
       <ul className={styles.nav}>
         {ENTREES.map((entree) => {
-          const actif = chemin === entree.chemin;
+          /* Une sous-page (l'éditeur d'un lieu) garde son écran actif. */
+          const actif = chemin === entree.chemin || chemin.startsWith(`${entree.chemin}/`);
 
           return (
             <li key={entree.chemin}>

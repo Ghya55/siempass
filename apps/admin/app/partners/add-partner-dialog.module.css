@@ -70,13 +70,6 @@
   line-height: 1.4;
 }
 
-.separateur {
-  width: 1px;
-  flex-shrink: 0;
-  align-self: stretch;
-  background: var(--color-surface-muted);
-}
-
 .actions {
   display: flex;
   gap: var(--space-sm);

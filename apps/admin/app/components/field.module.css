@@ -44,8 +44,39 @@
   resize: vertical;
 }
 
+.saisie::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* state=error (123:130) : bordure danger. */
 .saisieFautive {
-  border-color: var(--color-accent-default);
+  border-color: var(--color-status-danger-fg);
+}
+
+.cadreListe {
+  position: relative;
+  width: 100%;
+}
+
+/* kind=select (123:122) : la place du chevron est réservée à droite du texte. */
+.liste {
+  padding-right: calc(var(--space-sm) + 20px + var(--space-xs));
+  appearance: none;
+  cursor: pointer;
+}
+
+/* state=placeholder (160:1613) : l'invite en texte atténué. */
+.listeVide {
+  color: var(--color-text-muted);
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--space-sm);
+  display: inline-flex;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .photo {
@@ -65,8 +96,11 @@
 }
 
 .erreur {
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: center;
   margin: 0;
-  color: var(--color-accent-default);
+  color: var(--color-status-danger-fg);
   font-size: var(--font-size-xs);
   font-weight: 500;
   line-height: 1.35;

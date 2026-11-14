@@ -37,3 +37,10 @@ export async function lirePartenaireParJeton(jeton: string): Promise<Partenaire 
 
   return error !== null ? null : data;
 }
+
+/* Depuis VEN-15, un partenaire créé au back-office n'a plus de lieu dans ces colonnes : elles sont
+   nulles. La fiche et le scan les lisent encore jusqu'à la tâche du scan par lieu (« Ouvert pour
+   Ghya » 1 de specs/venues.md) ; d'ici là, une valeur absente s'affiche « — ». */
+export function texteOuTiret(valeur: string | null): string {
+  return valeur ?? "—";
+}

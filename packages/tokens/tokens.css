@@ -34,6 +34,9 @@
   --color-status-neutral-fg: #5e5e58;
   --color-status-success-bg: #dcefe3;
   --color-status-success-fg: #1d6b47;
+  /* relevées sur 157:1901 (erreurs de publication d'un lieu, VEN-23) */
+  --color-status-danger-bg: #fbe2de;
+  --color-status-danger-fg: #b8352a;
 
   /* ── Figma · espacements ──────────────────────────────────────────────── */
   --space-2xs: 4px;

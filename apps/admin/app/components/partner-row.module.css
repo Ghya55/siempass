@@ -4,38 +4,33 @@
   align-items: center;
   width: 100%;
   padding: var(--space-sm) var(--space-md);
-  border: none;
   border-top: 1px solid var(--color-border-default);
   background: var(--color-surface-default);
-  font-family: var(--font-family-text);
-  text-align: left;
-  cursor: pointer;
 }
 
 .selectionnee {
   background: var(--color-accent-subtle);
 }
 
-.colonne {
+.colonneContact {
   display: flex;
   flex: 1 0 0;
   flex-direction: column;
   align-items: flex-start;
   min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-family-text);
+  text-align: left;
+  cursor: pointer;
 }
 
-.colonneEtat {
+.colonneVenues {
   display: flex;
-  width: 140px;
+  width: 96px;
   flex-shrink: 0;
-  align-items: center;
-}
-
-.principal {
-  color: var(--color-text-default);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  line-height: 1.4;
+  align-items: flex-start;
 }
 
 .contact {
@@ -49,4 +44,12 @@
   font-size: var(--font-size-xs);
   font-weight: 500;
   line-height: 1.35;
+}
+
+.nombre {
+  color: var(--color-text-accent);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
 }
