@@ -6,7 +6,7 @@ begin;
 create extension if not exists pgtap with schema extensions;
 set local search_path = public, extensions;
 
-select plan(24);
+select plan(32);
 
 -- ── Données fictives ──────────────────────────────────────────────────────────
 insert into auth.users (id, email) values
@@ -41,12 +41,41 @@ update public.venues set slug = 'choisie' where id = '00000000-0000-0000-0000-00
 select is((select slug from public.venues where id = '00000000-0000-0000-0000-0000000000c2'),
   'mango-garden', 'le client ne choisit pas l''adresse');
 
+-- VEN-10 : figée dès la première publication, même après un retour en brouillon.
+update public.venues set etat = 'brouillon' where id = '00000000-0000-0000-0000-0000000000c1';
+update public.venues set nom = 'Mango Bar Again' where id = '00000000-0000-0000-0000-0000000000c1';
+select is((select slug from public.venues where id = '00000000-0000-0000-0000-0000000000c1'),
+  'mango-bar', 'VEN-10 : publié puis repassé en brouillon, l''adresse reste figée');
+update public.venues set etat = 'en ligne' where id = '00000000-0000-0000-0000-0000000000c1';
+
+update public.venues set nom = 'Mango Grove', etat = 'en ligne' where id = '00000000-0000-0000-0000-0000000000c2';
+select is((select slug from public.venues where id = '00000000-0000-0000-0000-0000000000c2'),
+  'mango-grove', 'VEN-10 : « Publish » enregistre le nom, l''adresse publiée est celle de ce nom');
+select isnt((select premiere_publication from public.venues where id = '00000000-0000-0000-0000-0000000000c2'),
+  null, 'VEN-10 : la première publication est datée');
+update public.venues set etat = 'brouillon' where id = '00000000-0000-0000-0000-0000000000c2';
+update public.venues set nom = 'Mango Elsewhere' where id = '00000000-0000-0000-0000-0000000000c2';
+select is((select slug from public.venues where id = '00000000-0000-0000-0000-0000000000c2'),
+  'mango-grove', 'VEN-10 : renommé après un retour en brouillon, l''adresse ne change pas');
+update public.venues set premiere_publication = null where id = '00000000-0000-0000-0000-0000000000c2';
+select isnt((select premiere_publication from public.venues where id = '00000000-0000-0000-0000-0000000000c2'),
+  null, 'le client n''efface pas la première publication');
+
+update public.venues set premiere_publication = now() where id = '00000000-0000-0000-0000-0000000000c3';
+select is((select premiere_publication from public.venues where id = '00000000-0000-0000-0000-0000000000c3'),
+  null, 'le client ne date pas une publication qui n''a pas eu lieu');
+update public.venues set nom = 'Café Ñoño Two' where id = '00000000-0000-0000-0000-0000000000c3';
+select is((select slug from public.venues where id = '00000000-0000-0000-0000-0000000000c3'),
+  'cafe-nono-two', 'jamais publié, l''adresse suit encore le nom');
+
 -- ── anon : le site public (VEN-16, VEN-35) ────────────────────────────────────
 set local role anon;
 select is((select count(*)::int from public.venues), 1, 'VEN-16 : anon ne voit que les lieux en ligne');
 select is((select slug from public.venues), 'mango-bar', 'VEN-16 : le lieu en ligne');
-select is((select count(*)::int from public.venues where slug = 'mango-garden'), 0,
-  'VEN-28 : un brouillon est introuvable par son adresse');
+select is((select count(*)::int from public.venues where slug = 'mango-grove'), 0,
+  'VEN-28 : un brouillon est introuvable par son adresse, même déjà publié');
+select throws_ok($$ select premiere_publication from public.venues $$, '42501', null,
+  'anon ne lit pas la date de première publication');
 select throws_ok($$ select partenaire_id from public.venues $$, '42501', null,
   'VEN-35 : anon ne voit pas le partenaire d''un lieu');
 select throws_ok($$ select auteur_id from public.venues $$, '42501', null,
