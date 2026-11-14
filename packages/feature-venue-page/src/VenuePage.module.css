@@ -1,0 +1,27 @@
+/* Figma « 12 · Lieu · fiche complète » (125:273), mobile 390. */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-height: 100%;
+  background: var(--color-bg-app);
+}
+
+/* Bloc `content` (125:290). */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-md);
+}
+
+/* Bloc `blocks` (125:294). */
+.blocks {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-md);
+  width: 100%;
+}

@@ -1,0 +1,6 @@
+/* Figma « 12 · Lieu » (125:273), cadre mobile de 390 px, centré au-delà. */
+.shell {
+  composes: pageShell from global;
+  min-height: 100dvh;
+  background: var(--color-bg-app);
+}

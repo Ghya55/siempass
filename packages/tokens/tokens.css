@@ -61,6 +61,7 @@
   --font-size-md: 15px;
   --font-size-lg: 18px;
   --font-size-xl: 22px;
+  --font-size-2xl: 28px; /* relevée sur 125:273 (`site/display`), pour la fiche d'un lieu */
 
   /* ── Socle (provisoire) ───────────────────────────────────────────────── */
   --color-bg-canvas: #f7f7f6;

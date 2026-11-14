@@ -1,0 +1,54 @@
+/* Figma `VenueInfo` (123:94). */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+/* FIGMA-MANQUANT: couleur des icônes non relevée par `get_variable_defs` (SVG non
+   téléchargeables) ; le screenshot montre le gris du texte secondaire, et l'accent sur le lien. */
+.icon,
+.iconAccent {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.iconAccent {
+  color: var(--color-text-accent);
+}
+
+/* Style `ui/body`. */
+.value {
+  flex: 1 0 0;
+  min-width: 1px;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--color-text-default);
+  overflow-wrap: break-word;
+}
+
+/* Style `ui/label` souligné (123:110). */
+.mapsLink {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-position: from-font;
+}
