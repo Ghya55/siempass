@@ -1,25 +1,21 @@
-import {
-  createSupabaseClient,
-  SUPABASE_PUBLISHABLE_KEY,
-  type EtatPartenaire,
-  type Tables,
-} from "@siempass/db";
+import { createSupabaseClient, SUPABASE_PUBLISHABLE_KEY, type EtatPartenaire, type Tables } from "@siempass/db";
 
 /**
- * Les seules colonnes de `partners` qui sortent sur le site public. Le contact n'en est jamais
- * (PART-8 : ni nom, ni prénom, ni téléphone, ni e-mail), le jeton d'accès non plus (PART-7).
+ * Les colonnes de `venues` que lit la liste des lieux (VEN-16) : photo d'en-tête, nom, tagline,
+ * avantage, et l'adresse que le Figma de la carte affiche. Rien du partenaire ni de son contact
+ * (VEN-35) : `anon` n'a de toute façon aucun droit sur ces colonnes.
  */
-const PUBLIC_COLUMNS = "id, lieu_nom, lieu_adresse, lieu_photo, lieu_description, avantage" as const;
+const LIST_COLUMNS = "id, slug, nom, tagline, adresse, photo_entete, avantage" as const;
 
 const MISSING_KEY_DETAIL =
   "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY absente de l'environnement : à poser dans Vercel (voir .env.example).";
 
-/** Seul l'état « en ligne » est public (PART-3, DEMO-3) : un brouillon n'apparaît nulle part. */
-const EN_LIGNE = "en ligne" as const satisfies EtatPartenaire;
+/** Seul l'état « en ligne » est public (VEN-6, VEN-16) : un brouillon n'apparaît nulle part. */
+export const EN_LIGNE = "en ligne" as const satisfies EtatPartenaire;
 
 export type Place = Pick<
-  Tables<"partners">,
-  "id" | "lieu_nom" | "lieu_adresse" | "lieu_photo" | "lieu_description" | "avantage"
+  Tables<"venues">,
+  "id" | "slug" | "nom" | "tagline" | "adresse" | "photo_entete" | "avantage"
 >;
 
 export type PlacesResult =
@@ -27,12 +23,12 @@ export type PlacesResult =
   | { readonly status: "erreur"; readonly detail: string };
 
 /**
- * Lit les lieux publiés. Aucune mise en cache : la liste est relue à chaque affichage pour que
- * la mise en ligne au back-office se voie sans rechargement manuel ni redéploiement
- * (DEMO-16, DEMO-21). Les pages qui l'appellent portent `dynamic = "force-dynamic"`.
+ * Lit les lieux en ligne. Aucune mise en cache : la liste est relue à chaque affichage pour
+ * qu'une mise en ligne ou un retour en brouillon se voie sans redéploiement (VEN-29). Les pages
+ * qui l'appellent portent `dynamic = "force-dynamic"`.
  *
- * Le plus récent d'abord : l'ordre n'est pas spécifié, et c'est celui qui montre en haut de
- * liste le partenaire qu'on vient de publier.
+ * Le plus récent d'abord : l'ordre n'est pas spécifié (« Ouvert pour Ghya » 9), c'est celui de
+ * la liste avant les lieux. Les lieux repris gardent la date de leur partenaire.
  */
 export async function fetchPublishedPlaces(): Promise<PlacesResult> {
   // Sans clé, `supabase-js` lève au lieu de répondre : la liste rendrait une exception plutôt
@@ -51,8 +47,8 @@ export async function fetchPublishedPlaces(): Promise<PlacesResult> {
 
 async function selectPublishedPlaces(): Promise<PlacesResult> {
   const response = await createSupabaseClient()
-    .from("partners")
-    .select(PUBLIC_COLUMNS)
+    .from("venues")
+    .select(LIST_COLUMNS)
     .eq("etat", EN_LIGNE)
     .order("created_at", { ascending: false });
 

@@ -10,7 +10,7 @@ const TITRE = "Partner venues" as const;
 /**
  * La liste des lieux partenaires, telle qu'elle est dessinée sur l'accueil (73:114) et sur
  * « 08 · Lieux » : mise en page, pas un composant Figma. Seuls les lieux `en ligne` y
- * arrivent, c'est `fetchPublishedPlaces` qui le garantit (VIS-13, PART-3).
+ * arrivent, c'est `fetchPublishedPlaces` qui le garantit (VEN-16) ; chaque carte mène à la fiche.
  */
 export type VenuesSectionProps = { readonly result: PlacesResult };
 
@@ -40,11 +40,12 @@ function VenuesList({ result }: VenuesSectionProps) {
       {result.places.map((place: Place) => (
         <li key={place.id}>
           <PlaceCard
-            name={place.lieu_nom}
-            address={place.lieu_adresse}
-            description={place.lieu_description}
+            href={`/places/${place.slug}`}
+            name={place.nom}
+            address={place.adresse}
+            description={place.tagline}
             avantage={place.avantage}
-            photoUrl={place.lieu_photo}
+            photoUrl={place.photo_entete}
           />
         </li>
       ))}
