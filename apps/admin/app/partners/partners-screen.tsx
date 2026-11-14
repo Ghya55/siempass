@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FC } from "react";
-import type { EtatPartenaire } from "@siempass/db";
 import { AdminSidebar } from "../components/admin-sidebar";
 import { Button } from "../components/button";
 import { EmptyState } from "../components/empty-state";
@@ -10,12 +9,15 @@ import { PartnerRow } from "../components/partner-row";
 import { TableHeaderRow } from "../components/table-header-row";
 import { AddPartnerDialog } from "./add-partner-dialog";
 import { PartnerPanel } from "./partner-panel";
-import { changerEtatPartenaire, creerPartenaire, inviterPartenaire } from "./actions";
+import { cheminVenuesDuPartenaire } from "../lib/chemins";
+import { creerPartenaire, inviterPartenaire } from "./actions";
 import { lienAcces, type Partenaire, type SaisiePartenaire } from "./partenaire";
 import styles from "./partners-screen.module.css";
 
 export type PartnersScreenProps = {
   partenaires: Partenaire[];
+  /** Nombre de lieux par identifiant de partenaire ; absent = 0 (VEN-22). */
+  nombreDeLieux: Readonly<Record<string, number>>;
   origineAdmin: string;
   erreurChargement: string | null;
   /** Adresse du compte connecté, affichée dans la barre latérale. */
@@ -24,6 +26,7 @@ export type PartnersScreenProps = {
 
 export const PartnersScreen: FC<PartnersScreenProps> = ({
   partenaires,
+  nombreDeLieux,
   origineAdmin,
   erreurChargement,
   adresseConnectee,
@@ -68,12 +71,6 @@ export const PartnersScreen: FC<PartnersScreenProps> = ({
     }
   };
 
-  const changerEtat = async (etat: EtatPartenaire): Promise<void> => {
-    if (selectionne !== null) {
-      await ecrire(() => changerEtatPartenaire(selectionne.id, etat));
-    }
-  };
-
   return (
     <div className={styles.ecran}>
       <AdminSidebar adresse={adresseConnectee} />
@@ -104,6 +101,8 @@ export const PartnersScreen: FC<PartnersScreenProps> = ({
                 onSelect={setIdSelectionne}
                 partenaire={partenaire}
                 selected={partenaire.id === idSelectionne}
+                venueCount={nombreDeLieux[partenaire.id] ?? 0}
+                venuesHref={cheminVenuesDuPartenaire(partenaire.id)}
               />
             ))
           )}
@@ -113,17 +112,11 @@ export const PartnersScreen: FC<PartnersScreenProps> = ({
         <PartnerPanel
           enCours={enCours}
           lienAcces={lienAcces(origineAdmin, selectionne.acces_jeton)}
-          onBackToDraft={() => {
-            void changerEtat("brouillon");
-          }}
           onClose={() => {
             setIdSelectionne(null);
           }}
           onInvite={() => {
             void inviter();
-          }}
-          onPublish={() => {
-            void changerEtat("en ligne");
           }}
           partenaire={selectionne}
         />

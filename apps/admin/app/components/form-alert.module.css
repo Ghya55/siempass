@@ -1,0 +1,14 @@
+.alerte {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-control);
+  background: var(--color-status-danger-bg);
+  color: var(--color-status-danger-fg);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}

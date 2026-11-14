@@ -19,11 +19,10 @@ export type CategorieLieu = "bar" | "restaurant" | "cafe" | "shop" | "other";
 export type Database = {
   public: {
     Tables: {
-      /* `lieu_nom`, `lieu_adresse`, `lieu_description` et `avantage` sont nullables en base depuis
-         20261115090000 (VEN-15), mais restent typées non nulles ici : le code actuel (formulaire
-         partenaire, lien partenaire, scan) les écrit et les lit encore toutes, et aucune ligne
-         n'en est privée tant que le formulaire partenaire n'a pas perdu son groupe « The venue ».
-         Elles passent à `string | null` dans la PR qui retire ce groupe (back-office, venues 2/3). */
+      /* `lieu_nom`, `lieu_adresse`, `lieu_description` et `avantage` sont nullables depuis
+         20261115090000 (VEN-15) : le formulaire partenaire ne les écrit plus (PART-2). Elles
+         restent en base, lues par le code de `main` (lien partenaire, scan), jusqu'à la tâche du
+         scan par lieu. `etat` aussi : plus aucun écran du back-office ne l'écrit (VEN-36). */
       partners: {
         Row: {
           id: string;
@@ -32,11 +31,11 @@ export type Database = {
           contact_prenom: string;
           contact_telephone: string;
           contact_email: string | null;
-          lieu_nom: string;
-          lieu_adresse: string;
+          lieu_nom: string | null;
+          lieu_adresse: string | null;
           lieu_photo: string | null;
-          lieu_description: string;
-          avantage: string;
+          lieu_description: string | null;
+          avantage: string | null;
           etat: EtatPartenaire;
           acces_jeton: string;
           invitation_envoyee_le: string | null;
@@ -48,11 +47,11 @@ export type Database = {
           contact_prenom: string;
           contact_telephone: string;
           contact_email?: string | null;
-          lieu_nom: string;
-          lieu_adresse: string;
+          lieu_nom?: string | null;
+          lieu_adresse?: string | null;
           lieu_photo?: string | null;
-          lieu_description: string;
-          avantage: string;
+          lieu_description?: string | null;
+          avantage?: string | null;
           etat?: EtatPartenaire;
           acces_jeton?: string;
           invitation_envoyee_le?: string | null;
@@ -64,11 +63,11 @@ export type Database = {
           contact_prenom?: string;
           contact_telephone?: string;
           contact_email?: string | null;
-          lieu_nom?: string;
-          lieu_adresse?: string;
+          lieu_nom?: string | null;
+          lieu_adresse?: string | null;
           lieu_photo?: string | null;
-          lieu_description?: string;
-          avantage?: string;
+          lieu_description?: string | null;
+          avantage?: string | null;
           etat?: EtatPartenaire;
           acces_jeton?: string;
           invitation_envoyee_le?: string | null;
@@ -127,7 +126,7 @@ export type Database = {
           lien_maps: string | null;
           categorie: CategorieLieu | null;
           horaires: string | null;
-          avantage: string;
+          avantage: string | null;
           slug: string;
           etat: EtatPartenaire;
         };
@@ -195,11 +194,11 @@ export type Database = {
           contact_prenom: string;
           contact_telephone: string;
           contact_email: string | null;
-          lieu_nom: string;
-          lieu_adresse: string;
+          lieu_nom: string | null;
+          lieu_adresse: string | null;
           lieu_photo: string | null;
-          lieu_description: string;
-          avantage: string;
+          lieu_description: string | null;
+          avantage: string | null;
           etat: EtatPartenaire;
         }[];
       };

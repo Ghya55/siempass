@@ -2,17 +2,10 @@ import type { Tables } from "@siempass/db";
 
 export type Partenaire = Tables<"partners">;
 
-/* Les colonnes obligatoires de la table `partners` (specs/partenaire.md § Attributs).
-   `contact_email` et `lieu_photo` en sont absents : ce sont les deux seuls facultatifs. */
-export const CHAMPS_OBLIGATOIRES = [
-  "contact_prenom",
-  "contact_nom",
-  "contact_telephone",
-  "lieu_nom",
-  "lieu_adresse",
-  "lieu_description",
-  "avantage",
-] as const;
+/* Les champs obligatoires du partenaire (specs/partenaire.md § Attributs) : le contact, rien
+   d'autre (PART-2). `contact_email` est le seul facultatif. Le lieu, l'avantage et l'état vivent
+   sur le lieu (specs/venues.md). */
+export const CHAMPS_OBLIGATOIRES = ["contact_prenom", "contact_nom", "contact_telephone"] as const;
 
 export type ChampObligatoire = (typeof CHAMPS_OBLIGATOIRES)[number];
 
@@ -25,15 +18,9 @@ export const SAISIE_VIDE: SaisiePartenaire = {
   contact_nom: "",
   contact_telephone: "",
   contact_email: "",
-  lieu_nom: "",
-  lieu_adresse: "",
-  lieu_description: "",
-  avantage: "",
 };
 
-/* FIGMA-MANQUANT: aucun état d'erreur de champ n'est maquetté. PART-11 fixe le comportement
-   (« la fiche ne s'enregistre pas et le champ fautif porte son message ») ; le texte anglais
-   exact reste à écrire par Quentin. */
+/* Texte de Field state=error (123:130) et de VEN-23 ; PART-11 l'écrit en français. */
 export const MESSAGE_CHAMP_OBLIGATOIRE = "This field is required";
 
 export function champsManquants(saisie: SaisiePartenaire): ChampObligatoire[] {

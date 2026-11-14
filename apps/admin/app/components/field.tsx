@@ -1,6 +1,7 @@
 "use client";
 
 import type { FC } from "react";
+import { Icon } from "./icon-asset";
 import styles from "./field.module.css";
 
 type FieldCommun = {
@@ -8,17 +9,32 @@ type FieldCommun = {
   isOptional: boolean;
 };
 
-type FieldSaisie = FieldCommun & {
-  /* « password » n'est pas dans le Figma des formulaires partenaire : il sert à l'écran de
-     connexion, qui n'est pas maquetté (voir app/login). Même champ, même style, type masqué. */
-  kind: "text" | "password" | "multiline";
+type FieldEditable = FieldCommun & {
   name: string;
   value: string;
   onChange: (valeur: string) => void;
-  /* `null` tant que le champ n'est pas fautif (PART-11). */
+  /* `null` tant que le champ n'est pas fautif : state=error du Figma (PART-11, VEN-23). */
   erreur: string | null;
+};
+
+type FieldSaisie = FieldEditable & {
+  /* « password » n'est pas dans le Figma des formulaires partenaire : il sert à l'écran de
+     connexion, qui n'est pas maquetté (voir app/login). Même champ, même style, type masqué. */
+  kind: "text" | "password" | "multiline";
   /* Indication au gestionnaire de mots de passe du navigateur. Absent : comportement par défaut. */
   autoComplete?: string;
+};
+
+export type FieldOption = {
+  readonly value: string;
+  readonly label: string;
+};
+
+type FieldSelect = FieldEditable & {
+  kind: "select";
+  /* state=placeholder du Figma (160:1613) : le texte grisé tant que `value` est vide. */
+  placeholder: string;
+  options: readonly FieldOption[];
 };
 
 type FieldPhoto = FieldCommun & {
@@ -26,9 +42,11 @@ type FieldPhoto = FieldCommun & {
   texte: string;
 };
 
-export type FieldProps = FieldSaisie | FieldPhoto;
+export type FieldProps = FieldSaisie | FieldSelect | FieldPhoto;
 
-/* Champ de formulaire avec libellé. isOptional affiche « Optional » (libellé du Figma). */
+/* Champ de formulaire avec libellé (Figma « Field », 5:29). isOptional affiche « Optional ».
+   L'état du Figma (default, error, placeholder) se déduit des données : `erreur` non nulle donne
+   state=error, une liste sans valeur donne state=placeholder. */
 export const Field: FC<FieldProps> = (props) => {
   const { label, isOptional } = props;
   const idChamp = props.kind === "photo" ? undefined : props.name;
@@ -65,6 +83,7 @@ export const Field: FC<FieldProps> = (props) => {
           value={props.value}
         />
       )}
+      {props.kind === "select" && <ListeDeroulante {...props} />}
       {props.kind === "photo" && (
         /* L'envoi de fichier n'est pas fait : il demande un bucket Supabase Storage, donc une
            migration, et `supabase/` est hors de cette tâche. La zone du Figma est rendue telle
@@ -74,10 +93,49 @@ export const Field: FC<FieldProps> = (props) => {
         </div>
       )}
       {props.kind !== "photo" && props.erreur !== null && (
-        /* FIGMA-MANQUANT: aucun état d'erreur de champ n'est maquetté. Rendu volontairement
-           sobre, le texte dit ce que demande PART-11. */
-        <p className={styles.erreur}>{props.erreur}</p>
+        <p className={styles.erreur}>
+          <Icon name="alert" size={16} />
+          {props.erreur}
+        </p>
       )}
+    </div>
+  );
+};
+
+/* kind=select : la liste native du navigateur, habillée comme le champ du Figma (chevron à
+   droite). Une liste native garde le clavier et les lecteurs d'écran sans rien réécrire. */
+const ListeDeroulante: FC<FieldSelect> = ({ name, value, onChange, erreur, placeholder, options }) => {
+  const classes = [
+    styles.saisie,
+    styles.liste,
+    value === "" ? styles.listeVide : "",
+    erreur !== null ? styles.saisieFautive : "",
+  ].join(" ");
+
+  return (
+    <div className={styles.cadreListe}>
+      <select
+        aria-invalid={erreur !== null}
+        className={classes}
+        id={name}
+        name={name}
+        onChange={(evenement) => {
+          onChange(evenement.target.value);
+        }}
+        value={value}
+      >
+        <option disabled value="">
+          {placeholder}
+        </option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      <span className={styles.chevron}>
+        <Icon name="chevron-down" size={20} />
+      </span>
     </div>
   );
 };

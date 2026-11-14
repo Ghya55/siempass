@@ -1,12 +1,10 @@
 "use client";
 
 import type { FC } from "react";
-import { AdvantageCard } from "../components/advantage-card";
 import { Button } from "../components/button";
 import { DetailItem } from "../components/detail-item";
 import { InviteBanner } from "../components/invite-banner";
 import { PanelHeader } from "../components/panel-header";
-import { PhotoThumb } from "../components/photo-thumb";
 import { nomDuContact, type Partenaire } from "./partenaire";
 import styles from "./partner-panel.module.css";
 
@@ -15,41 +13,29 @@ export type PartnerPanelProps = {
   lienAcces: string;
   onClose: () => void;
   onInvite: () => void;
-  onPublish: () => void;
-  onBackToDraft: () => void;
   enCours: boolean;
 };
 
-export const PartnerPanel: FC<PartnerPanelProps> = ({
-  partenaire,
-  lienAcces,
-  onClose,
-  onInvite,
-  onPublish,
-  onBackToDraft,
-  enCours,
-}) => {
-  const enLigne = partenaire.etat === "en ligne";
-
+/* Panneau du partenaire, allégé (VEN-36) : plus de « Publish » / « Back to draft », plus d'état,
+   plus de lieu ni d'avantage (ils vivent sur le lieu) ; « Invite » reste.
+   FIGMA-MANQUANT: le panneau (7:210) n'est pas redessiné après VEN-36. Retiré du Figma ce qui
+   n'existe plus, sans rien inventer : le titre devient le nom du contact (le nom du lieu
+   n'existe plus sur le partenaire), sans sous-titre ni badge, et la section « Contact » reste
+   seule. Attend Alex. */
+export const PartnerPanel: FC<PartnerPanelProps> = ({ partenaire, lienAcces, onClose, onInvite, enCours }) => {
   return (
     <aside className={styles.panneau}>
       <PanelHeader
         closeLabel="Close"
         onClose={onClose}
-        state={partenaire.etat}
-        subtitle={partenaire.lieu_adresse}
-        title={partenaire.lieu_nom}
+        state={null}
+        subtitle={null}
+        title={nomDuContact(partenaire)}
       />
       <div className={styles.contenu}>
         {/* L'invitation est rendue d'après la donnée (`invitation_envoyee_le`), pas d'après un
             état d'écran : c'est la seule façon qu'elle survive au `router.refresh()`. */}
         {partenaire.invitation_envoyee_le !== null && <InviteBanner link={lienAcces} />}
-        <AdvantageCard avantage={partenaire.avantage} label="Perk for pass holders" />
-        <section className={styles.section}>
-          <h3 className={styles.titreSection}>The venue</h3>
-          <DetailItem label="Short description" value={partenaire.lieu_description} />
-          <DetailItem label="Photo" value={<PhotoThumb />} />
-        </section>
         <section className={styles.section}>
           <h3 className={styles.titreSection}>Contact</h3>
           <DetailItem label="Name" value={nomDuContact(partenaire)} />
@@ -62,11 +48,6 @@ export const PartnerPanel: FC<PartnerPanelProps> = ({
       <div className={styles.actions}>
         {/* « Inviter » reste visible après l'envoi (DEMO-28). */}
         <Button disabled={enCours} label="Invite" onClick={onInvite} tone="secondary" />
-        {enLigne ? (
-          <Button disabled={enCours} label="Back to draft" onClick={onBackToDraft} tone="secondary" />
-        ) : (
-          <Button disabled={enCours} label="Publish" onClick={onPublish} tone="primary" />
-        )}
       </div>
     </aside>
   );

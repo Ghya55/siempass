@@ -1,6 +1,5 @@
 "use server";
 
-import type { EtatPartenaire } from "@siempass/db";
 import type { ResultatEcriture } from "../lib/ecriture";
 import { creerClientAdmin } from "../lib/supabase-serveur";
 import { champsManquants, type SaisiePartenaire } from "./partenaire";
@@ -24,17 +23,14 @@ export async function creerPartenaire(saisie: SaisiePartenaire): Promise<Resulta
   }
 
   const supabase = await creerClientAdmin();
-  /* `etat` et `acces_jeton` ne sont pas passés : la base les pose elle-même
-     (`brouillon` et un jeton opaque), ce qui tient PART-3 côté serveur. */
+  /* `acces_jeton` n'est pas passé : la base pose un jeton opaque. Les colonnes `lieu_*`,
+     `avantage` et `etat` ne sont plus écrites (PART-2, VEN-15) : elles restent nulles et en
+     brouillon pour un nouveau partenaire, lues seulement par le code de `main`. */
   const { error } = await supabase.from("partners").insert({
     contact_prenom: saisie.contact_prenom.trim(),
     contact_nom: saisie.contact_nom.trim(),
     contact_telephone: saisie.contact_telephone.trim(),
     contact_email: texteOuNull(saisie.contact_email),
-    lieu_nom: saisie.lieu_nom.trim(),
-    lieu_adresse: saisie.lieu_adresse.trim(),
-    lieu_description: saisie.lieu_description.trim(),
-    avantage: saisie.avantage.trim(),
   });
 
   return error === null ? { statut: "ok" } : { statut: "erreur", message: error.message };
@@ -46,13 +42,6 @@ export async function inviterPartenaire(id: string): Promise<ResultatEcriture> {
     .from("partners")
     .update({ invitation_envoyee_le: new Date().toISOString() })
     .eq("id", id);
-
-  return error === null ? { statut: "ok" } : { statut: "erreur", message: error.message };
-}
-
-export async function changerEtatPartenaire(id: string, etat: EtatPartenaire): Promise<ResultatEcriture> {
-  const supabase = await creerClientAdmin();
-  const { error } = await supabase.from("partners").update({ etat }).eq("id", id);
 
   return error === null ? { statut: "ok" } : { statut: "erreur", message: error.message };
 }

@@ -59,6 +59,10 @@ export const AddPartnerDialog: FC<AddPartnerDialogProps> = ({ onCancel, onSave, 
   return (
     <div className={styles.scrim}>
       <div aria-labelledby="titre-ajout" aria-modal="true" className={styles.modale} role="dialog">
+        {/* FIGMA-MANQUANT: la modale (7:42) n'est pas redessinée sans son groupe « The venue »
+            (PART-2, VEN-15) : le groupe est retiré, la largeur du Figma gardée. Son sous-titre
+            parle encore d'un brouillon, alors que le partenaire n'a plus d'état (VEN-36) :
+            texte du Figma gardé, signalé à Alex et Quentin. */}
         <PanelHeader
           closeLabel="Close"
           onClose={onCancel}
@@ -115,50 +119,6 @@ export const AddPartnerDialog: FC<AddPartnerDialogProps> = ({ onCancel, onSave, 
                 name="contact_email"
                 onChange={changer("contact_email")}
                 value={saisie.contact_email}
-              />
-            </fieldset>
-            <div className={styles.separateur} />
-            <fieldset className={styles.groupe}>
-              <legend className={styles.titreGroupe}>
-                <span className={styles.nomGroupe}>The venue</span>
-                <span className={styles.sousTitreGroupe}>What visitors will see on the site.</span>
-              </legend>
-              <Field
-                erreur={erreurs.lieu_nom ?? null}
-                isOptional={false}
-                kind="text"
-                label="Venue name"
-                name="lieu_nom"
-                onChange={changer("lieu_nom")}
-                value={saisie.lieu_nom}
-              />
-              <Field
-                erreur={erreurs.lieu_adresse ?? null}
-                isOptional={false}
-                kind="text"
-                label="Address"
-                name="lieu_adresse"
-                onChange={changer("lieu_adresse")}
-                value={saisie.lieu_adresse}
-              />
-              <Field isOptional kind="photo" label="Photo" texte="Add a photo of the storefront" />
-              <Field
-                erreur={erreurs.lieu_description ?? null}
-                isOptional={false}
-                kind="multiline"
-                label="Short description"
-                name="lieu_description"
-                onChange={changer("lieu_description")}
-                value={saisie.lieu_description}
-              />
-              <Field
-                erreur={erreurs.avantage ?? null}
-                isOptional={false}
-                kind="text"
-                label="Perk for pass holders"
-                name="avantage"
-                onChange={changer("avantage")}
-                value={saisie.avantage}
               />
             </fieldset>
           </div>

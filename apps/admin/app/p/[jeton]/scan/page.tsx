@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { classesBouton } from "../_composants/bouton";
-import { lirePartenaireParJeton } from "../_composants/partenaire";
+import { lirePartenaireParJeton, texteOuTiret } from "../_composants/partenaire";
 import { ScannerCamera } from "./scanner-camera";
 import { validerPass } from "./validation";
 import type { ResultatScan } from "./validation";
@@ -38,7 +38,7 @@ export default async function ScanPage({ params, searchParams }: ProprietesPage)
   }
 
   if (code === undefined || code === "") {
-    return <ScannerCamera jeton={jeton} partner={partenaire.lieu_nom} />;
+    return <ScannerCamera jeton={jeton} partner={texteOuTiret(partenaire.lieu_nom)} />;
   }
 
   const resultat = await validerPass(code, jeton);

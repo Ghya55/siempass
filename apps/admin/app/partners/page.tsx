@@ -6,7 +6,7 @@ import type { Partenaire } from "./partenaire";
 
 export const metadata: Metadata = {
   title: "Partners — SiemPass Admin",
-  description: "Partners of the SiemPass network: add, invite, publish.",
+  description: "Partners of the SiemPass network: add, invite, see their venues.",
 };
 
 /* La liste est relue à chaque affichage : après une écriture, `router.refresh()` suffit à faire
@@ -31,11 +31,14 @@ export default async function PartnersPage() {
   /* `getUser()` et non `getSession()` : la session vient d'un cookie, que le navigateur peut
      écrire ; `getUser()` fait vérifier le jeton par Supabase. */
   const { data: session } = await supabase.auth.getUser();
-  const { data, error } = await supabase
-    .from("partners")
-    .select("*")
-    .order("created_at", { ascending: false });
-  const partenaires: Partenaire[] = data ?? [];
+  const [partners, venues] = await Promise.all([
+    supabase.from("partners").select("*").order("created_at", { ascending: false }),
+    /* La colonne « Venues » (VEN-15) : le nombre de lieux par partenaire, compté ici plutôt que
+       par une jointure imbriquée, dont le typage se tiendrait à la main dans `database.types.ts`. */
+    supabase.from("venues").select("partenaire_id"),
+  ]);
+  const partenaires: Partenaire[] = partners.data ?? [];
+  const error = partners.error ?? venues.error;
 
   return (
     <PartnersScreen
@@ -43,6 +46,17 @@ export default async function PartnersPage() {
       erreurChargement={error === null ? null : error.message}
       origineAdmin={await origineDeLaRequete()}
       partenaires={partenaires}
+      nombreDeLieux={compterParPartenaire(venues.data ?? [])}
     />
   );
+}
+
+function compterParPartenaire(lieux: readonly { partenaire_id: string }[]): Record<string, number> {
+  const nombres: Record<string, number> = {};
+
+  for (const { partenaire_id } of lieux) {
+    nombres[partenaire_id] = (nombres[partenaire_id] ?? 0) + 1;
+  }
+
+  return nombres;
 }
