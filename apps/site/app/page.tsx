@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { fetchPublishedPlaces } from "./places/places";
 import { HomePassCardIsland } from "./ui/HomePassCardIsland";
-import { SiteHeader } from "./ui/SiteHeader";
+import { SiteHeader } from "@siempass/site-header";
 import { VenuesSection } from "./ui/VenuesSection";
 import styles from "./page.module.css";
 

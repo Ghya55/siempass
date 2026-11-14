@@ -19,17 +19,14 @@ type VenuesPageProps = {
 export default async function VenuesPage({ searchParams }: VenuesPageProps) {
   const parametres = await searchParams;
   const filtre = parametres[PARAMETRE_PARTENAIRE];
-  const partenaireFiltre = typeof filtre === "string" && filtre !== "" ? filtre : null;
 
   const supabase = await creerClientAdmin();
   const { data: session } = await supabase.auth.getUser();
 
-  /* Ordre du tableau : le plus récent d'abord, comme Partners. L'ordre n'est pas spécifié
-     (« Ouvert pour Ghya » 9). */
-  const requeteLieux = supabase.from("venues").select(COLONNES_DU_LIEU).order("created_at", { ascending: false });
+  /* Ordre du tableau : le plus récent d'abord ; partenaires par prénom (validés par Ghya le
+     15/11). */
   const [venues, partners] = await Promise.all([
-    /* VEN-33 : filtré, la page montre les lieux de ce partenaire et eux seuls. */
-    partenaireFiltre === null ? requeteLieux : requeteLieux.eq("partenaire_id", partenaireFiltre),
+    supabase.from("venues").select(COLONNES_DU_LIEU).order("created_at", { ascending: false }),
     /* Les noms des partenaires : colonne « Partner », filtre et liste déroulante de la fiche. */
     supabase
       .from("partners")
@@ -37,8 +34,14 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
       .order("contact_prenom", { ascending: true }),
   ]);
 
-  const lieux: Lieu[] = venues.data ?? [];
   const partenaires: PartenaireDuLieu[] = partners.data ?? [];
+  /* `?partner=` ne va jamais tel quel à la base : il désigne un partenaire de la liste lue, ou
+     rien. Valeur qui n'est pas un identifiant, ou partenaire inconnu : la page sans filtre. */
+  const partenaireFiltre = partenaires.find((partenaire) => partenaire.id === filtre) ?? null;
+  /* VEN-33 : filtrée, la page montre les lieux de ce partenaire et eux seuls. */
+  const lieux: Lieu[] = (venues.data ?? []).filter(
+    (lieu) => partenaireFiltre === null || lieu.partenaire_id === partenaireFiltre.id,
+  );
   const erreur = venues.error ?? partners.error;
 
   return (
@@ -46,7 +49,7 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
       adresseConnectee={session.user?.email ?? ""}
       erreurChargement={erreur === null ? null : erreur.message}
       lieux={lieux}
-      partenaireFiltre={partenaires.find((partenaire) => partenaire.id === partenaireFiltre) ?? null}
+      partenaireFiltre={partenaireFiltre}
       partenaires={partenaires}
     />
   );

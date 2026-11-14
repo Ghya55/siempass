@@ -18,37 +18,3 @@
   border-radius: var(--radius-sheet);
   background: var(--color-bg-app);
 }
-
-/* Copie de apps/site/app/ui/SiteHeader.module.css (Figma `SiteHeader` 5:37). */
-.siteHeader {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 64px;
-  padding: var(--space-sm) var(--space-md);
-  border-bottom: 1px solid var(--color-border-default);
-  background: var(--color-bg-brand, #fbf7f1);
-}
-
-.siteTitle {
-  flex: 1 0 0;
-  min-width: 0;
-  margin: 0;
-  color: var(--color-text-accent);
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  font-variation-settings: "SOFT" 0, "WONK" 1;
-  line-height: 1.2;
-  text-align: center;
-}
-
-.siteBack {
-  display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  color: var(--color-text-default);
-}

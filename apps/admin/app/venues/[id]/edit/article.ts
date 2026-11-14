@@ -1,9 +1,11 @@
 import type { Tables } from "@siempass/db";
 import {
-  isVenueCategory,
   parseVenueBlocks,
+  toVenuePageData,
+  VENUE_PAGE_COLUMNS,
   type VenueBlock,
   type VenuePageData,
+  type VenuePageRow,
 } from "@siempass/feature-venue-page";
 
 /**
@@ -12,24 +14,11 @@ import {
  * ajoute par-dessus, c'est l'état de l'envoi de chaque photo (VEN-25).
  */
 
-/** Colonnes du lieu que lit l'éditeur : la fiche enregistrée (pour la preview) et l'article. */
-export const EDITOR_COLUMNS =
-  "id, nom, etat, tagline, avantage, photo_entete, contenu, adresse, lien_maps, categorie, horaires" as const;
+/** Colonnes du lieu que lit l'éditeur : la fiche enregistrée (pour la preview), l'article,
+    l'état et l'auteur (son prénom est lu à part, dans `profiles`). */
+export const EDITOR_COLUMNS = `id, etat, auteur_id, ${VENUE_PAGE_COLUMNS}` as const;
 
-export type EditorVenueRow = Pick<
-  Tables<"venues">,
-  | "id"
-  | "nom"
-  | "etat"
-  | "tagline"
-  | "avantage"
-  | "photo_entete"
-  | "contenu"
-  | "adresse"
-  | "lien_maps"
-  | "categorie"
-  | "horaires"
->;
+export type EditorVenueRow = VenuePageRow & Pick<Tables<"venues">, "id" | "etat" | "auteur_id">;
 
 /**
  * L'envoi d'une photo vers le bucket. `file` est gardé tant que l'envoi n'a pas réussi : « Try
@@ -74,18 +63,20 @@ export function toEditorBlocks(blocks: readonly VenueBlock[]): EditorBlock[] {
 }
 
 /**
- * Les blocs tels qu'ils s'enregistrent et tels que la fiche les reçoit : sans l'état d'envoi.
- * Rien n'est filtré ici : un paragraphe vide ou une photo jamais envoyée s'enregistre comme il
- * est dans l'éditeur, et c'est la fiche qui ne le rend pas (VEN-20). La preview et la fiche
- * publique reçoivent donc exactement les mêmes blocs (VEN-12, VEN-30).
+ * Les blocs tels qu'ils s'enregistrent et tels que la fiche les reçoit : sans l'état d'envoi, et
+ * sans photo jamais envoyée (tranché par Ghya le 15/11 : elle est retirée à l'enregistrement et
+ * ne revient pas en échec après rechargement). Dans l'éditeur, elle reste avec « Try again »
+ * jusqu'à ce qu'on la renvoie ou la supprime ; tant qu'elle n'est pas envoyée, elle n'est pas une
+ * modification à enregistrer. Un paragraphe vide s'enregistre, et la fiche ne le rend pas
+ * (VEN-20). La preview et la fiche publique reçoivent les mêmes blocs (VEN-12, VEN-30).
  */
 export function toVenueBlocks(blocks: readonly EditorBlock[]): VenueBlock[] {
-  return blocks.map((block): VenueBlock => {
+  return blocks.flatMap((block): VenueBlock[] => {
     switch (block.kind) {
       case "paragraph":
-        return { id: block.id, kind: "paragraph", text: block.text };
+        return [{ id: block.id, kind: "paragraph", text: block.text }];
       case "photo":
-        return { id: block.id, kind: "photo", url: block.url };
+        return block.url === null ? [] : [{ id: block.id, kind: "photo", url: block.url }];
       default:
         return assertNever(block);
     }
@@ -126,29 +117,26 @@ export function isNoOpInsertion(fromIndex: number, insertionIndex: number): bool
 }
 
 /**
- * La fiche que montre la preview : nom, tagline, avantage et infos pratiques viennent du lieu
- * enregistré, la photo et les blocs de l'éditeur (bloc 4 de la spec, VEN-30). Même lecture que
- * `toVenuePageData` du site (apps/site/app/places/[slug]/venue.ts) : les deux doivent rester
- * alignées, une app n'important pas dans l'autre.
+ * La fiche que montre la preview : nom, tagline, avantage, infos pratiques et auteur viennent du
+ * lieu enregistré, lus comme le site les lit (`toVenuePageData`) ; la photo et les blocs viennent
+ * de l'éditeur (bloc 4 de la spec, VEN-30).
  */
-export function toPreviewData(venue: EditorVenueRow, article: StoredArticle): VenuePageData {
+export function toPreviewData(venue: EditorVenueRow, author: string | null, article: StoredArticle): VenuePageData {
   return {
-    name: venue.nom,
-    tagline: venue.tagline,
-    perk: venue.avantage,
+    ...toVenuePageData(venue, author),
     headerPhotoUrl: article.headerPhotoUrl,
     blocks: article.blocks,
-    category: isVenueCategory(venue.categorie) ? venue.categorie : null,
-    address: venue.adresse,
-    mapsUrl: venue.lien_maps,
-    hours: venue.horaires,
-    // Comme le site : aucun compte ne porte encore de prénom (« Ouvert pour Ghya » 6).
-    author: null,
   };
 }
 
+/** L'article enregistré. Une photo jamais envoyée, enregistrée avant le 15/11, n'est pas reprise. */
 export function initialArticle(venue: EditorVenueRow): StoredArticle {
-  return { headerPhotoUrl: venue.photo_entete, blocks: parseVenueBlocks(venue.contenu) };
+  return { headerPhotoUrl: venue.photo_entete, blocks: parseVenueBlocks(venue.contenu).filter(isSentBlock) };
+}
+
+/** Faux pour une photo jamais envoyée, qui ne s'enregistre pas. */
+export function isSentBlock(block: VenueBlock): boolean {
+  return block.kind !== "photo" || block.url !== null;
 }
 
 export function assertNever(value: never): never {

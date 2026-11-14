@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createSupabaseClient } from "@siempass/db";
 import { PassCard } from "@/app/ui/PassCard";
-import { SiteHeader } from "@/app/ui/SiteHeader";
+import { SiteHeader } from "@siempass/site-header";
 import { QrCode } from "./_composants/qr-code";
 import styles from "./page.module.css";
 

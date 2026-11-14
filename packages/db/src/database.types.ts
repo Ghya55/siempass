@@ -109,8 +109,9 @@ export type Database = {
           },
         ];
       };
-      /* Lieux (migration 20261115090000, specs/venues.md). `slug` et `auteur_id` sont posés par
-         des déclencheurs : ce que le client y écrit est ignoré. `contenu` : tableau de blocs, lu
+      /* Lieux (migrations 20261115090000 et 20261115140000, specs/venues.md). `slug`,
+         `auteur_id` et `premiere_publication` sont posés par des déclencheurs : ce que le client y
+         écrit est ignoré. `contenu` : tableau de blocs, lu
          par `parseVenueBlocks` (packages/feature-venue-page). */
       venues: {
         Row: {
@@ -129,6 +130,7 @@ export type Database = {
           avantage: string | null;
           slug: string;
           etat: EtatPartenaire;
+          premiere_publication: string | null;
         };
         Insert: {
           id?: string;
@@ -146,6 +148,7 @@ export type Database = {
           avantage?: string | null;
           slug?: string;
           etat?: EtatPartenaire;
+          premiere_publication?: string | null;
         };
         Update: {
           id?: string;
@@ -163,6 +166,7 @@ export type Database = {
           avantage?: string | null;
           slug?: string;
           etat?: EtatPartenaire;
+          premiere_publication?: string | null;
         };
         Relationships: [
           {
@@ -174,6 +178,23 @@ export type Database = {
           },
         ];
       };
+      /* Prénom d'un compte, pour « Written by » (migration 20261115140000, VEN-9). Lisible par
+         `authenticated` seulement ; aucune écriture par l'API. */
+      profiles: {
+        Row: {
+          id: string;
+          prenom: string;
+        };
+        Insert: {
+          id: string;
+          prenom: string;
+        };
+        Update: {
+          id?: string;
+          prenom?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<never, never>;
     Functions: {
@@ -182,6 +203,12 @@ export type Database = {
          `etat` est rendu en `text` par la fonction, comme la colonne : même type côté TypeScript. */
       /* Remet un pass dans l'état « jamais utilisé » (migration 20261110160000). `void` côté
          Postgres, donc aucune donnée en retour : seule l'erreur est à lire. */
+      /* Prénom de l'auteur d'un lieu en ligne, par son adresse de page (migration 20261115140000,
+         VEN-9) : la seule lecture de `profiles` ouverte à `anon`. Nul sinon. */
+      prenom_auteur_du_lieu: {
+        Args: { lieu_slug: string };
+        Returns: string | null;
+      };
       rafraichir_pass: {
         Args: { pass_id: string };
         Returns: undefined;

@@ -119,3 +119,14 @@ begin
   end loop;
 end
 $$;
+
+-- Prénoms des comptes de test, affichés en « Written by » sur la fiche d'un lieu (VEN-9). Un
+-- compte absent (CI, mot de passe non posé) n'en reçoit pas : la jointure ne rend rien.
+insert into public.profiles (id, prenom)
+select u.id, comptes.prenom
+from (values
+  ('jean-aurel@siempass.com', 'Ghya')
+  -- , ('associe@siempass.com', '<prénom>')
+) as comptes (adresse, prenom)
+join auth.users as u on u.email = comptes.adresse
+on conflict (id) do update set prenom = excluded.prenom;
