@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Icon } from "./icon-asset";
+import { Icon } from "@siempass/core-icons";
 import styles from "./form-alert.module.css";
 
 export type FormAlertProps = {

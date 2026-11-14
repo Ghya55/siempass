@@ -1,7 +1,7 @@
 "use client";
 
 import { classNames } from "./class-names";
-import { IconRadio } from "./icons";
+import { RadioMark } from "./RadioMark";
 import styles from "./PaymentOption.module.css";
 
 /** Côté du gabarit `radio` du Figma (5:58 · 5:63). */
@@ -31,7 +31,7 @@ export function PaymentOption({ label, detail, selected, onSelect }: PaymentOpti
       onClick={onSelect}
     >
       <span className={styles.radio}>
-        <IconRadio size={TAILLE_RADIO} selected={selected} />
+        <RadioMark size={TAILLE_RADIO} selected={selected} />
       </span>
       <span className={styles.text}>
         <span className={styles.label}>{label}</span>

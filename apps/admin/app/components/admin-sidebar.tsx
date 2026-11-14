@@ -6,13 +6,14 @@ import { useState, type FC } from "react";
 import { CHEMIN_CONNEXION } from "../lib/chemins";
 import { seDeconnecter } from "../login/actions";
 import { Button } from "./button";
-import { Icon, type NomIcone } from "./icon-asset";
+import { Icon, type IconName } from "@siempass/core-icons";
 import styles from "./admin-sidebar.module.css";
 
 type Entree = {
   readonly chemin: string;
   readonly libelle: string;
-  readonly icone: NomIcone;
+  /** Absente : l'écran n'est pas maquetté, aucune icône n'existe pour lui dans Figma. */
+  readonly icone?: IconName;
 };
 
 /* Les écrans du back-office, dans l'ordre de la barre (Figma : Partners, Venues). « Passes »
@@ -20,7 +21,7 @@ type Entree = {
 const ENTREES: readonly Entree[] = [
   { chemin: "/partners", libelle: "Partners", icone: "store" },
   { chemin: "/venues", libelle: "Venues", icone: "pin" },
-  { chemin: "/passes", libelle: "Passes", icone: "ticket" },
+  { chemin: "/passes", libelle: "Passes" },
 ];
 
 export type AdminSidebarProps = {
@@ -59,7 +60,12 @@ export const AdminSidebar: FC<AdminSidebarProps> = ({ adresse }) => {
                 className={actif ? styles.navItemActif : styles.navItem}
                 href={entree.chemin}
               >
-                <Icon name={entree.icone} size={18} />
+                {entree.icone === undefined ? (
+                  // FIGMA-MANQUANT: pas d'icône pour « Passes », écran de test non maquetté.
+                  <span aria-hidden="true" className={styles.iconeAbsente} />
+                ) : (
+                  <Icon name={entree.icone} size={18} />
+                )}
                 {entree.libelle}
               </Link>
             </li>

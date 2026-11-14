@@ -2,7 +2,7 @@
 
 import { memo, useCallback, useRef, type ChangeEvent, type DragEvent, type FC, type KeyboardEvent } from "react";
 import { assertNever, type EditorBlock as EditorBlockData } from "./article";
-import { IconGrip, IconImage, IconTrash } from "./icons";
+import { Icon } from "@siempass/core-icons";
 import { UploadFailed } from "./upload-failed";
 import { usePhotoPicker } from "./use-photo-picker";
 import styles from "./editor-block.module.css";
@@ -83,13 +83,13 @@ export const EditorBlock: FC<EditorBlockProps> = memo(function EditorBlock({
         onKeyDown={handleKeyDown}
         aria-label="Move block"
       >
-        <IconGrip size={GRIP_SIZE} />
+        <Icon name="grip" size={GRIP_SIZE} />
       </button>
       <div className={styles.content}>
         <BlockContent block={block} onTextChange={onTextChange} onPhotoPick={onPhotoPick} onPhotoRetry={onPhotoRetry} />
       </div>
       <button className={styles.remove} type="button" onClick={remove} aria-label="Delete block">
-        <IconTrash size={TRASH_SIZE} />
+        <Icon name="trash" size={TRASH_SIZE} />
       </button>
     </div>
   );
@@ -164,7 +164,7 @@ const PhotoContent: FC<PhotoContentProps> = ({ block, onPhotoPick, onPhotoRetry 
       <input {...picker.inputProps} />
       {url === null ? (
         <div className={styles.photoEmpty} aria-busy={isUploading} data-uploading={isUploading}>
-          <IconImage size={FRAME_ICON_SIZE} />
+          <Icon name="photo" size={FRAME_ICON_SIZE} />
         </div>
       ) : (
         // eslint-disable-next-line @next/next/no-img-element -- photo du bucket Supabase, comme VenuePhoto.

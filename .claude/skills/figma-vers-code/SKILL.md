@@ -21,7 +21,8 @@ description: Traduire un composant ou un écran Figma de SiemPass en code fidèl
 1. `get_variable_defs` → les tokens. S'il en manque, `get_metadata` sur `00 · Fondations`.
 2. Charger `figma-design-to-code`, puis `get_design_context` sur le nœud. Le résultat est une **référence** : on le retraduit avec les composants et tokens du projet.
 3. `get_screenshot` du nœud, gardé pour comparer à la fin.
-4. `download_assets` pour les images ; refus réseau (403) : placeholder et note pour Ghya.
+4. **Icônes et tracés vectoriels : jamais de placeholder, jamais de tracé à la main.** Le proxy refuse figma.com (403), donc `download_assets` échoue, mais l'export passe par `use_figma` (lecture seule, charger `figma-use`) : `return await (await figma.getNodeByIdAsync("<id>")).exportAsync({ format: "SVG_STRING" })`. Le SVG revient dans la réponse. On recopie `box`, les `d` et le trait dans `packages/core-icons/src/icons.ts`, puis `<Icon name="…" size={…} />` ; la couleur vient de l'usage (`currentColor`), relevée sur l'instance Figma.
+5. `download_assets` pour les photos seulement ; refus réseau (403) : placeholder et note pour Ghya.
 
 ## Ce qui manque dans Figma
 On ne l'invente pas : rendu volontairement grossier, `// FIGMA-MANQUANT: <quoi>` dans le code, ligne dans la description de PR pour Alex.

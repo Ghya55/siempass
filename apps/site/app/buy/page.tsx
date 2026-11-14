@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { classesBouton } from "./_composants/bouton";
-import { IconCheck } from "../ui/icons";
+import { Icon } from "@siempass/core-icons";
 import { SiteHeader } from "../ui/SiteHeader";
 import styles from "./page.module.css";
 
@@ -35,7 +35,7 @@ export default function BuyPage() {
           {AVANTAGES.map((avantage) => (
             <li key={avantage} className={styles.avantage}>
               <span className={styles.coche}>
-                <IconCheck size={TAILLE_COCHE} />
+                <Icon name="benefit-check" size={TAILLE_COCHE} />
               </span>
               <span>{avantage}</span>
             </li>

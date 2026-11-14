@@ -17,8 +17,7 @@ export function Badge({ state }: ProprietesBadge) {
   const enLigne = state === "en ligne";
   return (
     <span className={`${styles.badge} ${enLigne ? styles.badgeEnLigne : styles.badgeBrouillon}`}>
-      {/* FIGMA-MANQUANT: le SVG `dot` (6:3 / 6:6) n'a pas pu être téléchargé — figma.com est
-          refusé par le proxy de la session. Pastille CSS de 6 px, à remplacer par l'asset. */}
+      {/* `dot` (6:3 / 6:6) : un disque plein de 6, à la couleur du libellé. */}
       <span className={styles.pastille} aria-hidden="true" />
       {LIBELLES[state]}
     </span>

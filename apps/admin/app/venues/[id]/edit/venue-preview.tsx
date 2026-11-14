@@ -1,6 +1,6 @@
 import { memo, type FC } from "react";
 import { VenuePage, type VenuePageData } from "@siempass/feature-venue-page";
-import { IconChevronLeft } from "./icons";
+import { Icon } from "@siempass/core-icons";
 import styles from "./venue-preview.module.css";
 
 const BACK_SIZE = 24 as const;
@@ -35,7 +35,7 @@ const PreviewSiteHeader: FC = () => {
   return (
     <div className={styles.siteHeader}>
       <span className={styles.siteBack} aria-hidden="true">
-        <IconChevronLeft size={BACK_SIZE} />
+        <Icon name="chevron-left" size={BACK_SIZE} />
       </span>
       <p className={styles.siteTitle}>SiemPass</p>
       <span className={styles.siteBack} aria-hidden="true" />

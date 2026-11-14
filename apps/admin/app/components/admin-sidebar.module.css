@@ -122,3 +122,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* La place d'une icône qui n'existe pas dans Figma : le libellé reste aligné sur les autres. */
+.iconeAbsente {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}

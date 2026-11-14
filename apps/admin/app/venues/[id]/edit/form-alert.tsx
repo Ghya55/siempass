@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { IconAlertCircle } from "./icons";
+import { Icon } from "@siempass/core-icons";
 import styles from "./form-alert.module.css";
 
 const ICON_SIZE = 18 as const;
@@ -16,7 +16,7 @@ export type FormAlertProps = {
 export const FormAlert: FC<FormAlertProps> = ({ message }) => {
   return (
     <p className={styles.alert} role="alert">
-      <IconAlertCircle size={ICON_SIZE} />
+      <Icon name="alert" size={ICON_SIZE} />
       {message}
     </p>
   );
