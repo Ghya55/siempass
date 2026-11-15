@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Icon } from "@siempass/core-icons";
+import { Image as ImageIcon } from "lucide-react";
 import styles from "./PlaceCard.module.css";
 
 /**
@@ -59,7 +59,7 @@ function PlacePhoto({ name, photoUrl }: Pick<PlaceCardProps, "name" | "photoUrl"
   if (photoUrl === null || photoUrl === "") {
     return (
       <div className={styles.photoPlaceholder}>
-        <Icon name="place-card-photo" size={TAILLE_ICONE_PHOTO} />
+        <ImageIcon size={TAILLE_ICONE_PHOTO} />
         <span className={styles.photoCaption}>Storefront photo</span>
       </div>
     );

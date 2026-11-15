@@ -1,7 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import { Icon } from "@siempass/core-icons";
+import { ChevronDown, CircleAlert } from "lucide-react";
 import styles from "./field.module.css";
 
 type FieldCommun = {
@@ -94,7 +94,7 @@ export const Field: FC<FieldProps> = (props) => {
       )}
       {props.kind !== "photo" && props.erreur !== null && (
         <p className={styles.erreur}>
-          <Icon name="alert" size={16} />
+          <CircleAlert size={16} />
           {props.erreur}
         </p>
       )}
@@ -134,7 +134,7 @@ const ListeDeroulante: FC<FieldSelect> = ({ name, value, onChange, erreur, place
         ))}
       </select>
       <span className={styles.chevron}>
-        <Icon name="chevron-down" size={20} />
+        <ChevronDown size={20} />
       </span>
     </div>
   );

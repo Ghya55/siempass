@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Icon } from "@siempass/core-icons";
+import { ChevronLeft } from "lucide-react";
 import styles from "./SiteHeader.module.css";
 
 /** Côté de `icon/chevron-left` (64:12) dans le gabarit Figma `back` (66:45). */
@@ -26,7 +26,7 @@ export function SiteHeader({ hasBack = false }: SiteHeaderProps) {
         // « Back » n'est écrit nulle part dans le Figma : l'icône y est seule. Le nom
         // accessible est pourtant obligatoire, un lien sans texte n'est pas annonçable.
         <Link href="/" className={styles.back} aria-label="Back">
-          <Icon name="chevron-left" size={TAILLE_RETOUR} />
+          <ChevronLeft size={TAILLE_RETOUR} />
         </Link>
       ) : null}
       <p className={styles.title}>SiemPass</p>

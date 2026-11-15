@@ -5,7 +5,7 @@ import { memo, type FC, type MouseEvent } from "react";
 import type { EtatPartenaire } from "@siempass/db";
 import { Badge } from "../../../components/badge";
 import { Button } from "../../../components/button";
-import { Icon } from "@siempass/core-icons";
+import { ChevronLeft } from "lucide-react";
 import styles from "./editor-header.module.css";
 
 const CHEVRON_SIZE = 16 as const;
@@ -38,7 +38,7 @@ export const EditorHeader: FC<EditorHeaderProps> = memo(function EditorHeader({
     <header className={styles.header}>
       <div className={styles.lead}>
         <Link className={styles.back} href={VENUES_PATH} onClick={onBack}>
-          <Icon name="chevron-left" size={CHEVRON_SIZE} />
+          <ChevronLeft size={CHEVRON_SIZE} />
           Back to venues
         </Link>
         <span className={styles.divider} aria-hidden="true" />

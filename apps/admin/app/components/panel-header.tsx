@@ -3,7 +3,7 @@
 import type { FC } from "react";
 import type { EtatPartenaire } from "@siempass/db";
 import { Badge } from "./badge";
-import { Icon } from "@siempass/core-icons";
+import { X } from "lucide-react";
 import styles from "./panel-header.module.css";
 
 export type PanelHeaderProps = {
@@ -26,7 +26,7 @@ export const PanelHeader: FC<PanelHeaderProps> = ({ title, subtitle, state, onCl
         {state !== null && <Badge state={state} />}
       </div>
       <button aria-label={closeLabel} className={styles.fermer} onClick={onClose} type="button">
-        <Icon name="panel-close" size={20} />
+        <X size={20} />
       </button>
     </header>
   );
