@@ -1,4 +1,4 @@
-import { Icon } from "@siempass/core-icons";
+import { Image as ImageIcon } from "lucide-react";
 import styles from "./composants.module.css";
 
 /**
@@ -8,7 +8,7 @@ import styles from "./composants.module.css";
 export function PhotoThumb() {
   return (
     <div className={styles.photoThumb}>
-      <Icon name="photo-thumb-photo" size={24} />
+      <ImageIcon size={24} />
     </div>
   );
 }

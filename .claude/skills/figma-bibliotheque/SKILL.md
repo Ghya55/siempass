@@ -39,4 +39,4 @@ Des composants partagés par les deux produits (boutons de base, champs) vivent 
 - Deux enfants FILL côte à côte ne se partagent la largeur que si aucun n'a un contenu plus large que sa part : cadre FILL sans padding autour. Un calque texte n'accepte pas de hauteur minimale : l'envelopper.
 - Le défilement (sticky) n'est pas exposé par l'API : réglage manuel par Ghya, sur consigne précise.
 - L'envoi d'images et `download_assets` peuvent être refusés (403) : placeholder, dépôt manuel par Ghya. **Pas pour les vecteurs** : un SVG s'exporte par `use_figma` avec `exportAsync({ format: "SVG_STRING" })` (voir `figma-vers-code`).
-- Une icône est un composant de la frame `Icons` (`00 · Fondations`), dessiné sur 24, tracé centré dans le gabarit. Pas d'icône dessinée sur place dans un composant.
+- Les icônes sont celles de **Lucide** (lucide.dev) : un composant `icon/<nom lucide>` dans la frame `Icons` (`00 · Fondations`), gabarit 24, trait 2. Pas d'icône dessinée à la main ni sur place dans un composant ; le code utilise `lucide-react` sous le même nom.

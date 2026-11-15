@@ -2,7 +2,7 @@
 
 import { memo, type FC } from "react";
 import type { HeaderPhoto } from "./article";
-import { Icon } from "@siempass/core-icons";
+import { Image as ImageIcon, Pencil } from "lucide-react";
 import { UploadFailed } from "./upload-failed";
 import { usePhotoPicker } from "./use-photo-picker";
 import styles from "./header-photo-field.module.css";
@@ -48,7 +48,7 @@ export const HeaderPhotoField: FC<HeaderPhotoFieldProps> = memo(function HeaderP
             aria-busy={isUploading}
             data-uploading={isUploading}
           >
-            <Icon name="photo" size={FRAME_ICON_SIZE} />
+            <ImageIcon size={FRAME_ICON_SIZE} />
             <span className={styles.emptyLabel}>Add photo</span>
           </button>
         ) : (
@@ -63,7 +63,7 @@ export const HeaderPhotoField: FC<HeaderPhotoFieldProps> = memo(function HeaderP
             />
             {/* FIGMA-MANQUANT: le crayon n'a pas de libellé ; nom accessible « Change photo », non affiché. */}
             <button className={styles.pencil} type="button" onClick={picker.open} aria-label="Change photo">
-              <Icon name="pencil" size={PENCIL_SIZE} />
+              <Pencil size={PENCIL_SIZE} />
             </button>
           </>
         )}

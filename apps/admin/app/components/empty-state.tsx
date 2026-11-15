@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Icon } from "@siempass/core-icons";
+import { MapPin } from "lucide-react";
 import styles from "./empty-state.module.css";
 
 export type EmptyStateProps = {
@@ -12,7 +12,7 @@ export const EmptyState: FC<EmptyStateProps> = ({ title }) => {
   return (
     <div className={styles.emptyState}>
       <span className={styles.icone}>
-        <Icon name="empty-state-pin" size={24} />
+        <MapPin size={24} />
       </span>
       <p className={styles.titre}>{title}</p>
     </div>

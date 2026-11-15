@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { classNames } from "./class-names";
-import { Icon } from "@siempass/core-icons";
+import { ArrowRight, LoaderCircle } from "lucide-react";
 import styles from "./Button.module.css";
 
 /** Propriétés `size`, `tone` et `state` du composant Figma `Button` (5:10). */
@@ -111,12 +111,12 @@ function ButtonMedia({ size = "md", hasIcon = false, icon, state = "default" }: 
   if (state === "loading") {
     return (
       <span className={styles.spinner}>
-        <Icon name="spinner" size={TAILLE_ICONE[size]} />
+        <LoaderCircle size={TAILLE_ICONE[size]} />
       </span>
     );
   }
   if (!hasIcon) {
     return null;
   }
-  return icon === undefined ? <Icon name="arrow-right" size={TAILLE_ICONE[size]} /> : icon;
+  return icon === undefined ? <ArrowRight size={TAILLE_ICONE[size]} /> : icon;
 }

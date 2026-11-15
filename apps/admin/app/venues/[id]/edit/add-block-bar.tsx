@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, type FC } from "react";
-import { Icon } from "@siempass/core-icons";
+import { Plus } from "lucide-react";
 import { usePhotoPicker } from "./use-photo-picker";
 import styles from "./add-block-bar.module.css";
 
@@ -20,11 +20,11 @@ export const AddBlockBar: FC<AddBlockBarProps> = memo(function AddBlockBar({ onA
     <div className={styles.bar}>
       <input {...picker.inputProps} />
       <button className={styles.button} type="button" onClick={onAddParagraph}>
-        <Icon name="plus" size={PLUS_SIZE} />
+        <Plus size={PLUS_SIZE} />
         Add paragraph
       </button>
       <button className={styles.button} type="button" onClick={picker.open}>
-        <Icon name="plus" size={PLUS_SIZE} />
+        <Plus size={PLUS_SIZE} />
         Add photo
       </button>
     </div>

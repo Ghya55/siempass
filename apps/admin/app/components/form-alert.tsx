@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Icon } from "@siempass/core-icons";
+import { CircleAlert } from "lucide-react";
 import styles from "./form-alert.module.css";
 
 export type FormAlertProps = {
@@ -10,7 +10,7 @@ export type FormAlertProps = {
 export const FormAlert: FC<FormAlertProps> = ({ message }) => {
   return (
     <p className={styles.alerte} role="alert">
-      <Icon name="alert" size={20} />
+      <CircleAlert size={20} />
       {message}
     </p>
   );

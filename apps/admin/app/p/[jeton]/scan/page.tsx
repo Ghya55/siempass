@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Icon, type IconName } from "@siempass/core-icons";
+import { Check, Clock, X, type LucideIcon } from "lucide-react";
 import { classesBouton } from "../_composants/bouton";
 import { lirePartenaireParJeton, texteOuTiret } from "../_composants/partenaire";
 import { ScannerCamera } from "./scanner-camera";
@@ -100,16 +100,18 @@ function classeDuResultat(resultat: ResultatScan["resultat"]): "estValide" | "es
 }
 
 const ICONE_RESULTAT = {
-  valide: "scan-valide",
-  "deja-utilise": "scan-deja-utilise",
-  invalide: "scan-invalide",
-} as const satisfies Record<ResultatScan["resultat"], IconName>;
+  valide: Check,
+  "deja-utilise": Clock,
+  invalide: X,
+} as const satisfies Record<ResultatScan["resultat"], LucideIcon>;
 
 /** Pastille de 88 du Figma, icône de 40 (6:118 · 6:128 · 6:138). */
 function PastilleResultat({ resultat }: { readonly resultat: ResultatScan["resultat"] }) {
+  const Icone = ICONE_RESULTAT[resultat];
+
   return (
     <span className={styles.pastille}>
-      <Icon name={ICONE_RESULTAT[resultat]} size={40} />
+      <Icone size={40} />
     </span>
   );
 }

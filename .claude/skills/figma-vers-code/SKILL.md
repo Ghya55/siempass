@@ -21,7 +21,8 @@ description: Traduire un composant ou un écran Figma de SiemPass en code fidèl
 1. `get_variable_defs` → les tokens. S'il en manque, `get_metadata` sur `00 · Fondations`.
 2. Charger `figma-design-to-code`, puis `get_design_context` sur le nœud. Le résultat est une **référence** : on le retraduit avec les composants et tokens du projet.
 3. `get_screenshot` du nœud, gardé pour comparer à la fin.
-4. **Icônes et tracés vectoriels : jamais de placeholder, jamais de tracé à la main.** Le proxy refuse figma.com (403), donc `download_assets` échoue, mais l'export passe par `use_figma` (lecture seule, charger `figma-use`) : `return await (await figma.getNodeByIdAsync("<id>")).exportAsync({ format: "SVG_STRING" })`. Le SVG revient dans la réponse. On recopie `box`, les `d` et le trait dans `packages/core-icons/src/icons.ts`, puis `<Icon name="…" size={…} />` ; la couleur vient de l'usage (`currentColor`), relevée sur l'instance Figma.
+4. **Icônes : Lucide, des deux côtés.** Un composant `icon/<nom>` de la frame `Icons` porte le nom Lucide ; dans le code, `import { MapPin } from "lucide-react"` puis `<MapPin size={…} />`, taille relevée sur l'instance, couleur portée par l'usage (`currentColor`). Jamais de tracé à la main ni de placeholder. Une icône absente de Lucide : `// FIGMA-MANQUANT`, et on le dit à Alex.
+   Un autre tracé vectoriel (illustration, viseur) s'exporte par `use_figma` en lecture seule (charger `figma-use`) : `exportAsync({ format: "SVG_STRING" })` renvoie le SVG dans la réponse, sans passer par figma.com que le proxy refuse (403).
 5. `download_assets` pour les photos seulement ; refus réseau (403) : placeholder et note pour Ghya.
 
 ## Ce qui manque dans Figma

@@ -1,4 +1,4 @@
-import { Icon } from "@siempass/core-icons";
+import { MapPin } from "lucide-react";
 import styles from "./EmptyState.module.css";
 
 /** Figma `EmptyState` (5:30) — « État vide d'une liste. » `body` absent = `hasBody` à faux. */
@@ -14,7 +14,7 @@ export function EmptyState({ title, body }: EmptyStateProps) {
   return (
     <div className={styles.emptyState}>
       <div className={styles.iconCircle}>
-        <Icon name="empty-state-pin" size={TAILLE_ICONE_PIN} />
+        <MapPin size={TAILLE_ICONE_PIN} />
       </div>
       <p className={styles.title}>{title}</p>
       {body === undefined ? null : <p className={styles.body}>{body}</p>}

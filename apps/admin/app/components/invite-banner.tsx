@@ -2,7 +2,7 @@
 
 import { useState, type FC } from "react";
 import { Button } from "./button";
-import { Icon } from "@siempass/core-icons";
+import { Check } from "lucide-react";
 import styles from "./invite-banner.module.css";
 
 export type InviteBannerProps = {
@@ -22,7 +22,7 @@ export const InviteBanner: FC<InviteBannerProps> = ({ link }) => {
   return (
     <section className={styles.banniere}>
       <p className={styles.titre}>
-        <Icon name="invite-check" size={18} />
+        <Check size={18} />
         Invite sent
       </p>
       <p className={styles.texte}>Access link to their page, no account or password needed:</p>

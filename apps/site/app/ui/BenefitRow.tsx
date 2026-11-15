@@ -1,4 +1,4 @@
-import { Icon } from "@siempass/core-icons";
+import { Check } from "lucide-react";
 import styles from "./BenefitRow.module.css";
 
 /** Côté de `icon/check` dans le gabarit Figma de la ligne (54:8). */
@@ -16,7 +16,7 @@ export function BenefitRow({ label }: BenefitRowProps) {
   return (
     <li className={styles.benefitRow}>
       <span className={styles.check}>
-        <Icon name="benefit-check" size={TAILLE_COCHE} />
+        <Check size={TAILLE_COCHE} />
       </span>
       <span className={styles.label}>{label}</span>
     </li>
