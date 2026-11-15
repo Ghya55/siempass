@@ -15,8 +15,7 @@ type Entree = {
   readonly icone: LucideIcon;
 };
 
-/* Les écrans du back-office, dans l'ordre de la barre (Figma : Partners, Venues). « Passes »
-   n'est pas dans le Figma de la barre : c'est l'écran de test du 10/11, gardé en dernier. */
+/* Les écrans du back-office, dans l'ordre de la barre du Figma (`AdminSidebar`, 6:9). */
 const ENTREES: readonly Entree[] = [
   { chemin: "/partners", libelle: "Partners", icone: Store },
   { chemin: "/venues", libelle: "Venues", icone: MapPin },
