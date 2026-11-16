@@ -1,22 +1,8 @@
-.ecran {
-  display: flex;
-  min-height: 100dvh;
-  background: var(--color-bg-app);
-}
-
-.principal {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  flex: 1;
-  min-width: 0;
-  padding: var(--space-xl) var(--space-lg);
-}
-
 .entete {
   display: flex;
   gap: var(--space-md);
   align-items: baseline;
+  width: 100%;
 }
 
 .titre {
@@ -65,7 +51,8 @@
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-card);
   background: var(--color-surface-default);
-  overflow: hidden;
+  /* `clip` : coins arrondis sans zone de défilement, l'en-tête reste collé en haut. */
+  overflow: clip;
 }
 
 .ligneEntete {
@@ -75,6 +62,9 @@
   align-items: center;
   padding: var(--space-xs) var(--space-md);
   border-bottom: 1px solid var(--color-border-default);
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background: var(--color-surface-muted);
   color: var(--color-text-muted);
   font-size: var(--font-size-xs);

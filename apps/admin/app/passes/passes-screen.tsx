@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FC } from "react";
-import { AdminSidebar } from "../components/admin-sidebar";
+import { AdminListPage, AdminShell } from "../components/admin-shell";
 import { EmptyState } from "../components/empty-state";
 import type { ResultatEcriture } from "../lib/ecriture";
 import { rafraichirPass, supprimerPass } from "./actions";
@@ -48,20 +48,24 @@ export const PassesScreen: FC<PassesScreenProps> = ({ passes, erreurChargement, 
   };
 
   return (
-    <div className={styles.ecran}>
-      <AdminSidebar adresse={adresseConnectee} />
-      <main className={styles.principal}>
-        <div className={styles.entete}>
-          <h1 className={styles.titre}>Passes</h1>
-          <span className={styles.compte}>
-            {passes.length} {passes.length === 1 ? "pass" : "passes"}
-          </span>
-        </div>
-        <p className={styles.note}>
-          Test tools. <strong>Refresh</strong> makes a pass scannable again and pushes its expiry
-          back; the QR code stays the same. <strong>Delete</strong> is permanent — there is one
-          database for staging and production.
-        </p>
+    <AdminShell adresse={adresseConnectee}>
+      <AdminListPage
+        entete={
+          <>
+            <div className={styles.entete}>
+              <h1 className={styles.titre}>Passes</h1>
+              <span className={styles.compte}>
+                {passes.length} {passes.length === 1 ? "pass" : "passes"}
+              </span>
+            </div>
+            <p className={styles.note}>
+              Test tools. <strong>Refresh</strong> makes a pass scannable again and pushes its expiry
+              back; the QR code stays the same. <strong>Delete</strong> is permanent — there is one
+              database for staging and production.
+            </p>
+          </>
+        }
+      >
         {erreurChargement !== null && <p className={styles.erreur}>{erreurChargement}</p>}
         {erreurEcriture !== null && <p className={styles.erreur}>{erreurEcriture}</p>}
         <div className={styles.tableau}>
@@ -84,8 +88,8 @@ export const PassesScreen: FC<PassesScreenProps> = ({ passes, erreurChargement, 
             ))
           )}
         </div>
-      </main>
-    </div>
+      </AdminListPage>
+    </AdminShell>
   );
 };
 
