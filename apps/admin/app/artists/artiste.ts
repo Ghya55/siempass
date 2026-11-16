@@ -34,3 +34,11 @@ export function erreursDesChamps(champs: readonly ChampObligatoire[]): ErreursSa
 
   return erreurs;
 }
+
+export function saisieDeLArtiste(artiste: Artiste): SaisieArtiste {
+  return {
+    nom: artiste.nom,
+    categorie: artiste.categorie,
+    reseau_social: artiste.reseau_social ?? "",
+  };
+}

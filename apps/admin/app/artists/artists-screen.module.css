@@ -60,9 +60,30 @@
 .ligne {
   padding: var(--space-sm) var(--space-md);
   border-top: 1px solid var(--color-border-default);
+  background: var(--color-surface-default);
+}
+
+.selectionnee {
+  background: var(--color-accent-subtle);
+}
+
+/* La ligne a deux cibles : la fiche (toute la largeur) et « Delete ». Un bouton ne peut pas
+   vivre dans un bouton : la ligne est un conteneur, comme PartnerRow. */
+.ouvrir {
+  display: flex;
+  flex: 1 0 0;
+  gap: var(--space-md);
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
   color: var(--color-text-default);
+  font-family: var(--font-family-text);
   font-size: var(--font-size-sm);
   line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
 }
 
 .colonne {
@@ -71,6 +92,17 @@
   overflow-wrap: anywhere;
 }
 
+.nom {
+  font-weight: 600;
+}
+
 .secondaire {
   color: var(--color-text-muted);
+}
+
+.colonneAction {
+  display: flex;
+  width: 148px;
+  flex-shrink: 0;
+  justify-content: flex-end;
 }
