@@ -178,8 +178,8 @@ export type Database = {
           },
         ];
       };
-      /* Artistes (migration 20261116200000, specs/artists.md). Lecture et ajout par
-         `authenticated` ; ni modification ni suppression (ART-4). */
+      /* Artistes (migration 20261116200000, specs/artists.md). Lecture, ajout,
+         modification et suppression par `authenticated` (20261116210000, ART-4, ART-8). */
       artists: {
         Row: {
           id: string;
