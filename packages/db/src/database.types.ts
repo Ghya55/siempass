@@ -178,6 +178,32 @@ export type Database = {
           },
         ];
       };
+      /* Artistes (migration 20261116200000, specs/artists.md). Lecture et ajout par
+         `authenticated` ; ni modification ni suppression (ART-4). */
+      artists: {
+        Row: {
+          id: string;
+          created_at: string;
+          nom: string;
+          categorie: string;
+          reseau_social: string | null;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          nom: string;
+          categorie: string;
+          reseau_social?: string | null;
+        };
+        Update: {
+          id?: string;
+          created_at?: string;
+          nom?: string;
+          categorie?: string;
+          reseau_social?: string | null;
+        };
+        Relationships: [];
+      };
       /* Prénom d'un compte, pour « Written by » (migration 20261115140000, VEN-9). Lisible par
          `authenticated` seulement ; aucune écriture par l'API. */
       profiles: {
