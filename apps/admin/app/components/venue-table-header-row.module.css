@@ -1,4 +1,7 @@
 .ligne {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
   gap: var(--space-md);
   align-items: flex-start;

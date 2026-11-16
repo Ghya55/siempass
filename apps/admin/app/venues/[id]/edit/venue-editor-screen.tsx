@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, type FC, type MouseEvent } from "react";
-import { AdminSidebar } from "../../../components/admin-sidebar";
+import { AdminShell } from "../../../components/admin-shell";
 import { toPreviewData, type EditorVenueRow, type StoredArticle } from "./article";
 import { ArticleSection } from "./article-section";
 import { EditorHeader, VENUES_PATH } from "./editor-header";
@@ -54,39 +54,38 @@ export const VenueEditorScreen: FC<VenueEditorScreenProps> = ({ venue, author, i
   );
 
   return (
-    <div className={styles.screen}>
-      <AdminSidebar adresse={signedInEmail} demanderSortie={saving.hasUnsavedChanges ? askToLeave : undefined} />
-      <div className={styles.main}>
-        <EditorHeader
-          name={venue.nom}
-          state={venue.etat}
-          isSaveDisabled={saving.isSaving || article.isUploading}
-          onSave={saving.save}
-          onBack={back}
-        />
-        <div className={styles.body}>
-          <div className={styles.form}>
-            {saving.error === null ? null : <FormAlert message={saving.error} />}
-            <HeaderPhotoField
-              headerPhoto={article.headerPhoto}
-              onPick={article.changeHeaderPhoto}
-              onRetry={article.retryHeaderPhoto}
-            />
-            <ArticleSection
-              blocks={article.blocks}
-              onAddParagraph={article.addParagraph}
-              onAddPhoto={article.addPhoto}
-              onTextChange={article.changeText}
-              onRemove={article.removeBlock}
-              onPhotoPick={article.changeBlockPhoto}
-              onPhotoRetry={article.retryBlockPhoto}
-              onMove={article.moveBlockTo}
-            />
-          </div>
+    <AdminShell adresse={signedInEmail} demanderSortie={saving.hasUnsavedChanges ? askToLeave : undefined}>
+      <EditorHeader
+        name={venue.nom}
+        state={venue.etat}
+        isSaveDisabled={saving.isSaving || article.isUploading}
+        onSave={saving.save}
+        onBack={back}
+      />
+      <div className={styles.body}>
+        <div className={styles.form}>
+          {saving.error === null ? null : <FormAlert message={saving.error} />}
+          <HeaderPhotoField
+            headerPhoto={article.headerPhoto}
+            onPick={article.changeHeaderPhoto}
+            onRetry={article.retryHeaderPhoto}
+          />
+          <ArticleSection
+            blocks={article.blocks}
+            onAddParagraph={article.addParagraph}
+            onAddPhoto={article.addPhoto}
+            onTextChange={article.changeText}
+            onRemove={article.removeBlock}
+            onPhotoPick={article.changeBlockPhoto}
+            onPhotoRetry={article.retryBlockPhoto}
+            onMove={article.moveBlockTo}
+          />
+        </div>
+        <div className={styles.previewColumn}>
           <VenuePreview venue={previewData} />
         </div>
       </div>
       <LeaveDialog isOpen={leaveGuard.isAsking} onLeave={leaveGuard.confirmLeave} onStay={leaveGuard.cancelLeave} />
-    </div>
+    </AdminShell>
   );
 };

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FC } from "react";
-import { AdminSidebar } from "../components/admin-sidebar";
+import { AdminListPage, AdminShell } from "../components/admin-shell";
 import { Button } from "../components/button";
 import { EmptyState } from "../components/empty-state";
 import { PartnerRow } from "../components/partner-row";
@@ -72,19 +72,38 @@ export const PartnersScreen: FC<PartnersScreenProps> = ({
   };
 
   return (
-    <div className={styles.ecran}>
-      <AdminSidebar adresse={adresseConnectee} />
-      <main className={styles.principal}>
-        <div className={styles.entete}>
-          <h1 className={styles.titre}>Partners</h1>
-          <Button
-            label="Add partner"
-            onClick={() => {
-              setAjoutOuvert(true);
+    <AdminShell
+      adresse={adresseConnectee}
+      panneau={
+        selectionne === null ? null : (
+          <PartnerPanel
+            enCours={enCours}
+            lienAcces={lienAcces(origineAdmin, selectionne.acces_jeton)}
+            onClose={() => {
+              setIdSelectionne(null);
             }}
-            tone="primary"
+            onInvite={() => {
+              void inviter();
+            }}
+            partenaire={selectionne}
           />
-        </div>
+        )
+      }
+    >
+      <AdminListPage
+        entete={
+          <div className={styles.entete}>
+            <h1 className={styles.titre}>Partners</h1>
+            <Button
+              label="Add partner"
+              onClick={() => {
+                setAjoutOuvert(true);
+              }}
+              tone="primary"
+            />
+          </div>
+        }
+      >
         {/* FIGMA-MANQUANT: ni l'erreur de chargement ni l'erreur d'écriture ne sont maquettées.
             Rendu sobre, mais visible : pendant la démonstration, une liste vide par erreur de
             connexion ne doit pas passer pour une liste vide. */}
@@ -107,20 +126,7 @@ export const PartnersScreen: FC<PartnersScreenProps> = ({
             ))
           )}
         </div>
-      </main>
-      {selectionne !== null && (
-        <PartnerPanel
-          enCours={enCours}
-          lienAcces={lienAcces(origineAdmin, selectionne.acces_jeton)}
-          onClose={() => {
-            setIdSelectionne(null);
-          }}
-          onInvite={() => {
-            void inviter();
-          }}
-          partenaire={selectionne}
-        />
-      )}
+      </AdminListPage>
       {ajoutOuvert && (
         <AddPartnerDialog
           enCours={enCours}
@@ -130,6 +136,6 @@ export const PartnersScreen: FC<PartnersScreenProps> = ({
           onSave={enregistrer}
         />
       )}
-    </div>
+    </AdminShell>
   );
 };

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useMemo, useState, type FC } from "react";
-import { AdminSidebar } from "../components/admin-sidebar";
+import { AdminListPage, AdminShell } from "../components/admin-shell";
 import { Button } from "../components/button";
 import { EmptyState } from "../components/empty-state";
 import type { FieldOption } from "../components/field";
@@ -89,22 +89,59 @@ export const VenuesScreen: FC<VenuesScreenProps> = ({
   };
 
   return (
-    <div className={styles.ecran}>
-      <AdminSidebar adresse={adresseConnectee} />
-      <main className={styles.principal}>
-        <div className={styles.entete}>
-          <h1 className={styles.titre}>Venues</h1>
-          <Button
-            label="Add a venue"
-            onClick={() => {
-              setPanneau({ etat: "creation" });
-            }}
-            tone="primary"
-          />
-        </div>
-        {partenaireFiltre !== null && (
-          <VenueFilterBar filterLabel={`Partner: ${nomDuPartenaire(partenaireFiltre)}`} showAllHref={CHEMIN_VENUES} />
-        )}
+    <AdminShell
+      adresse={adresseConnectee}
+      panneau={
+        <>
+          {panneau.etat === "creation" && (
+            <VenuePanel
+              enCours={enCours}
+              key="creation"
+              mode={{ kind: "creation", partenaireId: partenaireFiltre?.id ?? "", onCreate: creer }}
+              onClose={fermer(setPanneau)}
+              partnerOptions={optionsDePartenaire}
+            />
+          )}
+          {lieuOuvert !== null && (
+            <VenuePanel
+              enCours={enCours}
+              key={lieuOuvert.id}
+              mode={{
+                kind: "fiche",
+                lieu: lieuOuvert,
+                onSave: (saisie) => ecrire(() => enregistrerLieu(lieuOuvert.id, saisie)),
+                onPublish: (saisie) => ecrire(() => publierLieu(lieuOuvert.id, saisie)),
+                onBackToDraft: () => ecrire(() => repasserLieuEnBrouillon(lieuOuvert.id)),
+              }}
+              onClose={fermer(setPanneau)}
+              partnerOptions={optionsDePartenaire}
+            />
+          )}
+        </>
+      }
+    >
+      <AdminListPage
+        entete={
+          <>
+            <div className={styles.entete}>
+              <h1 className={styles.titre}>Venues</h1>
+              <Button
+                label="Add a venue"
+                onClick={() => {
+                  setPanneau({ etat: "creation" });
+                }}
+                tone="primary"
+              />
+            </div>
+            {partenaireFiltre !== null && (
+              <VenueFilterBar
+                filterLabel={`Partner: ${nomDuPartenaire(partenaireFiltre)}`}
+                showAllHref={CHEMIN_VENUES}
+              />
+            )}
+          </>
+        }
+      >
         {/* FIGMA-MANQUANT: ni l'erreur de chargement ni l'erreur d'écriture ne sont maquettées
             (même rendu que Partners). */}
         {erreurChargement !== null && <p className={styles.erreur}>{erreurChargement}</p>}
@@ -132,32 +169,8 @@ export const VenuesScreen: FC<VenuesScreenProps> = ({
             ))
           )}
         </div>
-      </main>
-      {panneau.etat === "creation" && (
-        <VenuePanel
-          enCours={enCours}
-          key="creation"
-          mode={{ kind: "creation", partenaireId: partenaireFiltre?.id ?? "", onCreate: creer }}
-          onClose={fermer(setPanneau)}
-          partnerOptions={optionsDePartenaire}
-        />
-      )}
-      {lieuOuvert !== null && (
-        <VenuePanel
-          enCours={enCours}
-          key={lieuOuvert.id}
-          mode={{
-            kind: "fiche",
-            lieu: lieuOuvert,
-            onSave: (saisie) => ecrire(() => enregistrerLieu(lieuOuvert.id, saisie)),
-            onPublish: (saisie) => ecrire(() => publierLieu(lieuOuvert.id, saisie)),
-            onBackToDraft: () => ecrire(() => repasserLieuEnBrouillon(lieuOuvert.id)),
-          }}
-          onClose={fermer(setPanneau)}
-          partnerOptions={optionsDePartenaire}
-        />
-      )}
-    </div>
+      </AdminListPage>
+    </AdminShell>
   );
 };
 
