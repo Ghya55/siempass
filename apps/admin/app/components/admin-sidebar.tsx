@@ -6,7 +6,7 @@ import { useState, type FC } from "react";
 import { CHEMIN_CONNEXION } from "../lib/chemins";
 import { seDeconnecter } from "../login/actions";
 import { Button } from "./button";
-import { MapPin, Store, Ticket, type LucideIcon } from "lucide-react";
+import { MapPin, Mic, Store, Ticket, type LucideIcon } from "lucide-react";
 import styles from "./admin-sidebar.module.css";
 
 type Entree = {
@@ -20,6 +20,9 @@ const ENTREES: readonly Entree[] = [
   { chemin: "/partners", libelle: "Partners", icone: Store },
   { chemin: "/venues", libelle: "Venues", icone: MapPin },
   { chemin: "/passes", libelle: "Passes", icone: Ticket },
+  /* FIGMA-MANQUANT: « Artists » n'est pas dans la barre du Figma (specs/artists.md). Placée en
+     dernier, avec une icône de la même famille. */
+  { chemin: "/artists", libelle: "Artists", icone: Mic },
 ];
 
 export type AdminSidebarProps = {
