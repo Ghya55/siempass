@@ -5,32 +5,6 @@
  */
 const FUSEAU_BACK_OFFICE = "Asia/Phnom_Penh" as const;
 
-/** « Nov 10, 2026, 3:12 PM », heure du Cambodge. Pour un `timestamptz`. */
-export function formatInstant(horodatage: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: FUSEAU_BACK_OFFICE,
-  }).format(new Date(horodatage));
-}
-
-/**
- * « Nov 17, 2026 ». En UTC : `valide_jusqu_au` est une date sans heure, la lire dans un autre
- * fuseau la décalerait d'un jour une partie de la journée (même raison que `formatPassDate` du
- * site, qui ne peut pas être partagé — une app n'importe pas dans l'autre).
- */
-export function formatDateSeule(date: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(date));
-}
-
 /** Le jour courant au Cambodge, en `AAAA-MM-JJ`, pour comparer avec une colonne `date`. */
 export function jourCourant(maintenant: Date): string {
   return new Intl.DateTimeFormat("en-CA", {
@@ -43,7 +17,9 @@ export function jourCourant(maintenant: Date): string {
 
 /**
  * « 19 Dec 2026 » : une colonne `date` (jour d'un événement, date fixe d'un pass), au format des
- * maquettes Events et Passes (237:2, 238:2). En UTC pour la même raison que `formatDateSeule`.
+ * maquettes Events et Passes (237:2, 238:2).
+ * En UTC : une date sans heure, lue dans un autre fuseau, se décalerait d'un jour une partie de
+ * la journée.
  */
 export function formatJour(date: string): string {
   return new Intl.DateTimeFormat("en-GB", {

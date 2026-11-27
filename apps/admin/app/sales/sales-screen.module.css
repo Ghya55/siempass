@@ -1,17 +1,17 @@
+/* 240:3345 : le titre, et dessous le nombre de passes vendus. */
 .entete {
   display: flex;
-  gap: var(--space-md);
-  align-items: baseline;
+  flex-direction: column;
+  gap: var(--space-2xs);
   width: 100%;
 }
 
 .titre {
   margin: 0;
   color: var(--color-text-default);
-  font-family: var(--font-family-display);
   font-size: var(--font-size-xl);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .compte {
@@ -20,30 +20,11 @@
   line-height: 1.4;
 }
 
-.note {
-  max-width: 70ch;
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  line-height: 1.5;
-}
-
-/* Même rendu que les erreurs de l'écran des partenaires. */
-.erreur {
-  width: 100%;
-  margin: 0;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-control);
-  background: var(--color-status-neutral-bg);
-  color: var(--color-text-default);
-  font-size: var(--font-size-sm);
-  overflow-wrap: anywhere;
-}
-
 /* La grille des colonnes est déclarée une fois, ici, et héritée par l'en-tête comme par chaque
-   ligne (`pass-row.module.css`) : une seule définition à changer pour les deux. */
+   ligne (`sale-row.module.css`) : une seule définition à changer pour les deux. Proportions
+   relevées sur 240:3345. */
 .tableau {
-  --colonnes-passes: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.9fr) 104px minmax(0, 1.1fr) 196px;
+  --colonnes-ventes: minmax(0, 0.9fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr) 88px minmax(0, 1.4fr);
 
   display: flex;
   flex-direction: column;
@@ -57,7 +38,7 @@
 
 .ligneEntete {
   display: grid;
-  grid-template-columns: var(--colonnes-passes);
+  grid-template-columns: var(--colonnes-ventes);
   gap: var(--space-md);
   align-items: center;
   padding: var(--space-xs) var(--space-md);
