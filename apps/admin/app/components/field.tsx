@@ -19,8 +19,12 @@ type FieldEditable = FieldCommun & {
 
 type FieldSaisie = FieldEditable & {
   /* « password » n'est pas dans le Figma des formulaires partenaire : il sert à l'écran de
-     connexion, qui n'est pas maquetté (voir app/login). Même champ, même style, type masqué. */
-  kind: "text" | "password" | "multiline";
+     connexion, qui n'est pas maquetté (voir app/login). Même champ, même style, type masqué.
+     « date » : « Date » d'un événement et « Valid until » d'un pass (237:273, 234:470). Le Figma
+     dessine un champ texte « 5 Dec 2026 » ; le sélecteur natif du navigateur garde le clavier et
+     une valeur `AAAA-MM-JJ` sans analyse de texte, son affichage suit la langue du navigateur.
+     FIGMA-MANQUANT: aucun calendrier déroulant n'est maquetté. */
+  kind: "text" | "password" | "multiline" | "date";
   /* Indication au gestionnaire de mots de passe du navigateur. Absent : comportement par défaut. */
   autoComplete?: string;
 };
@@ -57,7 +61,7 @@ export const Field: FC<FieldProps> = (props) => {
         <span className={styles.label}>{label}</span>
         {isOptional && <span className={styles.facultatif}>Optional</span>}
       </label>
-      {(props.kind === "text" || props.kind === "password") && (
+      {(props.kind === "text" || props.kind === "password" || props.kind === "date") && (
         <input
           aria-invalid={props.erreur !== null}
           autoComplete={props.autoComplete}
@@ -67,7 +71,7 @@ export const Field: FC<FieldProps> = (props) => {
           onChange={(evenement) => {
             props.onChange(evenement.target.value);
           }}
-          type={props.kind === "password" ? "password" : "text"}
+          type={props.kind}
           value={props.value}
         />
       )}

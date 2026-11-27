@@ -6,7 +6,7 @@ import { useState, type FC } from "react";
 import { CHEMIN_CONNEXION } from "../lib/chemins";
 import { seDeconnecter } from "../login/actions";
 import { Button } from "./button";
-import { MapPin, Mic, Store, Ticket, type LucideIcon } from "lucide-react";
+import { Calendar, MapPin, Mic, Receipt, Store, Ticket, type LucideIcon } from "lucide-react";
 import styles from "./admin-sidebar.module.css";
 
 type Entree = {
@@ -15,13 +15,14 @@ type Entree = {
   readonly icone: LucideIcon;
 };
 
-/* Les écrans du back-office, dans l'ordre de la barre du Figma (`AdminSidebar`, 6:9). */
+/* Les écrans du back-office, dans l'ordre de la barre du Figma (`AdminSidebar`, 6:9 ; CAT-1).
+   « Passes » est le catalogue, « Sales » la liste des passes vendus (PASS-22). */
 const ENTREES: readonly Entree[] = [
   { chemin: "/partners", libelle: "Partners", icone: Store },
   { chemin: "/venues", libelle: "Venues", icone: MapPin },
+  { chemin: "/events", libelle: "Events", icone: Calendar },
   { chemin: "/passes", libelle: "Passes", icone: Ticket },
-  /* FIGMA-MANQUANT: « Artists » n'est pas dans la barre du Figma (specs/artists.md). Placée en
-     dernier, avec une icône de la même famille. */
+  { chemin: "/sales", libelle: "Sales", icone: Receipt },
   { chemin: "/artists", libelle: "Artists", icone: Mic },
 ];
 

@@ -40,3 +40,38 @@ export function jourCourant(maintenant: Date): string {
     timeZone: FUSEAU_BACK_OFFICE,
   }).format(maintenant);
 }
+
+/**
+ * « 19 Dec 2026 » : une colonne `date` (jour d'un événement, date fixe d'un pass), au format des
+ * maquettes Events et Passes (237:2, 238:2). En UTC pour la même raison que `formatDateSeule`.
+ */
+export function formatJour(date: string): string {
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(date));
+}
+
+/** « 19 Dec » : le jour sans l'année, dans une liste de choix d'événements (234:434). */
+export function formatJourCourt(date: string): string {
+  return new Intl.DateTimeFormat("en-GB", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(date));
+}
+
+/** « 27 Nov 2026, 22:15 », heure du Cambodge, au format de la maquette Sales (240:3345). */
+export function formatInstantVente(horodatage: string): string {
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+    timeZone: FUSEAU_BACK_OFFICE,
+  }).format(new Date(horodatage));
+}
