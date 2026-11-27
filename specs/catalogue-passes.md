@@ -3,7 +3,23 @@ type: flux
 titre: "Passes : le catalogue des types de pass, au back-office et sur le site"
 statut: à valider
 porteur: Quentin
-figma: []          # à dessiner par Alex : page Passes (cartes, vide, erreur), panneau (création, fiche, erreurs), bloc du site
+figma:
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=238-2  # Passes · catalogue (cartes Draft, Live, Ended)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=238-276  # Passes · vide
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=238-338  # Passes · erreur de chargement
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=239-325  # fiche du pass (panneau) · création
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=239-876  # fiche du pass · brouillon (pass comedy club, CAT-30)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=239-1334  # fiche du pass · recherche d'un lieu (CAT-7)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=239-1792  # fiche du pass · en ligne (All venues + Except)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=240-1839  # fiche du pass · erreurs de publication (CAT-21)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=240-2397  # fiche du pass · date fixe passée (CAT-21)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=240-2891  # fiche du pass · échec d'enregistrement (CAT-25)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=240-4157  # site · 10.3 Home · bloc Our passes
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=235-501  # composant PassTicket (carte du back-office)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=234-434  # composant PickList (sélection des lieux et des événements)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=234-470  # composant ValidityField
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=235-581  # composant PassOfferCard (carte du site)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=6-9  # composant AdminSidebar (menu, CAT-1)
 maj: 2026-11-28
 ---
 *Préfixe des identifiants : `CAT-`. Cadrage de Ghya du 28/11, d'après le besoin de l'associé. La page des passes vendus devient « Sales » ([sales.md](sales.md)) ; « Passes » est désormais ce catalogue. Objets touchés : [Lieux](venues.md), [Événements](events.md). Écart nommé : le bloc 4 ajoute au site public un bloc que [VIS-35](parcours-visiteur.md#vis-35) excluait ; décision de Ghya du 28/11.*

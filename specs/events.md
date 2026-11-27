@@ -3,7 +3,14 @@ type: ecran
 titre: "Événements : l'objet minimal et la page Events, au back-office"
 statut: à valider
 porteur: Quentin
-figma: []          # à dessiner par Alex : tableau, vide, erreur, fiche en panneau (création, erreurs)
+figma:
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-2  # Events · tableau
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-141  # Events · vide
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-212  # Events · erreur de chargement
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-273  # fiche de l'événement (panneau) · création
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-438  # fiche de l'événement · fiche
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-599  # fiche de l'événement · erreurs (EVT-6)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-765  # fiche de l'événement · échec d'enregistrement (EVT-14)
 maj: 2026-11-28
 ---
 *Préfixe des identifiants : `EVT-`. Cadrage de Ghya du 28/11 : un événement minimal, sans billetterie, pour être affilié à un pass ([Catalogue des passes](catalogue-passes.md)). C'est la « feature à part » annoncée par [VEN-2](venues.md#ven-2). Objet voisin : [Lieux](venues.md).*

@@ -3,7 +3,11 @@ type: ecran
 titre: "Sales : la liste des passes vendus, au back-office"
 statut: à valider
 porteur: Quentin
-figma: []          # à dessiner par Alex : tableau, vide, erreur de chargement
+figma:
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=240-3345  # Sales · tableau
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=240-3475  # Sales · vide
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=240-3544  # Sales · erreur de chargement
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=6-9  # composant AdminSidebar (menu « Sales », CAT-1)
 maj: 2026-11-28
 ---
 *Préfixe des identifiants : `PASS-` (gardé : les identifiants ne se renumérotent pas). Décision de Ghya du 15/11 : la page des passes vendus n'est plus un outil de test mais une page du back-office. Décision de Ghya du 28/11 : elle s'appelle « Sales » (ex-`passes.md`), et « Passes » devient le catalogue des types de pass ([Catalogue des passes](catalogue-passes.md)). Écran codé le 10/11 sans spec ni Figma ; cette spec part de lui. Touche [Parcours de démonstration](parcours-demo.md), [Parcours du visiteur](parcours-visiteur.md), [Lieux](venues.md).*
