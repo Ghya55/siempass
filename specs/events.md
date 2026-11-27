@@ -27,7 +27,7 @@ L'admin saisit un événement (comedy club, concert, spectacle) en quelques seco
 ## Règles
 **EVT-1 — Pas de billetterie.** Ni stock, ni places, ni billet, ni prix du billet. L'événement dit seulement ce que le porteur du pass y gagne ; il montre son pass sur place, comme dans un lieu.
 
-**EVT-2 — Un événement, un jour, un lieu.** Pas d'heure, pas de récurrence : un comedy club chaque vendredi, ce sont des événements distincts. Hypothèse produit.
+**EVT-2 — Un événement, un jour, un lieu.** Pas d'heure, pas de récurrence : un comedy club chaque vendredi, ce sont des événements distincts. Tranché par Ghya le 28/11.
 
 **EVT-3 — Pas de type.** Comedy club, concert, spectacle se disent dans le nom ; pas de catégorie au MVP.
 
@@ -69,7 +69,6 @@ L'admin saisit un événement (comedy club, concert, spectacle) en quelques seco
 
 ## Ouvert pour Ghya
 1. **Où se saisissent les événements** ([EVT-5](events.md#evt-5)) : une page « Events » plutôt qu'une création depuis le panneau du pass. D'accord ?
-2. **Ni heure ni récurrence** ([EVT-2](events.md#evt-2)) : un comedy club hebdomadaire = un événement par date. Suffisant pour l'associé ?
 
 Tant qu'on y est, non fait : heure, récurrence, photo, page publique d'un événement, artistes de la soirée ([Artistes](artists.md)), annulation, billetterie.
 

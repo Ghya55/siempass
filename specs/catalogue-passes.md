@@ -57,7 +57,7 @@ L'admin compose plusieurs passes différents (un « comedy club » qui réunit l
 
 **CAT-12 — Publier exige le minimum.** Nom, prix, validité, et au moins un lieu ou un événement (« All venues » ou « All events » compte, même vide aujourd'hui). « Save » enregistre un brouillon dès que le nom est rempli.
 
-**CAT-13 — Le prix.** En dollars US, supérieur à zéro, centimes permis ; affiché « $15 » ou « $12.50 ». Sans prix, ni affichage ni vente. Hypothèse produit de Richard.
+**CAT-13 — Le prix.** En dollars US, supérieur à zéro, centimes permis ; affiché « $15 » ou « $12.50 ». Sans prix, ni affichage ni vente. Tranché par Ghya le 28/11.
 
 **CAT-14 — Modifier un pass déjà vendu.** Ce qui est écrit sur la vente à l'achat ne bouge plus : le prix payé et la date « Valid until ». Le reste se lit en direct dans le catalogue : nom ([PASS-21](sales.md#pass-21)), lieux, événements. Changer la validité ne vaut que pour les ventes suivantes ; retirer un lieu le retire aussi aux porteurs déjà servis. Hypothèse produit de Richard.
 
@@ -81,7 +81,7 @@ L'admin compose plusieurs passes différents (un « comedy club » qui réunit l
 **CAT-23 — Rien à montrer.** Un pass en ligne qui ne couvre aucun lieu en ligne ni aucun événement à venir n'apparaît pas sur le site ; sa carte au back-office n'en dit rien. Hypothèse produit.
 
 **CAT-24 — Ce qui reste faux tant que le hors-périmètre n'est pas fait.** Hors périmètre : l'achat d'un pass précis, le scan par lieu ([VEN-8](venues.md#ven-8)), la billetterie, l'abonnement.
-- Achat : « Get the Pass » vend toujours le pass unique à $20 ; le site montre des passes qu'on ne peut pas acheter.
+- Achat : « Get the Pass » vend toujours le pass unique à $20 ; le site montre des passes qu'on ne peut pas acheter. Accepté par Ghya le 28/11 : test interne, rien ne part en production avant l'achat d'un pass précis.
 - Ventes : toutes à « — » en « Pass » ([PASS-21](sales.md#pass-21)), et leur date de validité ne suit pas le catalogue.
 - Scan : tout pass est accepté dans tout lieu ; les lieux affiliés n'ont aucun effet au comptoir.
 - Billetterie : un porteur peut trouver le spectacle complet ([EVT-1](events.md#evt-1)).
@@ -104,10 +104,8 @@ L'admin compose plusieurs passes différents (un « comedy club » qui réunit l
 **CAT-32 — Conforme au Figma.** Page, panneau et bloc du site suivent les maquettes d'Alex validées par Ghya et l'associé.
 
 ## Ouvert pour Ghya
-1. **Prix** ([CAT-13](catalogue-passes.md#cat-13)) : cinquième champ, en USD, requis pour publier. D'accord ?
-2. **Mise en vente** ([CAT-10](catalogue-passes.md#cat-10), [CAT-16](catalogue-passes.md#cat-16)) : « Draft » / « Live » plutôt que des dates de mise en vente ; une date fixe passée retire le pass du site. D'accord ?
-3. **Pass déjà vendu modifié** ([CAT-14](catalogue-passes.md#cat-14)) : prix et date figés à l'achat, lieux et événements lus en direct ; retirer un lieu le retire aux porteurs actuels. D'accord ?
-4. **Site avant l'achat d'un pass précis** ([CAT-24](catalogue-passes.md#cat-24)) : on montre des passes qu'on ne peut pas acheter, à côté d'un « Get the Pass » qui vend autre chose. Risque : un visiteur paie $20 en croyant acheter « Comedy Night ». On met le bloc 4 en ligne maintenant, ou avec l'achat ?
+1. **Mise en vente** ([CAT-10](catalogue-passes.md#cat-10), [CAT-16](catalogue-passes.md#cat-16)) : « Draft » / « Live » plutôt que des dates de mise en vente ; une date fixe passée retire le pass du site. D'accord ?
+2. **Pass déjà vendu modifié** ([CAT-14](catalogue-passes.md#cat-14)) : prix et date figés à l'achat, lieux et événements lus en direct ; retirer un lieu le retire aux porteurs actuels. D'accord ?
 
 Tant qu'on y est, non fait : description et photo du pass, stock, dates de mise en vente, codes promo, duplication, statistiques par pass, prix en riel, abonnement.
 
