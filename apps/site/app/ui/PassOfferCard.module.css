@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  padding: var(--space-lg) var(--space-lg) 0;
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
   background: var(--color-bg-inverse);
   border-radius: 15px 15px 0 0;
   color: var(--color-text-inverse);

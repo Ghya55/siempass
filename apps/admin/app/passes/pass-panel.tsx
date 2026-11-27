@@ -93,6 +93,8 @@ export const PassPanel: FC<PassPanelProps> = ({ mode, choix, aujourdhui, enCours
       <PanelHeader
         closeLabel="Close"
         onClose={onClose}
+        /* FIGMA-MANQUANT: l'en-tête d'un pass terminé n'est pas maquetté ; il porte le badge de sa
+           carte (« Ended », CAT-20) plutôt que « Live ». */
         state={mode.kind === "creation" ? null : mode.etat}
         subtitle={null}
         title={mode.kind === "creation" ? "New pass" : mode.offre.nom}
