@@ -1,73 +1,36 @@
 .entete {
   display: flex;
-  gap: var(--space-md);
-  align-items: baseline;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
 .titre {
   margin: 0;
   color: var(--color-text-default);
-  font-family: var(--font-family-display);
   font-size: var(--font-size-xl);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
-.compte {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  line-height: 1.4;
-}
-
-.note {
-  max-width: 70ch;
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  line-height: 1.5;
-}
-
-/* Même rendu que les erreurs de l'écran des partenaires. */
-.erreur {
+/* 238:2 : cartes de 336 px, 24 px entre elles, trois par ligne sans panneau, deux avec. */
+.cartes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 336px));
+  gap: var(--space-lg);
+  align-items: start;
   width: 100%;
   margin: 0;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-control);
-  background: var(--color-status-neutral-bg);
-  color: var(--color-text-default);
-  font-size: var(--font-size-sm);
-  overflow-wrap: anywhere;
+  /* Les encoches de la perforation débordent de 10 px de chaque carte. */
+  padding: 0 var(--space-2xs);
+  list-style: none;
 }
 
-/* La grille des colonnes est déclarée une fois, ici, et héritée par l'en-tête comme par chaque
-   ligne (`pass-row.module.css`) : une seule définition à changer pour les deux. */
-.tableau {
-  --colonnes-passes: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.9fr) 104px minmax(0, 1.1fr) 196px;
-
-  display: flex;
-  flex-direction: column;
+/* 238:276, 238:338 : la carte blanche qui entoure l'état vide ou l'échec de lecture. */
+.boite {
   width: 100%;
+  overflow: clip;
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-card);
   background: var(--color-surface-default);
-  /* `clip` : coins arrondis sans zone de défilement, l'en-tête reste collé en haut. */
-  overflow: clip;
-}
-
-.ligneEntete {
-  display: grid;
-  grid-template-columns: var(--colonnes-passes);
-  gap: var(--space-md);
-  align-items: center;
-  padding: var(--space-xs) var(--space-md);
-  border-bottom: 1px solid var(--color-border-default);
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--color-surface-muted);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
-  font-weight: 500;
-  line-height: 1.35;
 }

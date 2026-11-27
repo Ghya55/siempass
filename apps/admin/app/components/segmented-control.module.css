@@ -1,0 +1,33 @@
+/* Relevé sur 234:470 et 234:434 : 40 px de haut, fond atténué, l'option choisie en surface. */
+.groupe {
+  display: flex;
+  gap: var(--space-2xs);
+  width: 100%;
+  padding: var(--space-2xs);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-muted);
+}
+
+.option,
+.optionChoisie {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 6px var(--space-sm);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.optionChoisie {
+  border-color: var(--color-border-default);
+  background: var(--color-surface-default);
+  color: var(--color-text-default);
+  font-weight: 600;
+}

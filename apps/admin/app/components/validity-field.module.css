@@ -1,0 +1,21 @@
+/* 234:470 : libellé, sélecteur, champ et raccourcis espacés de 8 px. */
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.label {
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.raccourcis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}

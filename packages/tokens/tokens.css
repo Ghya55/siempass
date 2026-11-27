@@ -40,6 +40,9 @@
   /* relevées sur 157:1901 (erreurs de publication d'un lieu, VEN-23) */
   --color-status-danger-bg: #fbe2de;
   --color-status-danger-fg: #b8352a;
+  /* relevées sur 235:501 (`PassTicket`, badge « Ended », CAT-20) */
+  --color-status-warning-bg: #fbefd5;
+  --color-status-warning-fg: #8a5a12;
 
   /* ── Figma · espacements ──────────────────────────────────────────────── */
   --space-2xs: 4px;

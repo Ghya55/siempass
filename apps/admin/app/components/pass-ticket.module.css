@@ -1,0 +1,181 @@
+/* Figma `PassTicket` (235:501), relevé sur les six variantes : 336 px de large, tête de 24 px de
+   marge, perforation de 18 px (bord de tête de 9 px, trait, deux encoches de 18 px), talon. */
+.ticket {
+  --couleur-tete: var(--color-surface-brand);
+  --couleur-trait: var(--color-border-strong);
+  --texte-tete: var(--color-text-default);
+  --texte-validite: var(--color-text-muted);
+  --fond-prix: var(--color-surface-default);
+  --couleur-qr: var(--color-border-strong);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-default);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+/* state=brouillon : tête crème, contour pointillé. */
+.brouillon {
+  border-style: dashed;
+  border-color: var(--color-border-strong);
+}
+
+/* state=enLigne : tête sombre, prix sur crème, trait épais. */
+.enLigne {
+  --couleur-tete: var(--color-bg-inverse);
+  --couleur-trait: var(--color-bg-inverse);
+  --texte-tete: var(--color-text-inverse);
+  --texte-validite: var(--color-text-inverse);
+  --fond-prix: var(--color-surface-brand);
+  --couleur-qr: var(--color-text-default);
+}
+
+/* state=termine : tout s'efface. */
+.termine {
+  --couleur-tete: var(--color-surface-muted);
+  --couleur-trait: var(--color-border-default);
+  --texte-tete: var(--color-text-muted);
+
+  color: var(--color-text-muted);
+}
+
+/* selected=true : contour accent plein, sur les trois états. */
+.selectionne {
+  border-style: solid;
+  border-color: var(--color-accent-default);
+  box-shadow: 0 0 0 1px var(--color-accent-default);
+}
+
+.tete {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-lg) 0;
+  border-radius: 15px 15px 0 0;
+  background: var(--couleur-tete);
+  color: var(--texte-tete);
+}
+
+.ligneTitre {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.nom {
+  min-width: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.prix {
+  flex-shrink: 0;
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-pill);
+  background: var(--fond-prix);
+  color: var(--color-text-default);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+.termine .prix {
+  color: var(--color-text-muted);
+}
+
+.validite {
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: center;
+  color: var(--texte-validite);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.enLigne .validite {
+  opacity: 0.85;
+}
+
+/* Le bas de la tête (9 px) continue la couleur, le trait de déchirure est posé dessous, les deux
+   encoches mordent le contour à mi-hauteur. */
+.perforation {
+  position: relative;
+  height: 18px;
+  background: linear-gradient(var(--couleur-tete) 50%, transparent 50%);
+}
+
+.perforation::after {
+  position: absolute;
+  top: 8px;
+  right: 22px;
+  left: 22px;
+  border-top: 1px dashed var(--couleur-trait);
+  content: "";
+}
+
+.enLigne .perforation::after {
+  border-top-width: 3px;
+  border-top-style: dotted;
+}
+
+.encoche {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-app);
+}
+
+.encocheGauche {
+  left: -10px;
+}
+
+.encocheDroite {
+  right: -10px;
+}
+
+.talon {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-2xs) var(--space-lg) var(--space-md);
+}
+
+.ligne {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.icone {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.pied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-2xs);
+}
+
+.qr {
+  color: var(--couleur-qr);
+}

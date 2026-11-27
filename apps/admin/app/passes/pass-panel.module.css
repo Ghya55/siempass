@@ -1,0 +1,59 @@
+.panneau {
+  display: flex;
+  width: 440px;
+  min-height: 0;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  border-left: 1px solid var(--color-border-default);
+  background: var(--color-surface-default);
+}
+
+.formulaire {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}
+
+.contenu {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: flex-start;
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-lg);
+}
+
+.actionsBas {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--color-border-default);
+}
+
+/* « Publish » ou « Back to draft », sous l'en-tête (239:1792), comme la fiche d'un lieu. */
+.actionsHaut {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+/* La date d'un événement, à droite de sa ligne (234:434). */
+.date {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}
