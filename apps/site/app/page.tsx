@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { fetchPassesEnVente } from "./lib/passes-en-vente";
 import { fetchPublishedPlaces } from "./places/places";
 import { HomePassCardIsland } from "./ui/HomePassCardIsland";
+import { PassesSection } from "./ui/PassesSection";
 import { SiteHeader } from "@siempass/site-header";
 import { VenuesSection } from "./ui/VenuesSection";
 import styles from "./page.module.css";
@@ -11,24 +13,27 @@ export const metadata: Metadata = {
 };
 
 // La liste est relue à chaque affichage : un partenaire mis en ligne au back-office apparaît
-// sans rechargement manuel et sans redéploiement (VIS-26, DEMO-16).
+// sans rechargement manuel et sans redéploiement (VIS-26, DEMO-16). Les passes en vente aussi
+// (CAT-19), y compris la fin d'une date fixe ou d'un événement à minuit au Cambodge (CAT-16).
 export const dynamic = "force-dynamic";
 
 /**
  * Figma « 10 · Home · sans pass » (57:49), « 10.1 · avec pass » (57:107) et « 10.2 · carte en
- * chargement » (73:117) : l'en-tête, la carte du pass, puis la liste des lieux (VIS-1).
+ * chargement » (73:117) : l'en-tête, la carte du pass, puis la liste des lieux (VIS-1). Entre les
+ * deux, « Our passes » (« 10.3 · Home · bloc Our passes », 240:4157 ; CAT bloc 4).
  *
  * La carte est le seul îlot client de la page : elle seule dépend de la réponse à « ai-je un
  * pass ? » (VIS-2). La liste, elle, est rendue côté serveur.
  */
 export default async function HomePage() {
-  const result = await fetchPublishedPlaces();
+  const [result, passes] = await Promise.all([fetchPublishedPlaces(), fetchPassesEnVente()]);
 
   return (
     <div className={styles.shell}>
       <SiteHeader />
       <main className={styles.content}>
         <HomePassCardIsland />
+        <PassesSection result={passes} />
         <VenuesSection result={result} />
       </main>
     </div>

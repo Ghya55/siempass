@@ -3,7 +3,14 @@ type: ecran
 titre: "Événements : l'objet minimal et la page Events, au back-office"
 statut: à valider
 porteur: Quentin
-figma: []          # à dessiner par Alex : tableau, vide, erreur, fiche en panneau (création, erreurs)
+figma:
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-2  # Events · tableau
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-141  # Events · vide
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-212  # Events · erreur de chargement
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-273  # fiche de l'événement (panneau) · création
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-438  # fiche de l'événement · fiche
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-599  # fiche de l'événement · erreurs (EVT-6)
+  - https://www.figma.com/design/rmCEVKTs8zzTMOuSQFnXno/Siempass?node-id=237-765  # fiche de l'événement · échec d'enregistrement (EVT-14)
 maj: 2026-11-28
 ---
 *Préfixe des identifiants : `EVT-`. Cadrage de Ghya du 28/11 : un événement minimal, sans billetterie, pour être affilié à un pass ([Catalogue des passes](catalogue-passes.md)). C'est la « feature à part » annoncée par [VEN-2](venues.md#ven-2). Objet voisin : [Lieux](venues.md).*
@@ -27,7 +34,7 @@ L'admin saisit un événement (comedy club, concert, spectacle) en quelques seco
 ## Règles
 **EVT-1 — Pas de billetterie.** Ni stock, ni places, ni billet, ni prix du billet. L'événement dit seulement ce que le porteur du pass y gagne ; il montre son pass sur place, comme dans un lieu.
 
-**EVT-2 — Un événement, un jour, un lieu.** Pas d'heure, pas de récurrence : un comedy club chaque vendredi, ce sont des événements distincts. Hypothèse produit.
+**EVT-2 — Un événement, un jour, un lieu.** Pas d'heure, pas de récurrence : un comedy club chaque vendredi, ce sont des événements distincts. Tranché par Ghya le 28/11.
 
 **EVT-3 — Pas de type.** Comedy club, concert, spectacle se disent dans le nom ; pas de catégorie au MVP.
 
@@ -69,7 +76,6 @@ L'admin saisit un événement (comedy club, concert, spectacle) en quelques seco
 
 ## Ouvert pour Ghya
 1. **Où se saisissent les événements** ([EVT-5](events.md#evt-5)) : une page « Events » plutôt qu'une création depuis le panneau du pass. D'accord ?
-2. **Ni heure ni récurrence** ([EVT-2](events.md#evt-2)) : un comedy club hebdomadaire = un événement par date. Suffisant pour l'associé ?
 
 Tant qu'on y est, non fait : heure, récurrence, photo, page publique d'un événement, artistes de la soirée ([Artistes](artists.md)), annulation, billetterie.
 

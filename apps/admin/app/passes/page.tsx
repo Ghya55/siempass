@@ -1,43 +1,59 @@
 import type { Metadata } from "next";
+import { jourCourant } from "../lib/dates";
 import { creerClientAdmin } from "../lib/supabase-serveur";
+import type { Offre } from "./offre";
 import { PassesScreen } from "./passes-screen";
-import { statutDuPass, type PassAffiche } from "./pass";
 
 export const metadata: Metadata = {
   title: "Passes — SiemPass Admin",
-  description: "Passes sold, their status, and the test actions on them.",
+  description: "The pass catalogue: compose, publish, take back to draft.",
 };
 
-/** La liste se lit à chaque affichage : un pass peut être validé entre deux chargements. */
+/* Le catalogue est relu à chaque affichage : après un enregistrement, `router.refresh()` suffit. */
 export const dynamic = "force-dynamic";
 
 export default async function PassesPage() {
   const supabase = await creerClientAdmin();
   const { data: session } = await supabase.auth.getUser();
 
-  const [passes, partenaires] = await Promise.all([
-    supabase.from("passes").select("*").order("created_at", { ascending: false }),
-    /* Les noms de lieux, pour ne pas afficher l'UUID du partenaire validateur. Deux requêtes
-       plutôt qu'une jointure imbriquée : le nombre de partenaires est petit, et le typage d'une
-       relation imbriquée se tient à la main dans `database.types.ts`. */
-    supabase.from("partners").select("id, lieu_nom"),
+  /* Cinq lectures plutôt que des jointures imbriquées : quelques dizaines de passes (bloc 1), et
+     le typage d'une relation imbriquée se tient à la main dans `database.types.ts`. */
+  const [offres, listesLieux, listesEvenements, lieux, evenements] = await Promise.all([
+    /* CAT-2 : du plus récent au plus ancien. */
+    supabase.from("pass_offers").select("*").order("created_at", { ascending: false }),
+    supabase.from("pass_offer_venues").select("offre_id, lieu_id"),
+    supabase.from("pass_offer_events").select("offre_id, evenement_id"),
+    /* CAT-7 : tous les lieux, brouillons compris, par nom. */
+    supabase.from("venues").select("id, nom, etat").order("nom", { ascending: true }),
+    /* CAT-8 : tous les événements, dans l'ordre de la page Events (la date la plus lointaine en tête). */
+    supabase
+      .from("events")
+      .select("id, nom, jour")
+      .order("jour", { ascending: false })
+      .order("created_at", { ascending: false }),
   ]);
 
-  const lieuxParId = new Map((partenaires.data ?? []).map(({ id, lieu_nom }) => [id, lieu_nom]));
-  const maintenant = new Date();
-  const affiches: PassAffiche[] = (passes.data ?? []).map((pass) => ({
-    ...pass,
-    lieuValidation: pass.utilise_par === null ? null : (lieuxParId.get(pass.utilise_par) ?? null),
-    statut: statutDuPass(pass, maintenant),
-  }));
+  const erreur = offres.error ?? listesLieux.error ?? listesEvenements.error ?? lieux.error ?? evenements.error;
 
-  const erreur = passes.error ?? partenaires.error;
+  if (erreur !== null) {
+    console.error("Lecture refusée — catalogue des passes", erreur);
+  }
+
+  const catalogue: Offre[] = (offres.data ?? []).map((offre) => ({
+    ...offre,
+    lieux: (listesLieux.data ?? []).filter((ligne) => ligne.offre_id === offre.id).map((ligne) => ligne.lieu_id),
+    evenements: (listesEvenements.data ?? [])
+      .filter((ligne) => ligne.offre_id === offre.id)
+      .map((ligne) => ligne.evenement_id),
+  }));
 
   return (
     <PassesScreen
       adresseConnectee={session.user?.email ?? ""}
-      erreurChargement={erreur === null ? null : erreur.message}
-      passes={affiches}
+      aujourdhui={jourCourant(new Date())}
+      chargementEchoue={erreur !== null}
+      choix={{ lieux: lieux.data ?? [], evenements: evenements.data ?? [] }}
+      offres={catalogue}
     />
   );
 }

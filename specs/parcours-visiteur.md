@@ -62,7 +62,7 @@ Trois blocs, et trois seulement.
 
 **VIS-14 — ~~Rien de plus, pas de fiche de lieu.~~** Retirée le 14/11 : Ghya fait entrer la fiche d'un lieu au MVP ([venues.md](venues.md), bloc 4). Remplacée par [VIS-35](parcours-visiteur.md#vis-35).
 
-**VIS-35 — Rien de plus.** Pas de filtre, pas de recherche, pas de carte géographique : les trois blocs ci-dessus et la fiche d'un lieu ([venues.md](venues.md)) sont tout le site public du MVP.
+**VIS-35 — Rien de plus.** Pas de filtre, pas de recherche, pas de carte géographique : les trois blocs ci-dessus et la fiche d'un lieu ([venues.md](venues.md)) sont tout le site public du MVP. Exception tranchée par Ghya le 28/11 : le bloc « Our passes » de l'accueil ([CAT-16](catalogue-passes.md#cat-16)).
 
 **VIS-27 — Le même en-tête sur les deux pages.** L'accueil et la page pass portent le même en-tête : « SiemPass » centré, seul, sans bouton d'achat ni sous-titre. Sur la page pass, un bouton retour s'y ajoute, à gauche, icône seule sans libellé, et ramène à l'accueil : le site se tient comme une petite application.
 

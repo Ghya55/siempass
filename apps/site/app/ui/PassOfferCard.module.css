@@ -1,0 +1,119 @@
+/* Figma `PassOfferCard` (235:581) : tête sombre (24 px de marge), perforation de 18 px (bord de
+   tête de 9 px, trait, deux encoches de 18 px), talon de lignes de 18 px espacées de 8 px. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  background: var(--color-bg-inverse);
+  border-radius: 15px 15px 0 0;
+  color: var(--color-text-inverse);
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.name {
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.price {
+  flex-shrink: 0;
+  padding: var(--space-2xs) var(--space-sm);
+  background: var(--color-surface-brand);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+.validity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.perforation {
+  position: relative;
+  height: 18px;
+  background: linear-gradient(var(--color-bg-inverse) 50%, transparent 50%);
+}
+
+.perforation::after {
+  position: absolute;
+  top: 8px;
+  right: 22px;
+  left: 22px;
+  border-top: 3px dotted var(--color-bg-inverse);
+  content: "";
+}
+
+.notch {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  background: var(--color-bg-app);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+}
+
+.notchLeft {
+  left: -10px;
+}
+
+.notchRight {
+  right: -10px;
+}
+
+.stub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: var(--space-2xs) var(--space-lg) var(--space-md);
+  list-style: none;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.icon {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}

@@ -27,3 +27,8 @@
   background: var(--color-status-success-bg);
   color: var(--color-status-success-fg);
 }
+
+.termine {
+  background: var(--color-status-warning-bg);
+  color: var(--color-status-warning-fg);
+}

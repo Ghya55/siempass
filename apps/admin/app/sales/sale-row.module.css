@@ -1,0 +1,36 @@
+/* Même grille que l'en-tête du tableau : les deux se tiennent d'accord dans ce dossier. */
+.ligne {
+  display: grid;
+  grid-template-columns: var(--colonnes-ventes);
+  gap: var(--space-md);
+  align-items: center;
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border-default);
+  text-align: left;
+}
+
+.ligne:last-child {
+  border-bottom: none;
+}
+
+.colonne {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  min-width: 0;
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.secondaire {
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,8 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import type { EtatPartenaire } from "@siempass/db";
-import { Badge } from "./badge";
+import { Badge, type EtatBadge } from "./badge";
 import { X } from "lucide-react";
 import styles from "./panel-header.module.css";
 
@@ -12,7 +11,7 @@ export type PanelHeaderProps = {
      ni état à montrer. */
   subtitle: string | null;
   /* `null` sur la modale d'ajout : le Figma n'y montre pas de badge d'état. */
-  state: EtatPartenaire | null;
+  state: EtatBadge | null;
   onClose: () => void;
   closeLabel: string;
 };

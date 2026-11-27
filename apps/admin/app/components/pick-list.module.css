@@ -1,0 +1,123 @@
+/* Relevé sur 234:434 : libellé, sélecteur, « Except », puis la boîte (recherche et lignes de 40 px). */
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.label {
+  color: var(--color-text-default);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.except {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.boite,
+.boiteFautive {
+  width: 100%;
+  overflow: clip;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-default);
+}
+
+/* state=error : bordure danger, comme un champ fautif. */
+.boiteFautive {
+  border-color: var(--color-status-danger-fg);
+}
+
+.recherche {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  padding: var(--space-xs) var(--space-sm);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.iconeRecherche {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.saisieRecherche {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--color-text-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  line-height: 1.45;
+}
+
+.compte {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--space-2xs);
+  align-items: center;
+  padding: 2px var(--space-xs);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-subtle);
+  color: var(--color-text-accent);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+}
+
+.lignes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ligne {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  min-height: 40px;
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--color-text-default);
+  font-size: var(--font-size-md);
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+/* FIGMA-MANQUANT: la case cochée du Figma est un carré accent à coche blanche ; la case native,
+   teintée par `accent-color`, en est le rendu le plus proche sans dessiner une case à la main. */
+.case {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-accent-default);
+  cursor: pointer;
+}
+
+.nom {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.erreur {
+  display: flex;
+  gap: var(--space-2xs);
+  align-items: center;
+  margin: 0;
+  color: var(--color-status-danger-fg);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}

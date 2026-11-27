@@ -1,0 +1,54 @@
+/* 240:3345 : le titre, et dessous le nombre de passes vendus. */
+.entete {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  width: 100%;
+}
+
+.titre {
+  margin: 0;
+  color: var(--color-text-default);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.compte {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+/* La grille des colonnes est déclarée une fois, ici, et héritée par l'en-tête comme par chaque
+   ligne (`sale-row.module.css`) : une seule définition à changer pour les deux. Proportions
+   relevées sur 240:3345. */
+.tableau {
+  --colonnes-ventes: minmax(0, 0.9fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr) 88px minmax(0, 1.4fr);
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-default);
+  /* `clip` : coins arrondis sans zone de défilement, l'en-tête reste collé en haut. */
+  overflow: clip;
+}
+
+.ligneEntete {
+  display: grid;
+  grid-template-columns: var(--colonnes-ventes);
+  gap: var(--space-md);
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border-bottom: 1px solid var(--color-border-default);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.35;
+}

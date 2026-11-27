@@ -8,6 +8,10 @@ set local search_path = public, extensions;
 
 select plan(32);
 
+-- Les lieux du seed (catalogue de démonstration) ne doivent fausser ni les comptes ni les
+-- adresses : on part d'une table vide (annulé avec la transaction).
+truncate public.venues cascade;
+
 -- ── Données fictives ──────────────────────────────────────────────────────────
 insert into auth.users (id, email) values
   ('00000000-0000-0000-0000-0000000000a1', 'admin-test@siempass.com');
