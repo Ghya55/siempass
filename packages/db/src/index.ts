@@ -7,6 +7,8 @@ export type {
   Database,
   EtatPartenaire,
   Json,
+  ModeSelection,
+  ModeValidite,
   SiemPassSupabaseClient,
   Tables,
 } from "./database.types";
